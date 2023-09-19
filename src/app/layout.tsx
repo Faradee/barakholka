@@ -2,14 +2,12 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
+import { ReduxProvider } from "./redux/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "todo app",
 };
-
-
 
 export default function RootLayout({
   children,
@@ -18,11 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className}  bg-slate-100 container mx-auto py-5 `}
-      >
-        <Navbar/>
-        {children}
+      <body className={`${inter.className}`}>
+        <ReduxProvider>
+          <Navbar />
+          {children}
+          
+        </ReduxProvider>
       </body>
     </html>
   );
