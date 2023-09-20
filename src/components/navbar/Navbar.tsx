@@ -1,74 +1,89 @@
 "use client";
-import { toggleDim } from "@/app/redux/slices/dimSlice";
+//import { toggleDim } from "@/app/redux/slices/dimSlice";
+//import { useAppSelector } from "@/app/redux/store";
 import { AppDispatch, store } from "@/app/redux/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@/app/redux/store";
+import AuthModal from "./AuthModal";
 
 const Navbar = () => {
-  const initialState = {
-    value: {
-      isDimmed: false,
-    },
-  };
-  const [showNav, setNav] = useState<Boolean>(false);
-  const isDimmed = useAppSelector((state) => state.dimReducer.value.isDimmed);
-  const dispatch = useDispatch<AppDispatch>();
-  const handleShowNav = () => {
-    dispatch(toggleDim());
-    setNav(!showNav);
+  const [isNav, setNav] = useState<Boolean>(false);
+  const [isDimmed, setDimmed] = useState<Boolean>(false);
+  const [isAuth, setAuth] = useState<Boolean>(false);
+  //const isDimmed = useAppSelector((state) => state.dimReducer.value.isDimmed);
+  //const dispatch = useDispatch<AppDispatch>();
+
+  const handleIsNav = () => {
+    // dispatch(setDim());
+    if (isAuth) setAuth(false);
+    setDimmed(!isDimmed);
+    setNav(!isNav);
     isDimmed ? (document.body.style.overflow = "auto") : (document.body.style.overflow = "hidden");
     console.log(isDimmed);
   };
+  const handleDim = () => {
+    setDimmed(!isDimmed);
+  };
+  const handleAuth = () => {
+    setDimmed(true);
+    setAuth(true);
+    console.log(isDimmed);
+  };
   const handleResize = () => {
-    window.innerWidth > 1000 ? (document.body.style.overflow = "auto") : (document.body.style.overflow = "hidden");
+    isDimmed && window.innerWidth > 1000
+      ? (document.body.style.overflow = "auto")
+      : (document.body.style.overflow = "hidden");
   };
 
   const buttonTitles = ["Property", "Cars", "Electronics", "Sell"];
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
   return (
     <>
       <div
-        className="fixed justify-between px-5 lg:px-36 lg:container h-20 flex w-screen lg:justify-center
+        className="fixed justify-between px-5 lg:px-64 h-20 flex w-screen lg:justify-center
        items-center bg-slate-0 py-4 z-10 bg-white "
       >
-        <div className=" flex-grow justify-start">
+        <div className=" flex-grow lg:flex-grow-0 justify-start">
           <div className="lg:hidden flex !justify-start select-none items-center  ">
-            <div className="p-2 cursor-pointer hover:bg-slate-200" onClick={handleShowNav}>
+            <div className="p-2 cursor-pointer hover:bg-slate-200" onClick={handleIsNav}>
               <span
                 className={`block ${
-                  showNav ? "-rotate-45 translate-y-[6px]" : "rotate-0"
+                  isNav ? "-rotate-45 translate-y-[6px]" : "rotate-0"
                 } transition-all ease-out duration-300 h-[2px] w-[20px] mb-1 bg-slate-800`}
               ></span>
               <span
                 className={`block ${
-                  showNav ? "opacity-0" : "opacity-100"
+                  isNav ? "opacity-0" : "opacity-100"
                 } transition-all ease-out duration-300 h-[2px] w-[20px] mb-1 bg-slate-800`}
               ></span>
               <span
                 className={`block ${
-                  showNav ? "rotate-45 translate-y-[-6px]" : "rotate-0"
+                  isNav ? "rotate-45 translate-y-[-6px]" : "rotate-0"
                 } transition-all ease-out duration-300 h-[2px] w-[20px] mb-1 bg-slate-800`}
               ></span>
             </div>
           </div>
         </div>
-        <div className="flex justify-center flex-grow">
+        <div className="flex flex-grow-1 min-w-[150px] justify-center">
           <Link href="/">
             <Image className="pr-4" src="/rea-logo.png" width="150" height="300" alt="Logo" />
           </Link>
         </div>
 
         <nav
-          className={`fixed ${isDimmed ? " left-0 " : "left-[-20rem]"}
-       bg-white transition-transform ease-out duration-300
+          className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
+       bg-white transition-all lg:transition-none ease-out duration-200
       top-20 flex-col flex-grow-0 lg:flex-row lg:top-0 flex lg:relative
        lg:left-0  lg:justify-start z-10 h-full items-center lg:h-auto border-t-2
-        border-slate-300 lg:border-t-0 mr-16 w-64 lg:w-auto
+        border-slate-300 lg:border-t-0 w-64 lg:w-auto
      `}
         >
           {buttonTitles.map((title) => {
@@ -79,21 +94,19 @@ const Navbar = () => {
             );
           })}
         </nav>
-        <div className="flex ml-auto justify-end flex-grow">
-          <Link href="/buy" className="nav-button">
+        <div className="flex ml-auto justify-center flex-grow-0">
+          <button onClick={handleAuth} className="!w-auto p-10 nav-button">
             Sign in
-          </Link>
-          {/* <Link href="/sell" className="nav-button bg-red-600">
-            Login
-          </Link> */}
+          </button>
         </div>
       </div>
 
       <div
-        onClick={handleShowNav}
+        onClick={handleIsNav}
         className={`${isDimmed ? " brightness-0  opacity-70" : "hidden pointer-events-auto"}
-    fixed lg:hidden w-full min-h-screen h-full bg-slate-300 z-0`}
+    fixed ${!isAuth ? "lg:hidden" : "z-20"} w-full min-h-screen h-full bg-slate-300`}
       />
+      {isAuth && <AuthModal />}
       <div className="w-32 h-screen"></div>
     </>
   );

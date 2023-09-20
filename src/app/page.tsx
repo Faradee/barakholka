@@ -10,12 +10,10 @@ const Home = async () => {
   const todos = await getTodos();
   return (
     <>
-      <header className="flex justify-between mb-4 items-center">
-        <h1 className="text-2x1">Todos</h1>
-        <Link className="button" href="/new">
-          New
-        </Link>
-      </header>
+      <h1 className="text-2x1">Todos</h1>
+      <Link className="button" href="/new">
+        New
+      </Link>
       <ul className="pl-4">
         {todos.map((todo) => (
           <TodoItem key={todo.id} {...todo} />

@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
+          <span className="h-20 w-full block" />
           {children}
         </ReduxProvider>
       </body>
