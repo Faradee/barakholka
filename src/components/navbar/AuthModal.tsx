@@ -16,7 +16,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="fixed left-1/2 top-1/2 z-30 flex h-2/3 w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white p-4 lg:w-1/4 lg:p-16">
+    <div className="fixed left-1/2 top-1/2 z-30 flex h-2/3 w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
       <Image
         className=""
         src="/rea-logo.png"
@@ -30,16 +30,16 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
         <input
           className="w-full outline-none"
           placeholder="Email address"
-          type="text"
+          type="email"
           id="email"
         />
       </label>
-      <label htmlFor="password" className="textfield">
+      <div className="textfield">
         <AiFillLock />
         <input
           className="w-full outline-none"
           placeholder="Password"
-          type="text"
+          type={showPassword ? "text" : "password"}
           id="password"
         />
         <div className="cursor-pointer" onClick={handleShowPassword}>
@@ -49,12 +49,21 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
             <AiFillEyeInvisible size={24} />
           )}
         </div>
-      </label>
+      </div>
       <div
         onClick={handleDim}
         className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
       >
         <AiOutlineClose size={40} color="white" />
+      </div>
+      <button className="h-12 w-full rounded-md bg-red-600 font-semibold text-white hover:bg-red-700">
+        Sign in
+      </button>
+      <span className="my-4 cursor-pointer font-semibold hover:underline">
+        Forgot your password?
+      </span>
+      <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
+        <span className="mx-2">Or</span>
       </div>
     </div>
   );
