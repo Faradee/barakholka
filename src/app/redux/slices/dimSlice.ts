@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type dimState = {
   value: {
-    isDimmed: Boolean;
+    isDimmed: boolean;
   };
 };
 const initialState = {

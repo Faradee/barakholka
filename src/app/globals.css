@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 .nav-button {
-  @apply flex font-semibold items-center justify-center  py-2 w-full lg:w-32 rounded hover:bg-slate-200 outline-none;
+  @apply flex w-full items-center justify-center  rounded-md py-2 font-semibold outline-none hover:bg-slate-200 lg:w-32;
 }
 
 .active-sidebar {
   left: 0;
+}
+
+.textfield {
+  @apply mb-6 flex w-full items-center gap-2 rounded-lg border-2 border-black p-2;
 }

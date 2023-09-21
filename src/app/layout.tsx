@@ -9,13 +9,17 @@ export const metadata: Metadata = {
   title: "todo app",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
-          <span className="h-20 w-full block" />
+          <span className="block h-20 w-full" />
           {children}
         </ReduxProvider>
       </body>
