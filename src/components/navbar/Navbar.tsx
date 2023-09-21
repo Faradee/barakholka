@@ -4,7 +4,7 @@
 import { AppDispatch, store } from "@/app/redux/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import AuthModal from "./AuthModal";
 
@@ -36,15 +36,15 @@ const Navbar = () => {
       ? (document.body.style.overflow = "auto")
       : (document.body.style.overflow = "hidden");
   };
-
+  const cachedHandleResize = useCallback(handleResize, [isDimmed]);
   const buttonTitles = ["Property", "Cars", "Electronics", "Sell"];
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", cachedHandleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", cachedHandleResize);
     };
-  }, []);
+  }, [cachedHandleResize]);
   return (
     <>
       <div
