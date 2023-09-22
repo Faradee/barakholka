@@ -11,5 +11,12 @@
 }
 
 .textfield {
-  @apply mb-6 flex w-full items-center gap-2 rounded-lg border-2 border-black p-2;
+  @apply mb-2 flex w-full items-center gap-2 rounded-lg border-2 border-slate-600 p-2 ring-black;
+}
+span {
+  @apply font-semibold;
+}
+
+input:autofill {
+  box-shadow: 0 0 0 30px white inset !important;
 }

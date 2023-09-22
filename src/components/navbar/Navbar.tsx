@@ -1,7 +1,7 @@
 "use client";
 //import { toggleDim } from "@/app/redux/slices/dimSlice";
-//import { useAppSelector } from "@/app/redux/store";
-//import { AppDispatch, store } from "@/app/redux/store";
+import { useAppSelector } from "@/app/redux/store";
+import { AppDispatch, store } from "@/app/redux/store";
 //import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isDimmed, setDimmed] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
-  //const isDimmed = useAppSelector((state) => state.dimReducer.value.isDimmed);
+  const userData = useAppSelector((state) => state.authReducer.value);
   //const dispatch = useDispatch<AppDispatch>();
   //on nav button press
   const handleIsNav = () => {
@@ -100,7 +100,10 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="flex min-w-[150px] justify-center">
+        <div
+          onClick={() => console.log(userData)}
+          className="flex min-w-[150px] justify-center"
+        >
           <Link href="/">
             <Image
               className="pr-4"
@@ -133,9 +136,13 @@ const Navbar = () => {
           })}
         </nav>
         <div className="ml-auto flex flex-grow justify-end lg:flex-grow-0">
-          <button onClick={toggleAuthModal} className="nav-button  !w-32">
-            Sign in
-          </button>
+          {userData.name === "" ? (
+            <button onClick={toggleAuthModal} className="nav-button  !w-32">
+              Вход и регистрация
+            </button>
+          ) : (
+            <span>Здравствуйте, {userData.name}</span>
+          )}
         </div>
       </div>
       {isAuth && <AuthModal handleDim={handleDim} />}
