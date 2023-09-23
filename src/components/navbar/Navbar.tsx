@@ -1,8 +1,7 @@
 "use client";
-//import { toggleDim } from "@/app/redux/slices/dimSlice";
-import { useAppSelector } from "@/app/redux/store";
-import { AppDispatch, store } from "@/app/redux/store";
-//import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { signOut } from "@/app/redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
@@ -15,11 +14,11 @@ const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isDimmed, setDimmed] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
   const userData = useAppSelector((state) => state.authReducer.value);
-  //const dispatch = useDispatch<AppDispatch>();
+
   //on nav button press
   const handleIsNav = () => {
-    // dispatch(setDim());
     setDimmed(!isDimmed);
     setNav(!isNav);
     isDimmed
@@ -30,7 +29,7 @@ const Navbar = () => {
   //on dim overlay press
   const handleDim = () => {
     setDimmed(!isDimmed);
-    router.replace("/");
+    //router.replace("/");
     setNav(false);
     setAuth(false);
     isDimmed
@@ -40,12 +39,13 @@ const Navbar = () => {
 
   //on auth button press
   const toggleAuthModal = useCallback(() => {
+    console.log(userData);
     setNav(false);
     setDimmed(true);
     setAuth(true);
-    router.push("/?auth=true");
+    // router.push("/?auth=true");
     document.body.style.overflow = "hidden";
-  }, [router]);
+  }, [userData]);
 
   const handleResize = () => {
     if (isDimmed && isNav && window.innerWidth > 1000) {
@@ -55,6 +55,9 @@ const Navbar = () => {
     }
   };
 
+  const handleSignOut = () => {
+    dispatch(signOut());
+  };
   const cachedHandleResize = useCallback(handleResize, [isDimmed, isNav]);
   const buttonTitles = ["Property", "Cars", "Electronics", "Sell"];
 
@@ -135,13 +138,15 @@ const Navbar = () => {
             );
           })}
         </nav>
-        <div className="ml-auto flex flex-grow justify-end lg:flex-grow-0">
+        <div className="ml-auto flex flex-grow items-center justify-center lg:flex-grow-0 lg:justify-end">
           {userData.name === "" ? (
-            <button onClick={toggleAuthModal} className="nav-button  !w-32">
-              Вход и регистрация
+            <button onClick={toggleAuthModal} className="button">
+              Вход
             </button>
           ) : (
-            <span>Здравствуйте, {userData.name}</span>
+            <button onClick={() => dispatch(signOut())} className="button">
+              Выйти
+            </button>
           )}
         </div>
       </div>

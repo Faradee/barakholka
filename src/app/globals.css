@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .nav-button {
-  @apply flex w-full items-center justify-center  rounded-md py-2 font-semibold outline-none hover:bg-slate-200 lg:w-32;
+  @apply flex w-full items-center justify-center  rounded-md py-2 font-semibold outline-none hover:bg-slate-200  lg:w-32;
+}
+
+.button {
+  @apply nav-button !w-40  py-2 active:bg-slate-300 lg:px-5;
 }
 
 .active-sidebar {

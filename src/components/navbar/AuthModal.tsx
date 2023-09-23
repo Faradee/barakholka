@@ -10,15 +10,9 @@ import {
   AiFillEyeInvisible,
 } from "react-icons/ai";
 import { AppDispatch } from "@/app/redux/store";
-
+import { UserData, createUser, signUser } from "@/serverActions";
 type AuthModalProps = {
   handleDim: () => void;
-};
-
-type UserData = {
-  email: string;
-  password: string;
-  name: string;
 };
 
 const AuthModal = ({ handleDim }: AuthModalProps) => {
@@ -29,6 +23,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   const [isSignup, setIsSignup] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -47,14 +42,28 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     setIsSignup(!isSignup);
     setShowPassword(false);
   };
-  const handleSignIn = () => {};
-  const handleSignUp = () => {
+
+  const handleSignIn = async () => {
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+    } as UserData;
+    const fetchUser = await signUser(userData);
+    if (fetchUser !== null) {
+      dispatch(signIn({ ...userData, name: signUser.name }));
+      handleDim();
+    }
+  };
+
+  const handleSignUp = async () => {
     if (confirmPass === password) {
       const userData = {
         name: name,
         email: email,
         password: password,
       } as UserData;
+      await createUser(userData);
       dispatch(signIn(userData));
       handleDim();
     }
@@ -78,86 +87,88 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       <h1 className="text-2xl font-semibold">
         {isSignup ? "Создание аккаунта" : "Вход"}
       </h1>
-
-      {isSignup && (
-        <div
-          onClick={(e) => handleClick(e)}
-          onBlur={(e) => handleFocusOut(e)}
-          className="textfield"
-        >
-          <input
-            className="w-full outline-none"
-            placeholder="Полное имя"
-            type="name"
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-      )}
-
-      <div
-        onClick={(e) => handleClick(e)}
-        onBlur={(e) => handleFocusOut(e)}
-        className="textfield"
-      >
-        <div>
-          <BsFillEnvelopeFill onClick={() => handleClick} />
-        </div>
-        <input
-          className="w-full outline-none"
-          placeholder="Email адрес"
-          type="email"
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div
-        onClick={(e) => handleClick(e)}
-        onBlur={(e) => handleFocusOut(e)}
-        className="textfield"
-      >
-        <AiFillLock />
-        <input
-          className="w-full outline-none"
-          placeholder="Пароль"
-          type={showPassword ? "text" : "password"}
-          id="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {!isSignup && (
-          <div className="cursor-pointer" onClick={handleShowPassword}>
-            {showPassword ? (
-              <AiFillEye size={24} />
-            ) : (
-              <AiFillEyeInvisible size={24} />
-            )}
+      <form>
+        {isSignup && (
+          <div
+            onClick={(e) => handleClick(e)}
+            onBlur={(e) => handleFocusOut(e)}
+            className="textfield"
+          >
+            <input
+              className="w-full outline-none"
+              placeholder="Полное имя"
+              type="name"
+              id="name"
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
         )}
-      </div>
-      {isSignup && (
+
         <div
           onClick={(e) => handleClick(e)}
           onBlur={(e) => handleFocusOut(e)}
           className="textfield"
         >
+          <div>
+            <BsFillEnvelopeFill onClick={() => handleClick} />
+          </div>
           <input
             className="w-full outline-none"
-            placeholder="Подтвердите пароль"
-            type={showPassword ? "text" : "password"}
-            id="confirmPass"
-            onChange={(e) => setConfirmPass(e.target.value)}
+            placeholder="Email адрес"
+            type="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-      )}
-      <button
-        onClick={isSignup ? handleSignUp : handleSignIn}
-        className="h-12 w-full rounded-md bg-red-600 font-semibold text-white hover:bg-red-700 active:bg-red-800"
-      >
-        {isSignup ? "Создать аккаунт" : "Войти"}
-      </button>
-      <span className="my-2 cursor-pointer font-semibold text-blue-600 hover:underline">
+        <div
+          onClick={(e) => handleClick(e)}
+          onBlur={(e) => handleFocusOut(e)}
+          className="textfield"
+        >
+          <AiFillLock />
+          <input
+            className="w-full outline-none"
+            placeholder="Пароль"
+            type={showPassword ? "text" : "password"}
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {!isSignup && (
+            <div className="cursor-pointer" onClick={handleShowPassword}>
+              {showPassword ? (
+                <AiFillEye size={24} />
+              ) : (
+                <AiFillEyeInvisible size={24} />
+              )}
+            </div>
+          )}
+        </div>
+        {isSignup && (
+          <div
+            onClick={(e) => handleClick(e)}
+            onBlur={(e) => handleFocusOut(e)}
+            className="textfield"
+          >
+            <input
+              className="w-full outline-none"
+              placeholder="Подтвердите пароль"
+              type={showPassword ? "text" : "password"}
+              id="confirmPass"
+              onChange={(e) => setConfirmPass(e.target.value)}
+            />
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={isSignup ? handleSignUp : handleSignIn}
+          className="h-12 w-full rounded-md bg-red-600 font-semibold text-white hover:bg-red-700 active:bg-red-800"
+        >
+          {isSignup ? "Создать аккаунт" : "Войти"}
+        </button>
+      </form>
+      {/* <span className="my-2 cursor-pointer font-semibold text-blue-600 hover:underline">
         Забыли пароль?
-      </span>
+      </span> */}
       <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
         <span className="mx-2">Или</span>
       </div>

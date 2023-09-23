@@ -18,7 +18,7 @@ model Todo {
   updatedAt DateTime @updatedAt
 }
 
-model Auth {
+model User {
   uuid      String   @id @default(uuid())
   name      String
   email     String
