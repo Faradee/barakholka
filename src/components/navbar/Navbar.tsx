@@ -76,8 +76,8 @@ const Navbar = () => {
   return (
     <>
       <div
-        className="bg-slate-0 fixed z-10 flex h-20 w-screen items-center justify-between
-       bg-white px-5 py-4 lg:justify-center lg:px-64"
+        className="fixed z-10 flex h-20 w-screen items-center justify-between
+       bg-white px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
       >
         <div className=" flex-grow justify-start lg:hidden">
           <div className=" flex select-none items-center !justify-start  ">
@@ -160,8 +160,7 @@ const Navbar = () => {
       !isAuth ? "lg:hidden" : "z-20"
     } h-full min-h-screen w-full bg-slate-300`}
       />
-
-      <div className="h-screen w-32"></div>
+      <span className="mb-4 block h-20 w-full" />
     </>
   );
 };

@@ -1,23 +1,32 @@
 import prisma from "@/db";
 import Link from "next/link";
-import TodoItem from "@/components/TodoItem";
-const getTodos = async () => {
-  return prisma.todo.findMany();
+import PostCard, { PostCardProps } from "@/components/PostCard";
+
+const getPosts = async () => {
+  return prisma.post.findMany();
 };
 const Home = async () => {
   //await prisma.todo.create({data:{title:"test",complete:false}})
-  // const todos = await getTodos();
+  const posts = await getPosts();
+  const post: PostCardProps = {
+    posterId: "1",
+    id: 1,
+    title: "poopie poop car lmaoooo",
+    type: "car",
+    thumbnail: "",
+    description: "selling shit car lol",
+    price: 1000000,
+  };
   return (
     <>
-      <h1 className="text-2x1">Todos</h1>
-      <Link className="button" href="/new">
-        New
-      </Link>
-      {/* <ul className="pl-4">
-        {todos.map((todo) => (
-          <TodoItem key={todo.id} {...todo} />
-        ))}
-      </ul> */}
+      <h1 className="text-2x1 font-bold">Posts</h1>
+      {
+        <ul className="pl-4">
+          {/* {posts.map((post) => ( */}
+          <PostCard {...post} />
+          {/* ))} */}
+        </ul>
+      }
     </>
   );
 };
