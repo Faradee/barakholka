@@ -21,7 +21,7 @@ const Home = async () => {
     <>
       <h1 className="text-2x1 font-bold">Posts</h1>
       {
-        <ul className="pl-4">
+        <ul className="flex flex-wrap pl-4">
           {/* {posts.map((post) => ( */}
           <PostCard {...post} />
           {/* ))} */}

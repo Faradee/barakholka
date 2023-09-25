@@ -19,9 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
-          <div className="container mx-auto flex flex-col items-center ">
-            {children}
-          </div>
+          <div className="container mx-auto items-center ">{children}</div>
         </ReduxProvider>
       </body>
     </html>

@@ -13,8 +13,10 @@ export type PostCardProps = {
 };
 
 const PostCard = (props: PostCardProps) => {
+  //do grid card layout
   return (
-    <div className="min-w-80 h-40 p-4 shadow-md">
+    <div className="min-w-40 mx-36 flex h-64 w-1/3 p-4 shadow-md">
+      <div className="h-full w-1/3"></div>
       <span className="w-full text-2xl font-semibold">{props.title}</span>
       <div className="flex"></div>
     </div>
