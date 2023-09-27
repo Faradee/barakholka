@@ -13,7 +13,7 @@ const Home = async () => {
     id: 1,
     title: "poopie poop car lmaoooo",
     type: "car",
-    thumbnail: "",
+    thumbnails: ["/scale_1200.png", "/volgatest.jpg"],
     description: "selling shit car lol",
     price: 1000000,
   };
@@ -21,7 +21,7 @@ const Home = async () => {
     <>
       <h1 className="text-2x1 font-bold">Posts</h1>
       {
-        <ul className="flex flex-wrap pl-4">
+        <ul className="flex flex-wrap justify-center pl-4 lg:justify-start">
           {/* {posts.map((post) => ( */}
           <PostCard {...post} />
           {/* ))} */}

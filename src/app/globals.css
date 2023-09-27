@@ -10,6 +10,10 @@
   @apply nav-button !w-40  py-2 active:bg-slate-300 lg:px-5;
 }
 
+.border-bottom {
+  @apply border-b-2 border-slate-300;
+}
+
 .active-sidebar {
   left: 0;
 }
@@ -23,4 +27,12 @@ span {
 
 input:autofill {
   box-shadow: 0 0 0 30px white inset !important;
+}
+
+.thumbnail-list > div {
+  height: 25%;
+  object-fit: cover;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

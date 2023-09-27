@@ -23,7 +23,7 @@ model Post {
   posterId    String
   title       String
   type        String
-  thumbnail   String?
+  thumbnail   String
   description String?
   price       Int
   createdAt   DateTime @default(now())
