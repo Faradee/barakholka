@@ -1,26 +1,26 @@
 import Image from "next/image";
 import React from "react";
 
-type PostType = "car" | "estate" | "misc";
-
-export type PostCardProps = {
+export type Post = {
   id: number;
   posterId: string;
   title: string;
-  type: PostType;
-  thumbnails: string[];
+  type: string;
+  thumbnail: string[];
   description?: string;
   price: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-const PostCard = (props: PostCardProps) => {
+const PostCard = (props: Post) => {
   //do grid card layout
   return (
     <div className="min-w-40 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/3">
       <div className="flex h-3/4 ">
         <div className="w-3/4 flex-none">
           <Image
-            src={props.thumbnails[0]}
+            src={props.thumbnail[0]}
             alt="thumbnail"
             width={0}
             height={0}
@@ -36,7 +36,7 @@ const PostCard = (props: PostCardProps) => {
         <div className="thumbnail-list h-full w-full">
           <div className="">
             <Image
-              src={props.thumbnails[1]}
+              src={props.thumbnail[1]}
               alt="thumbnail"
               width={0}
               height={0}
@@ -51,7 +51,7 @@ const PostCard = (props: PostCardProps) => {
           </div>
           <div className="">
             <Image
-              src={props.thumbnails[1]}
+              src={props.thumbnail[1]}
               alt="thumbnail"
               width={0}
               height={0}
@@ -66,7 +66,7 @@ const PostCard = (props: PostCardProps) => {
           </div>
           <div className="">
             <Image
-              src={props.thumbnails[1]}
+              src={props.thumbnail[1]}
               alt="thumbnail"
               width={0}
               height={0}
@@ -81,7 +81,7 @@ const PostCard = (props: PostCardProps) => {
           </div>
           <div className="">
             <Image
-              src={props.thumbnails[1]}
+              src={props.thumbnail[1]}
               alt="thumbnail"
               width={0}
               height={0}

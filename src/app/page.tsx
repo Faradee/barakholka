@@ -1,30 +1,57 @@
 import prisma from "@/db";
 import Link from "next/link";
-import PostCard, { PostCardProps } from "@/components/PostCard";
+import PostCard, { Post } from "@/components/PostCard";
 
 const getPosts = async () => {
-  return prisma.post.findMany();
+  const posts = (await prisma.post.findMany()) as Post[];
+
+  for (const post of posts) {
+    post.thumbnail = [];
+    const thumbnails = await prisma.thumbnail.findMany({
+      where: {
+        postId: post.id,
+      },
+      take: 2,
+    });
+
+    thumbnails.forEach((thumbnail) => {
+      post.thumbnail?.push(thumbnail.thumbnail);
+    });
+  }
+  return posts;
 };
 const Home = async () => {
   //await prisma.todo.create({data:{title:"test",complete:false}})
+  // const post = {
+  //   posterId: "1",
+  //   title: "poopie poop car lmaoooo",
+  //   type: "car",
+  //   description: "selling shit car lol",
+  //   price: 1000000,
+  // };
+  // await prisma.post.create({
+  //   data: post,
+  // });
   const posts = await getPosts();
-  const post: PostCardProps = {
-    posterId: "1",
-    id: 1,
-    title: "poopie poop car lmaoooo",
-    type: "car",
-    thumbnails: ["/scale_1200.png", "/volgatest.jpg"],
-    description: "selling shit car lol",
-    price: 1000000,
-  };
+  console.log(posts);
+  // const thumbnails = await prisma.thumbnail.findMany({
+  //   where: {
+  //     postId: posts[0].id,
+  //   },
+  //   take: 2,
+  // });
+  // posts.forEach(
+  //   (post) =>
+  //     (post.thumbnail = ["/thumbnailPlaceholder.png", "/volgatest.jpg"]),
+  // );
   return (
     <>
       <h1 className="text-2x1 font-bold">Posts</h1>
       {
         <ul className="flex flex-wrap justify-center pl-4 lg:justify-start">
-          {/* {posts.map((post) => ( */}
-          <PostCard {...post} />
-          {/* ))} */}
+          {/* {posts.map((post) => (
+            <PostCard key={post.id} {...post} />
+          ))} */}
         </ul>
       }
     </>
