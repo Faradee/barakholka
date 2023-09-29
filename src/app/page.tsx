@@ -1,6 +1,6 @@
 import prisma from "@/db";
 import Link from "next/link";
-import PostCard, { Post } from "@/components/PostCard";
+import PostCard, { Post } from "@/components/postCard/PostCard";
 
 const getPosts = async () => {
   const posts = (await prisma.post.findMany()) as Post[];
@@ -21,7 +21,6 @@ const getPosts = async () => {
   return posts;
 };
 const Home = async () => {
-  //await prisma.todo.create({data:{title:"test",complete:false}})
   // const post = {
   //   posterId: "1",
   //   title: "poopie poop car lmaoooo",
@@ -33,25 +32,14 @@ const Home = async () => {
   //   data: post,
   // });
   const posts = await getPosts();
-  console.log(posts);
-  // const thumbnails = await prisma.thumbnail.findMany({
-  //   where: {
-  //     postId: posts[0].id,
-  //   },
-  //   take: 2,
-  // });
-  // posts.forEach(
-  //   (post) =>
-  //     (post.thumbnail = ["/thumbnailPlaceholder.png", "/volgatest.jpg"]),
-  // );
   return (
     <>
       <h1 className="text-2x1 font-bold">Posts</h1>
       {
         <ul className="flex flex-wrap justify-center pl-4 lg:justify-start">
-          {/* {posts.map((post) => (
+          {posts.map((post) => (
             <PostCard key={post.id} {...post} />
-          ))} */}
+          ))}
         </ul>
       }
     </>

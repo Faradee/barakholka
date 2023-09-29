@@ -18,7 +18,7 @@ const PostCard = (props: Post) => {
   return (
     <div className="min-w-40 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/3">
       <div className="flex h-3/4 ">
-        <div className="w-3/4 flex-none">
+        <div className="w-3/4 flex-none object-cover">
           <Image
             src={props.thumbnail[0]}
             alt="thumbnail"
