@@ -43,7 +43,6 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     setIsSignup(!isSignup);
     setShowPassword(false);
   };
-
   const handleSignIn = async () => {
     const userData = {
       name: name,
@@ -56,7 +55,6 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       handleDim();
     }
   };
-
   const handleSignUp = async () => {
     if (confirmPass === password) {
       const userData = {
@@ -104,7 +102,6 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
             />
           </div>
         )}
-
         <div
           onClick={(e) => handleClick(e)}
           onBlur={(e) => handleFocusOut(e)}
@@ -167,9 +164,6 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
           {isSignup ? "Создать аккаунт" : "Войти"}
         </button>
       </form>
-      {/* <span className="my-2 cursor-pointer font-semibold text-blue-600 hover:underline">
-        Забыли пароль?
-      </span> */}
       <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
         <span className="mx-2">Или</span>
       </div>

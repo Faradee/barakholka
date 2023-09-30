@@ -36,3 +36,6 @@ input:autofill {
   display: flex;
   justify-content: center;
 }
+/* .accordeon:hover > accordeon-step {
+  visibility: visible;
+} */

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Thumbnail from "./Thumbnail";
 
 export type Post = {
   id: number;
@@ -16,85 +17,9 @@ export type Post = {
 const PostCard = (props: Post) => {
   //do grid card layout
   return (
-    <div className="min-w-40 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/3">
+    <div className="min-w-30 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/4">
       <div className="flex h-3/4 ">
-        <div className="w-3/4 flex-none object-cover">
-          <Image
-            src={props.thumbnail[0]}
-            alt="thumbnail"
-            width={0}
-            height={0}
-            sizes="100%"
-            style={{
-              display: "block",
-              width: "auto",
-              height: "auto",
-              borderRadius: "10px",
-            }}
-          />
-        </div>
-        <div className="thumbnail-list h-full w-full">
-          <div className="">
-            <Image
-              src={props.thumbnail[1]}
-              alt="thumbnail"
-              width={0}
-              height={0}
-              sizes="100%"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
-          <div className="">
-            <Image
-              src={props.thumbnail[1]}
-              alt="thumbnail"
-              width={0}
-              height={0}
-              sizes="100%"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
-          <div className="">
-            <Image
-              src={props.thumbnail[1]}
-              alt="thumbnail"
-              width={0}
-              height={0}
-              sizes="100%"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
-          <div className="">
-            <Image
-              src={props.thumbnail[1]}
-              alt="thumbnail"
-              width={0}
-              height={0}
-              sizes="100%"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
-        </div>
+        <Thumbnail thumbnails={props.thumbnail} />
       </div>
       <div className=" h-auto">
         <div className="border-bottom w-full py-0.5 text-xl font-bold">
