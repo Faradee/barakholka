@@ -16,7 +16,7 @@ export type Post = {
 
 const PostCard = (props: Post) => {
   return (
-    <div className="min-w-30 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/4">
+    <div className="min-w-30 flex h-80 flex-col p-4 shadow-lg lg:mx-[10%] lg:w-1/5">
       <div className="flex h-3/4 w-full">
         <Thumbnail thumbnails={props.thumbnail} />
       </div>
