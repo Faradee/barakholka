@@ -26,7 +26,7 @@ const Thumbnail = (props: ThumbnailProps) => {
       </div>
       {thumbnails.map((thumbnail, index) => (
         <div
-          className="accordeon-step absolute flex h-full justify-center opacity-0"
+          className="accordeon-step absolute flex h-full justify-center"
           key={index}
           style={{
             left: `${(index / parts) * 100}%`,
@@ -34,7 +34,7 @@ const Thumbnail = (props: ThumbnailProps) => {
           }}
           onMouseOver={() => setThumbnail(thumbnail)}
         >
-          <div className="accordeon-bar absolute bottom-0 z-20 m-2 h-1 w-11/12 bg-slate-200"></div>
+          <div className="accordeon-bar absolute bottom-0 z-20 m-2 h-1 w-11/12 bg-slate-200 opacity-0 transition-all duration-200"></div>
         </div>
       ))}
     </div>

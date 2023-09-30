@@ -36,7 +36,7 @@ input:autofill {
   display: flex;
   justify-content: center;
 }
-.accordeon:hover > .accordeon-step {
+.accordeon:hover > .accordeon-step > .accordeon-bar {
   opacity: 1;
 }
 .accordeon-step:hover > .accordeon-bar {
