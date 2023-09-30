@@ -15,10 +15,9 @@ export type Post = {
 };
 
 const PostCard = (props: Post) => {
-  //do grid card layout
   return (
     <div className="min-w-30 flex max-h-[40vh] min-h-[20vh] flex-col p-4 shadow-lg lg:mx-36 lg:w-1/4">
-      <div className="flex h-3/4 ">
+      <div className="flex h-3/4 w-full">
         <Thumbnail thumbnails={props.thumbnail} />
       </div>
       <div className=" h-auto">

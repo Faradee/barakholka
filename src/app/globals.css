@@ -36,6 +36,9 @@ input:autofill {
   display: flex;
   justify-content: center;
 }
-/* .accordeon:hover > accordeon-step {
-  visibility: visible;
-} */
+.accordeon:hover > .accordeon-step {
+  opacity: 1;
+}
+.accordeon-step:hover > .accordeon-bar {
+  background-color: rgb(200, 0, 0);
+}
