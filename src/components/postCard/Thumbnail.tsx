@@ -12,15 +12,13 @@ const Thumbnail = (props: ThumbnailProps) => {
   return (
     <div
       onMouseOut={() => setThumbnail(thumbnails[0])}
-      className="accordeon relative flex w-full rounded-xl"
+      className="accordeon relative h-full w-full rounded-xl"
     >
-      <div className="pointer-events-none h-full w-full">
+      <div className="pointer-events-none w-full">
         <Image
           src={thumbnail}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          width={0}
-          height={0}
-          sizes="100vh"
+          style={{ borderRadius: "10px", objectFit: "cover" }}
+          fill={true}
           alt="thumbnail"
         />
       </div>

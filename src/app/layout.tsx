@@ -19,7 +19,9 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
-          <div className="container mx-auto items-center ">{children}</div>
+          <div className="container mx-auto items-center lg:mx-64 ">
+            {children}
+          </div>
         </ReduxProvider>
       </body>
     </html>

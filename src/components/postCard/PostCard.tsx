@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Thumbnail from "./Thumbnail";
-
+import Link from "next/link";
 export type Post = {
   id: number;
   posterId: string;
@@ -16,19 +16,19 @@ export type Post = {
 
 const PostCard = (props: Post) => {
   return (
-    <div className="min-w-30 flex h-80 flex-col p-4 shadow-lg lg:mx-[10%] lg:w-1/5">
-      <div className="flex h-3/4 w-full">
+    <Link href={`/${props.id}`} className="h-80 w-3/4  lg:w-1/5">
+      <div className="h-[80%] w-full">
         <Thumbnail thumbnails={props.thumbnail} />
       </div>
-      <div className=" h-auto">
+      <div className="w-full">
         <div className="border-bottom w-full py-0.5 text-xl font-bold">
           {props.price.toLocaleString().replaceAll(",", " ")} ₽
         </div>
-        <div>{props.description}</div>
+        <span className="font-light text-slate-600">
+          Выставлено: {props.createdAt.toLocaleDateString("ru-RU").toString()}
+        </span>
       </div>
-
-      <div className="flex"></div>
-    </div>
+    </Link>
   );
 };
 
