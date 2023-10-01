@@ -59,7 +59,7 @@ const Navbar = () => {
     dispatch(signOut());
   };
   const cachedHandleResize = useCallback(handleResize, [isDimmed, isNav]);
-  const buttonTitles = ["Property", "Cars", "Electronics", "Sell"];
+  const buttonTitles = ["Недвижимость", "Авто", "Вещи"];
 
   useEffect(() => {
     window.addEventListener("resize", cachedHandleResize);

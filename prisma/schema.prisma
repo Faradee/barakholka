@@ -25,6 +25,7 @@ model Post {
   type        String
   description String?
   price       Int
+  isRented    Boolean?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -48,10 +49,14 @@ model Car {
 }
 
 model Estate {
-  postId Int    @id
-  space  Int
-  rooms  Int
-  type   String
+  postId     Int     @id
+  space      Int
+  rooms      Int
+  floor      Int
+  furniture  Boolean
+  renovation String
+  balcony    String?
+  type       String
 }
 
 model User {

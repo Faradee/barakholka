@@ -31,12 +31,12 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const eventTarget = e.currentTarget as Element;
     eventTarget.querySelector("input")?.focus();
-    eventTarget.classList.add("ring-1");
+    eventTarget.classList.add("ring-2");
     eventTarget.classList.add("!border-black");
   };
   const handleFocusOut = (e: React.FocusEvent<HTMLDivElement>) => {
     const eventTarget = e.currentTarget as Element;
-    eventTarget.classList.remove("ring-1");
+    eventTarget.classList.remove("ring-2");
     eventTarget.classList.remove("!border-black");
   };
   const handleToggle = () => {

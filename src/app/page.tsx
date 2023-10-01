@@ -1,12 +1,10 @@
 import prisma from "@/db";
-import Link from "next/link";
 import PostCard, { Post } from "@/components/postCard/PostCard";
-import { Prisma } from "@prisma/client";
-import FileUploader from "@/components/FileUploader";
+
+type FetchedPost = Omit<Post, "thumbnail"> & { thumbnail?: string[] };
 
 const getPosts = async () => {
-  const posts = (await prisma.post.findMany()) as Post[];
-
+  const posts = (await prisma.post.findMany()) as FetchedPost[];
   for (const post of posts) {
     post.thumbnail = [];
     const thumbnails = await prisma.thumbnail.findMany({
@@ -15,12 +13,11 @@ const getPosts = async () => {
       },
       take: 2,
     });
-
     thumbnails.forEach((thumbnail) => {
       post.thumbnail?.push(thumbnail.thumbnail);
     });
   }
-  return posts;
+  return posts as Post[];
 };
 const Home = async () => {
   // const carDetails = {
