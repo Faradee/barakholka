@@ -7,7 +7,7 @@
 }
 
 .button {
-  @apply nav-button !w-40  py-2 active:bg-slate-300 lg:px-5;
+  @apply nav-button !w-52  py-2 active:bg-slate-300 lg:px-5;
 }
 
 .border-bottom {
@@ -20,9 +20,6 @@
 
 .textfield {
   @apply mb-2 flex w-full items-center gap-2 rounded-lg border-2 border-slate-600 p-2 ring-black;
-}
-span {
-  @apply font-semibold;
 }
 
 input:autofill {

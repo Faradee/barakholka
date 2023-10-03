@@ -29,7 +29,6 @@ const Navbar = () => {
   //on dim overlay press
   const handleDim = () => {
     setDimmed(!isDimmed);
-    //router.replace("/");
     setNav(false);
     setAuth(false);
     isDimmed
@@ -37,15 +36,17 @@ const Navbar = () => {
       : (document.body.style.overflow = "hidden");
   };
 
+  const handleSignOut = () => {
+    dispatch(signOut());
+    router.replace("/");
+  };
   //on auth button press
   const toggleAuthModal = useCallback(() => {
-    console.log(userData);
     setNav(false);
     setDimmed(true);
     setAuth(true);
-    // router.push("/?auth=true");
     document.body.style.overflow = "hidden";
-  }, [userData]);
+  }, []);
 
   const handleResize = () => {
     if (isDimmed && isNav && window.innerWidth > 1000) {
@@ -55,9 +56,6 @@ const Navbar = () => {
     }
   };
 
-  const handleSignOut = () => {
-    dispatch(signOut());
-  };
   const cachedHandleResize = useCallback(handleResize, [isDimmed, isNav]);
   const buttonTitles = ["Недвижимость", "Авто", "Вещи"];
 
@@ -139,12 +137,15 @@ const Navbar = () => {
           })}
         </nav>
         <div className="ml-auto flex flex-grow items-center justify-center lg:flex-grow-0 lg:justify-end">
+          <Link href="/create" className="button">
+            Создать объявление
+          </Link>
           {userData.name === "" ? (
             <button onClick={toggleAuthModal} className="button">
               Вход
             </button>
           ) : (
-            <button onClick={() => dispatch(signOut())} className="button">
+            <button onClick={handleSignOut} className="button">
               Выйти
             </button>
           )}

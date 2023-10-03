@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BsFillEnvelopeFill } from "react-icons/bs";
 import { signIn } from "@/app/redux/slices/authSlice";
@@ -23,6 +23,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   const [confirmPass, setConfirmPass] = useState<string>("");
   const [isSignup, setIsSignup] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleShowPassword = () => {
@@ -41,6 +42,11 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   };
   const handleToggle = () => {
     setIsSignup(!isSignup);
+    setCredentialsWarning(false);
+    setEmail("");
+    setPassword("");
+    setConfirmPass("");
+    setName("");
     setShowPassword(false);
   };
   const handleSignIn = async () => {
@@ -49,14 +55,14 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       email: email,
       password: password,
     } as UserData;
-    const fetchUser = await signUser(userData);
-    if (fetchUser !== null) {
+    const fetchedUser = await signUser(userData);
+    if (fetchedUser) {
       dispatch(signIn({ ...userData, name: signUser.name }));
       handleDim();
-    }
+    } else setCredentialsWarning(true);
   };
   const handleSignUp = async () => {
-    if (confirmPass === password) {
+    if (name && email && password && confirmPass && confirmPass === password) {
       const userData = {
         name: name,
         email: email,
@@ -65,9 +71,15 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       await createUser(userData);
       dispatch(signIn(userData));
       handleDim();
-    }
+    } else setCredentialsWarning(true);
   };
-
+  const handleChange = (
+    e: React.FormEvent<HTMLInputElement>,
+    setState: React.SetStateAction<any>,
+  ) => {
+    setState(e.currentTarget.value);
+    setCredentialsWarning(false);
+  };
   return (
     <div className="fixed left-1/2 top-1/2 z-30 flex  w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
       <Image
@@ -86,7 +98,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       <h1 className="text-2xl font-semibold">
         {isSignup ? "Создание аккаунта" : "Вход"}
       </h1>
-      <form>
+      <form id="auth">
         {isSignup && (
           <div
             onClick={(e) => handleClick(e)}
@@ -94,11 +106,12 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
             className="textfield"
           >
             <input
+              value={name}
               className="w-full outline-none"
               placeholder="Полное имя"
               type="name"
               id="name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => handleChange(e, setName)}
             />
           </div>
         )}
@@ -111,11 +124,12 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
             <BsFillEnvelopeFill onClick={() => handleClick} />
           </div>
           <input
+            value={email}
             className="w-full outline-none"
             placeholder="Email адрес"
             type="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => handleChange(e, setEmail)}
           />
         </div>
         <div
@@ -125,11 +139,12 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
         >
           <AiFillLock />
           <input
+            value={password}
             className="w-full outline-none"
             placeholder="Пароль"
             type={showPassword ? "text" : "password"}
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handleChange(e, setPassword)}
           />
           {!isSignup && (
             <div className="cursor-pointer" onClick={handleShowPassword}>
@@ -148,13 +163,21 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
             className="textfield"
           >
             <input
+              value={confirmPass}
               className="w-full outline-none"
               placeholder="Подтвердите пароль"
               type={showPassword ? "text" : "password"}
               id="confirmPass"
-              onChange={(e) => setConfirmPass(e.target.value)}
+              onChange={(e) => handleChange(e, setConfirmPass)}
             />
           </div>
+        )}
+        {credentialsWarning && (
+          <span className="flex justify-center text-red-500">
+            {isSignup
+              ? "Проверьте данные и попробуйте еще раз"
+              : "Неправильный пароль или почта"}
+          </span>
         )}
         <button
           type="button"

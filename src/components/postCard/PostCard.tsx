@@ -16,11 +16,12 @@ export type Post = {
 
 const PostCard = (props: Post) => {
   return (
-    <Link href={`/${props.id}`} className="h-80 w-3/4  lg:w-1/5">
-      <div className="h-[80%] w-full">
+    <Link href={`/${props.id}`} className="w-3/4 lg:w-1/5">
+      <div className="h-64 w-full">
         <Thumbnail thumbnails={props.thumbnail} />
       </div>
       <div className="w-full">
+        <span>{props.title}</span>
         <div className="border-bottom w-full py-0.5 text-xl font-bold">
           {props.price.toLocaleString().replaceAll(",", " ")} ₽
         </div>
