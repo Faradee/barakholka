@@ -6,7 +6,7 @@ import { ReduxProvider } from "./redux/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "todo app",
+  title: "Барахолка",
 };
 
 export default function RootLayout({
@@ -19,9 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
-          <div className="container mx-auto items-center lg:mx-64 ">
-            {children}
-          </div>
+          <div className="mx-auto items-center lg:mx-64 ">{children}</div>
         </ReduxProvider>
       </body>
     </html>

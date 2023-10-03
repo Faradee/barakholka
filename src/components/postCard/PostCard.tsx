@@ -16,7 +16,7 @@ export type Post = {
 
 const PostCard = (props: Post) => {
   return (
-    <Link href={`/${props.id}`} className="w-3/4 lg:w-1/5">
+    <Link href={`/${props.id}`} className="w-3/4 lg:w-1/4">
       <div className="h-64 w-full">
         <Thumbnail thumbnails={props.thumbnail} />
       </div>
