@@ -6,11 +6,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import HamburgerIcon from "./HamburgerIcon";
+
+type Button = {
+  title: string;
+  url: string;
+};
 const Navbar = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const authParam = searchParams.get("auth");
   const [isNav, setNav] = useState<boolean>(false);
   const [isDimmed, setDimmed] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
@@ -57,7 +61,11 @@ const Navbar = () => {
   };
 
   const cachedHandleResize = useCallback(handleResize, [isDimmed, isNav]);
-  const buttonTitles = ["Недвижимость", "Авто", "Вещи"];
+  const buttons = [
+    { title: "Недвижимость", url: "estate" },
+    { title: "Авто", url: "car" },
+    { title: "Вещи", url: "misc" },
+  ] as Button[];
 
   useEffect(() => {
     window.addEventListener("resize", cachedHandleResize);
@@ -65,46 +73,16 @@ const Navbar = () => {
       window.removeEventListener("resize", cachedHandleResize);
     };
   }, [cachedHandleResize]);
-
-  useEffect(() => {
-    if (authParam) {
-      toggleAuthModal();
-    }
-  }, [authParam, toggleAuthModal]);
   return (
     <>
       <div
         className="fixed z-10 flex h-20 w-screen items-center justify-between
        bg-white px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
       >
-        <div className=" flex-grow justify-start lg:hidden">
-          <div className=" flex select-none items-center !justify-start  ">
-            <div
-              className="cursor-pointer p-2 hover:bg-slate-200"
-              onClick={handleIsNav}
-            >
-              <span
-                className={`block ${
-                  isNav ? "translate-y-[6px] -rotate-45" : "rotate-0"
-                } mb-1 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
-              ></span>
-              <span
-                className={`block ${
-                  isNav ? "opacity-0" : "opacity-100"
-                } mb-1 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
-              ></span>
-              <span
-                className={`block ${
-                  isNav ? "translate-y-[-6px] rotate-45" : "rotate-0"
-                } mb-1 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
-              ></span>
-            </div>
-          </div>
+        <div className="flex flex-grow justify-start lg:hidden">
+          <HamburgerIcon onClick={handleIsNav} active={isNav} />
         </div>
-        <div
-          onClick={() => console.log(userData)}
-          className="flex min-w-[150px] justify-center"
-        >
+        <div className="min-w-[150px]justify-center flex-grow">
           <Link href="/">
             <Image
               className="pr-4"
@@ -124,22 +102,22 @@ const Navbar = () => {
         lg:flex-row lg:justify-start lg:border-t-0 lg:transition-none 
       `}
         >
-          {buttonTitles.map((title) => {
+          {buttons.map((button) => {
             return (
               <Link
-                href={`/${title.toLowerCase()}`}
-                key={title}
+                href={`/${button.url.toLowerCase()}`}
+                key={button.url}
                 className="nav-button"
               >
-                {title}
+                {button.title}
               </Link>
             );
           })}
-        </nav>
-        <div className="ml-auto flex flex-grow items-center justify-center lg:flex-grow-0 lg:justify-end">
           <Link href="/create" className="button">
             Создать объявление
           </Link>
+        </nav>
+        <div className="items-center justify-center lg:justify-end">
           {userData.name === "" ? (
             <button onClick={toggleAuthModal} className="button">
               Вход

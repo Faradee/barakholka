@@ -7,7 +7,7 @@
 }
 
 .button {
-  @apply nav-button !w-52  py-2 active:bg-slate-300 lg:px-5;
+  @apply nav-button !w-20 py-2  active:bg-slate-300 lg:!w-52 lg:px-5;
 }
 
 .border-bottom {
