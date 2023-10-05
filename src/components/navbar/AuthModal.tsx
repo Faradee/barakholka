@@ -81,7 +81,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     setCredentialsWarning(false);
   };
   return (
-    <div className="fixed left-1/2 top-1/2 z-30 flex  w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
+    <div className="fixed left-1/2 top-1/2 z-30 flex  w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
       <Image
         className=""
         src="/rea-logo.png"
@@ -173,7 +173,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
           </div>
         )}
         {credentialsWarning && (
-          <span className="flex justify-center text-red-500">
+          <span className="flex justify-center text-center text-red-500">
             {isSignup
               ? "Проверьте данные и попробуйте еще раз"
               : "Неправильный пароль или почта"}
@@ -190,11 +190,11 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
         <span className="mx-2">Или</span>
       </div>
-      <div>
+      <div className="text-center">
         {isSignup ? "Есть аккаунт? " : "Не зарегистрированы? "}
         <span
           onClick={handleToggle}
-          className="cursor-pointer font-semibold text-blue-600 hover:underline"
+          className="cursor-pointer text-center font-semibold text-blue-600 hover:underline"
         >
           {isSignup ? "Войдите" : "Создайте аккаунт"}
         </span>
