@@ -17,6 +17,9 @@
 .textfield {
   @apply mb-2 flex w-full items-center gap-2 rounded-lg border-2 border-slate-600 p-2 ring-black;
 }
+textarea {
+  resize: none;
+}
 
 input:autofill {
   box-shadow: 0 0 0 30px white inset !important;

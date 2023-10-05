@@ -13,9 +13,22 @@ const PostEditor = () => {
         </div>
       </div>
       <form>
-        <div className="h-[80vh] w-[25vw] justify-center bg-green-400">
+        <div className="h-[80vh] w-[25vw] bg-green-400">
           <TypeToggle typeIndex={typeIndex} setTypeIndex={setTypeIndex} />
-          <div></div>
+          <div className="flex flex-col items-center justify-center">
+            <textarea
+              id="title"
+              placeholder="Заголовок объявления"
+              name="title"
+            />
+            <input id="price" placeholder="Цена" type="text" name="price" />
+            <textarea
+              className="w-50 h-50"
+              id="description"
+              placeholder="Добавьте описание"
+              name="description"
+            />
+          </div>
         </div>
       </form>
     </div>
