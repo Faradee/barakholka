@@ -65,6 +65,7 @@ const Navbar = () => {
     { title: "Недвижимость", url: "estate" },
     { title: "Авто", url: "car" },
     { title: "Вещи", url: "misc" },
+    { title: "Создать объявление", url: "create" },
   ] as Button[];
 
   useEffect(() => {
@@ -77,12 +78,12 @@ const Navbar = () => {
     <>
       <div
         className="fixed z-10 flex h-20 w-screen items-center justify-between
-       bg-white px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
+       bg-white px-5 py-4 lg:justify-center lg:px-20 lg:shadow-md "
       >
-        <div className="flex flex-grow justify-start lg:hidden">
+        <div className="flex justify-start lg:hidden">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
         </div>
-        <div className="min-w-[150px]justify-center flex-grow">
+        <div className="min-w-[150px] flex-grow-0 justify-center">
           <Link href="/">
             <Image
               className="pr-4"
@@ -113,17 +114,14 @@ const Navbar = () => {
               </Link>
             );
           })}
-          <Link href="/create" className="button">
-            Создать объявление
-          </Link>
         </nav>
         <div className="items-center justify-center lg:justify-end">
           {userData.name === "" ? (
-            <button onClick={toggleAuthModal} className="button">
+            <button onClick={toggleAuthModal} className="nav-button">
               Вход
             </button>
           ) : (
-            <button onClick={handleSignOut} className="button">
+            <button onClick={handleSignOut} className="nav-button">
               Выйти
             </button>
           )}
