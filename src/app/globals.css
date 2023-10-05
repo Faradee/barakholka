@@ -14,6 +14,10 @@
   left: 0;
 }
 
+.form-field-container:focus-within {
+  border: 5px solid black;
+}
+
 .textfield {
   @apply mb-2 flex w-full items-center gap-2 rounded-lg border-2 border-slate-600 p-2 ring-black;
 }

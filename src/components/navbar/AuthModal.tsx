@@ -40,6 +40,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     eventTarget.classList.remove("ring-2");
     eventTarget.classList.remove("!border-black");
   };
+
   const handleToggle = () => {
     setIsSignup(!isSignup);
     setCredentialsWarning(false);
@@ -75,7 +76,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   };
   const handleChange = (
     e: React.FormEvent<HTMLInputElement>,
-    setState: React.SetStateAction<any>,
+    setState: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     setState(e.currentTarget.value);
     setCredentialsWarning(false);
