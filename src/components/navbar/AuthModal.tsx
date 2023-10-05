@@ -12,6 +12,7 @@ import {
 } from "react-icons/ai";
 import { AppDispatch } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
+import FormField from "../forms/FormField";
 type AuthModalProps = {
   handleDim: () => void;
 };
@@ -29,18 +30,6 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const eventTarget = e.currentTarget as Element;
-    eventTarget.querySelector("input")?.focus();
-    eventTarget.classList.add("ring-2");
-    eventTarget.classList.add("!border-black");
-  };
-  const handleFocusOut = (e: React.FocusEvent<HTMLDivElement>) => {
-    const eventTarget = e.currentTarget as Element;
-    eventTarget.classList.remove("ring-2");
-    eventTarget.classList.remove("!border-black");
-  };
-
   const handleToggle = () => {
     setIsSignup(!isSignup);
     setCredentialsWarning(false);
@@ -101,52 +90,27 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       </h1>
       <form id="auth">
         {isSignup && (
-          <div
-            onClick={(e) => handleClick(e)}
-            onBlur={(e) => handleFocusOut(e)}
-            className="textfield"
-          >
-            <input
-              value={name}
-              className="w-full outline-none"
-              placeholder="Полное имя"
-              type="name"
-              id="name"
-              onChange={(e) => handleChange(e, setName)}
-            />
-          </div>
+          <FormField
+            useState={[name, setName]}
+            type="text"
+            placeholder="Полное имя"
+            onChange={handleChange}
+          />
         )}
-        <div
-          onClick={(e) => handleClick(e)}
-          onBlur={(e) => handleFocusOut(e)}
-          className="textfield"
+        <FormField
+          placeholder="Email адрес"
+          type="email"
+          onChange={handleChange}
+          icon={BsFillEnvelopeFill}
+          useState={[email, setEmail]}
+        />
+        <FormField
+          type={showPassword ? "text" : "password"}
+          placeholder="Пароль"
+          useState={[password, setPassword]}
+          onChange={handleChange}
+          icon={AiFillLock}
         >
-          <div>
-            <BsFillEnvelopeFill onClick={() => handleClick} />
-          </div>
-          <input
-            value={email}
-            className="w-full outline-none"
-            placeholder="Email адрес"
-            type="email"
-            id="email"
-            onChange={(e) => handleChange(e, setEmail)}
-          />
-        </div>
-        <div
-          onClick={(e) => handleClick(e)}
-          onBlur={(e) => handleFocusOut(e)}
-          className="textfield"
-        >
-          <AiFillLock />
-          <input
-            value={password}
-            className="w-full outline-none"
-            placeholder="Пароль"
-            type={showPassword ? "text" : "password"}
-            id="password"
-            onChange={(e) => handleChange(e, setPassword)}
-          />
           {!isSignup && (
             <div className="cursor-pointer" onClick={handleShowPassword}>
               {showPassword ? (
@@ -156,22 +120,14 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
               )}
             </div>
           )}
-        </div>
+        </FormField>
         {isSignup && (
-          <div
-            onClick={(e) => handleClick(e)}
-            onBlur={(e) => handleFocusOut(e)}
-            className="textfield"
-          >
-            <input
-              value={confirmPass}
-              className="w-full outline-none"
-              placeholder="Подтвердите пароль"
-              type={showPassword ? "text" : "password"}
-              id="confirmPass"
-              onChange={(e) => handleChange(e, setConfirmPass)}
-            />
-          </div>
+          <FormField
+            useState={[confirmPass, setConfirmPass]}
+            placeholder="Подтвердите пароль"
+            type={showPassword ? "text" : "password"}
+            onChange={handleChange}
+          />
         )}
         {credentialsWarning && (
           <span className="flex justify-center text-center text-red-500">
