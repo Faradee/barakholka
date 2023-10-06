@@ -2,6 +2,18 @@
 import { useState } from "react";
 import TypeToggle from "./TypeToggle";
 import FormField from "../forms/FormField";
+import CarForm, { CarState } from "./CarForm";
+import EstateForm, { EstateState } from "./EstateForm";
+export type PostState = {
+  posterId: String;
+  title: string;
+  type: "car" | "estate" | "misc";
+  description?: string;
+  password: string;
+  price: number;
+  isRented: boolean;
+  details?: CarState | EstateState;
+};
 
 const PostEditor = () => {
   const [typeIndex, setTypeIndex] = useState<number>(0);
@@ -27,7 +39,7 @@ const PostEditor = () => {
         </div>
       </div>
       <form>
-        <div className="h-[80vh] w-[25vw] bg-green-400">
+        <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
           <TypeToggle typeIndex={typeIndex} setTypeIndex={setTypeIndex} />
           <div className="flex flex-col items-center justify-center">
             <FormField
@@ -40,6 +52,7 @@ const PostEditor = () => {
               placeholder="Цена"
               useState={[price, setPrice]}
             />
+            <CarForm />
             <textarea
               className="w-50 h-50"
               id="description"
