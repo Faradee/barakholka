@@ -64,7 +64,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     } else setCredentialsWarning(true);
   };
   const handleChange = (
-    e: React.FormEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     setState(e.currentTarget.value);

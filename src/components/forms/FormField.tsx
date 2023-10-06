@@ -1,5 +1,9 @@
 import { IconType } from "react-icons";
 
+type EventPointer =
+  | React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLTextAreaElement>;
+
 type FormFieldProps = {
   type: "text" | "password" | "email" | "textarea";
   icon?: IconType;
@@ -7,7 +11,7 @@ type FormFieldProps = {
   placeholder?: string;
   cols?: number;
   onChange?: (
-    e: React.FormEvent<HTMLElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => void;
   children?: React.ReactNode;
