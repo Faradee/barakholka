@@ -5,6 +5,7 @@ type FormFieldProps = {
   icon?: IconType;
   useState: [string, React.Dispatch<React.SetStateAction<string>>];
   placeholder?: string;
+  cols?: number;
   onChange?: (
     e: React.FormEvent<HTMLElement>,
     setState: React.Dispatch<React.SetStateAction<string>>,
@@ -16,11 +17,12 @@ const FormField = (props: FormFieldProps) => {
   const [state, setState] = props.useState;
   const Icon = props.icon;
   return (
-    <div className="textfield  outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
+    <div className="textfield  bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
       {Icon && <Icon />}
       {props.type === "textarea" ? (
         <textarea
           value={state}
+          cols={props.cols}
           placeholder={props.placeholder}
           onChange={(e) =>
             props.onChange
