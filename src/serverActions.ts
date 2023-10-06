@@ -16,16 +16,17 @@ export async function createUser(userData: UserData) {
   if (!foundUser)
     try {
       const hash = (await argon2.hash(userData.password)) as string;
-      await prisma.user.create({
+      const { password, createdAt, ...createdUser } = await prisma.user.create({
         data: {
           ...userData,
           password: hash,
         },
       });
+      return createdUser;
     } catch (err) {
       console.log(err);
     }
-  else console.log("user exists");
+  else console.log("user already exists");
 }
 
 export async function signUser(userData: UserData) {
@@ -39,6 +40,7 @@ export async function signUser(userData: UserData) {
     foundUser !== null &&
     (await argon2.verify(foundUser.password, userData.password))
   ) {
-    return { name: foundUser.name };
+    const { password, createdAt, ...returnUser } = foundUser;
+    return returnUser;
   } else return null;
 }

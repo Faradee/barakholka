@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type UserState = {
   name: string;
   email: string;
-  password: string;
+  uuid: string;
 };
 
 type InitialState = {
@@ -14,7 +14,7 @@ const initialState = {
   value: {
     name: "",
     email: "",
-    password: "",
+    uuid: "",
   } as UserState,
 } as InitialState;
 
@@ -28,9 +28,7 @@ export const auth = createSlice({
     signIn: (state, action: PayloadAction<UserState>) => {
       return {
         value: {
-          name: action.payload.name,
-          email: action.payload.email,
-          password: action.payload.password,
+          ...action.payload,
         },
       };
     },

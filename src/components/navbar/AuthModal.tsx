@@ -47,7 +47,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     } as UserData;
     const fetchedUser = await signUser(userData);
     if (fetchedUser) {
-      dispatch(signIn({ ...userData, name: signUser.name }));
+      dispatch(signIn(fetchedUser));
       handleDim();
     } else setCredentialsWarning(true);
   };
@@ -58,10 +58,14 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
         email: email,
         password: password,
       } as UserData;
-      await createUser(userData);
-      dispatch(signIn(userData));
-      handleDim();
-    } else setCredentialsWarning(true);
+      const createdUser = await createUser(userData);
+      if (createdUser) {
+        dispatch(signIn(createdUser));
+        handleDim();
+        return;
+      }
+    }
+    setCredentialsWarning(true);
   };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
