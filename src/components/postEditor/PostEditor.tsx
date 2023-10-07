@@ -4,22 +4,27 @@ import TypeToggle from "./TypeToggle";
 import FormField from "../forms/FormField";
 import CarForm, { CarState } from "./CarForm";
 import EstateForm, { EstateState } from "./EstateForm";
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
 export type PostState = {
-  posterId: String;
+  posterId: string;
   title: string;
   type: "car" | "estate" | "misc";
-  description?: string;
-  password: string;
-  price: number;
-  isRented: boolean;
+  description: string;
+  price: string;
   details?: CarState | EstateState;
 };
 
 const PostEditor = () => {
-  const [typeIndex, setTypeIndex] = useState<number>(0);
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
+  const dispatch = useDispatch<AppDispatch>();
+  const initialState = useAppSelector((state) => state.postReducer);
+  const [postData, setPostData] = useState<PostState>(initialState);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    console.log({ [e.currentTarget.name]: e.currentTarget.value });
+    setPostData({ ...postData, [e.currentTarget.name]: e.currentTarget.value });
+  };
   const getTypeFromIndex = (typeIndex: number) => {
     switch (typeIndex) {
       case 0:
@@ -28,6 +33,8 @@ const PostEditor = () => {
         return "estate";
       case 2:
         return "misc";
+      default:
+        return "car";
     }
   };
   return (
@@ -40,25 +47,34 @@ const PostEditor = () => {
       </div>
       <form>
         <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
-          <TypeToggle typeIndex={typeIndex} setTypeIndex={setTypeIndex} />
+          <TypeToggle getType={getTypeFromIndex} />
           <div className="flex flex-col items-center justify-center">
             <FormField
               type="text"
               placeholder="Заголовок объявления"
-              useState={[title, setTitle]}
+              name="title"
+              useState={[postData.title, setPostData]}
+              onChange={handleChange}
             />
             <FormField
               type="text"
               placeholder="Цена"
-              useState={[price, setPrice]}
+              name="price"
+              useState={[postData.price, setPostData]}
+              onChange={handleChange}
             />
             <CarForm />
-            <textarea
-              className="w-50 h-50"
-              id="description"
-              placeholder="Добавьте описание"
+            <FormField
+              type="textarea"
+              placeholder="Описание объявления"
+              useState={[postData.description, setPostData]}
+              onChange={handleChange}
               name="description"
             />
+            <button type="button" onClick={() => console.log(postData)}>
+              {" "}
+              hi
+            </button>
           </div>
         </div>
       </form>

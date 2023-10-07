@@ -1,13 +1,14 @@
 import { IconType } from "react-icons";
+import { PostState } from "../postEditor/PostEditor";
 
 type EventPointer =
   | React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>;
 
 type FormFieldProps = {
-  type: "text" | "password" | "email" | "textarea";
+  type: "text" | "password" | "email" | "number" | "textarea";
   icon?: IconType;
-  useState: [string, React.Dispatch<React.SetStateAction<string>>];
+  useState: [string, React.Dispatch<React.SetStateAction<any>>];
   placeholder?: string;
   cols?: number;
   onChange?: (
@@ -15,6 +16,7 @@ type FormFieldProps = {
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => void;
   children?: React.ReactNode;
+  name?: string;
 };
 
 const FormField = (props: FormFieldProps) => {
@@ -25,7 +27,9 @@ const FormField = (props: FormFieldProps) => {
       {Icon && <Icon />}
       {props.type === "textarea" ? (
         <textarea
+          className="w-full outline-none"
           value={state}
+          name={props.name}
           cols={props.cols}
           placeholder={props.placeholder}
           onChange={(e) =>
@@ -38,6 +42,7 @@ const FormField = (props: FormFieldProps) => {
         <input
           className="w-full outline-none"
           value={state}
+          name={props.name}
           placeholder={props.placeholder}
           type={props.type}
           onChange={(e) =>

@@ -1,11 +1,10 @@
 "use client";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 type TypeToggleProps = {
-  typeIndex: number;
-  setTypeIndex: React.Dispatch<React.SetStateAction<number>>;
+  getType: (typeIndex: number) => "car" | "estate" | "misc";
 };
 const TypeToggle = (props: TypeToggleProps) => {
-  const { typeIndex, setTypeIndex } = props;
+  const [typeIndex, setTypeIndex] = useState<number>(0);
   const buttonListRef = useRef<HTMLDivElement>(null);
   const handleTypeToggle = (childIndex: number) => {
     if (buttonListRef.current) {

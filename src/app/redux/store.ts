@@ -2,10 +2,12 @@ import { useSelector, TypedUseSelectorHook } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import dimReducer from "./slices/dimSlice";
 import authReducer from "./slices/authSlice";
+import postReducer from "./slices/postSlice";
 export const store = configureStore({
   reducer: {
     dimReducer,
     authReducer,
+    postReducer,
   },
 });
 

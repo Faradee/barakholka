@@ -23,9 +23,8 @@ model Post {
   posterId    String
   title       String
   type        String
-  description String?
+  description String
   price       Int
-  isRented    Boolean?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
