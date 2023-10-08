@@ -18,45 +18,57 @@ type FormFieldProps = {
 
 const FormField = (props: FormFieldProps) => {
   const [state, setState] = props.useState;
-  const Icon = props.icon;
+  const { type, icon, placeholder, cols, onChange, children, name, required } =
+    props;
+  const Icon = icon;
+
   return (
     <div className="textfield  bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
       {Icon && <Icon />}
-      {props.type === "textarea" ? (
+      {type === "textarea" ? (
         <textarea
           className="w-full outline-none"
           value={state}
-          name={props.name}
-          cols={props.cols}
-          placeholder={props.placeholder}
-          onChange={(e) =>
-            props.onChange
-              ? props.onChange(e, setState)
-              : setState(e.currentTarget.value)
-          }
-          required={props.required}
+          name={name}
+          cols={cols}
+          placeholder={placeholder}
+          onChange={(e) => {
+            e.preventDefault();
+            onChange ? onChange(e, setState) : setState(e.currentTarget.value);
+          }}
+          required={required}
         />
       ) : (
         <input
           className="w-full outline-none"
           value={state}
-          name={props.name}
-          placeholder={props.placeholder}
-          type={props.type}
+          name={name}
+          placeholder={placeholder}
+          type={type}
           onChange={(e) => {
+            if (type === "number") {
+              if (/^$/.test(e.currentTarget.value)) {
+                e.currentTarget.value = "0";
+                onChange
+                  ? onChange(e, setState)
+                  : setState(e.currentTarget.value);
+              }
+              if (!/^[1-9][0-9]*$/.test(e.currentTarget.value))
+                e.currentTarget.value = e.currentTarget.value.substring(1);
+            }
             if (
-              props.type !== "number" ||
-              /[0 - 9]/.test(e.currentTarget.value)
+              type !== "number" ||
+              /^[1-9][0-9]*$/.test(e.currentTarget.value)
             ) {
-              props.onChange
-                ? props.onChange(e, setState)
+              onChange
+                ? onChange(e, setState)
                 : setState(e.currentTarget.value);
             }
           }}
-          required={props.required}
+          required={required}
         />
       )}
-      {props.children}
+      {children}
     </div>
   );
 };
