@@ -24,7 +24,7 @@ const FormField = (props: FormFieldProps) => {
   const preventFirefoxNumberInput = (
     e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    if (!/[0-9]/.test(e.key)) {
+    if (!/[0-9]|[\b]/.test(e.key) && e.key !== "Backspace") {
       e.preventDefault();
     }
   };
