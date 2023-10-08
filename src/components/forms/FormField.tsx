@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { PostState } from "../postEditor/PostEditor";
+import { PostState } from "@/app/create/page";
 
 type FormFieldProps = {
   type: "text" | "password" | "email" | "number" | "textarea";

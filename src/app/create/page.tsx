@@ -54,7 +54,7 @@ const PostEditor = () => {
       </div>
       <form>
         <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
-          <TypeToggle getType={getTypeFromIndex} />
+          <TypeToggle />
           <div className="flex flex-col items-center justify-center">
             <FormField
               type="text"

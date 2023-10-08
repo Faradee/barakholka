@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
-import { PostState } from "@/components/postEditor/PostEditor";
+import { PostState } from "@/app/create/page";
 
 const initialState = {
   title: "",
