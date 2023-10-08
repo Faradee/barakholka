@@ -20,20 +20,6 @@ const getPosts = async () => {
   return posts as Post[];
 };
 const Home = async () => {
-  // const carDetails = {
-  //   postId: 1,
-  //   kilometrage: 5000000,
-  //   year: 2011,
-  //   transmission: "manual",
-  //   brand: "vaz",
-  //   model: "volga",
-  //   color: "silver",
-  //   engine: "5.0 V8",
-  //   damaged: true,
-  // } as Prisma.CarCreateInput;
-  // await prisma.car.create({
-  //   data: carDetails,
-  // });
   const posts = await getPosts();
   return (
     <>

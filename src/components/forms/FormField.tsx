@@ -1,10 +1,10 @@
 import { IconType } from "react-icons";
-import { PostState } from "@/app/create/page";
 
 type FormFieldProps = {
   type: "text" | "password" | "email" | "number" | "textarea";
   icon?: IconType;
   useState: [string, React.Dispatch<React.SetStateAction<any>>];
+  name: string;
   placeholder?: string;
   cols?: number;
   onChange?: (
@@ -12,7 +12,7 @@ type FormFieldProps = {
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => void;
   children?: React.ReactNode;
-  name?: string;
+
   required?: boolean;
 };
 
@@ -52,6 +52,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           type={type}
           onChange={(e) => {
+            console.log(e.currentTarget.value);
             if (type === "number") {
               if (/^$/.test(e.currentTarget.value)) {
                 e.currentTarget.value = "0";

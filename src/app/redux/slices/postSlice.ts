@@ -1,9 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
-import { PostState } from "@/app/create/page";
-
+type PostState = {
+  posterId: string;
+  title: string;
+  type: "car" | "estate" | "misc";
+  description: string;
+  price: string;
+  details: CarState | EstateState;
+};
+type InitialState = PostState;
+type PostData = {
+  [Property in keyof PostState]?: PostState[Property];
+};
 const initialState = {
+  posterId: "",
   title: "",
   type: "car",
   description: "",
@@ -18,20 +29,34 @@ const initialState = {
     engine: "",
     damaged: false,
   } as CarState,
-} as PostState;
+} as InitialState;
 
 export const post = createSlice({
   name: "post",
   initialState,
   reducers: {
-    setPostData: (state, action: PayloadAction<PostState>) => {
-      return action.payload;
+    setPostField: (state: PostState, action: PayloadAction<PostData>) => {
+      return { ...state, ...action.payload };
+    },
+    setDetailsField: (
+      state: PostState,
+      action: PayloadAction<CarState | EstateState>,
+    ) => {
+      return { ...state, details: { ...state.details, ...action.payload } };
     },
     resetPostData: () => {
       return initialState;
     },
+    resetDetailsData: () => {
+      return { ...initialState, details: initialState.details };
+    },
   },
 });
 
-export const { setPostData, resetPostData } = post.actions;
+export const {
+  setPostField,
+  setDetailsField,
+  resetPostData,
+  resetDetailsData,
+} = post.actions;
 export default post.reducer;

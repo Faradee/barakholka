@@ -1,9 +1,9 @@
 import React from "react";
 
 export type EstateState = {
-  space: number;
-  rooms: number;
-  floor: number;
+  space: string;
+  rooms: string;
+  floor: string;
   furniture: boolean;
   renovation: string;
   balcony?: string;

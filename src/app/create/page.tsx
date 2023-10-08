@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import TypeToggle from "@/components/postEditor/TypeToggle";
 import FormField from "@/components/forms/FormField";
 import CarForm, { CarState } from "@/components/postEditor/CarForm";
-import EstateForm, { EstateState } from "@/components/postEditor/EstateForm";
+import { EstateState } from "@/components/postEditor/EstateForm";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { setPostData, resetPostData } from "@/app/redux/slices/postSlice";
+import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
+import DetailsForm from "@/components/postEditor/DetailsForm";
 export type PostState = {
   posterId: string;
   title: string;
@@ -18,32 +19,23 @@ export type PostState = {
 
 const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { uuid } = useAppSelector((state) => state.authReducer);
   const postData = useAppSelector((state) => state.postReducer);
-  const handleChange: React.Dispatch<React.SetStateAction<any>> = (e) => {
+  const handleChange: React.Dispatch<React.SetStateAction<any>> = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     dispatch(
-      setPostData({
-        ...postData,
+      setPostField({
         [e.currentTarget.name]: e.currentTarget.value,
       }),
     );
   };
-  const getTypeFromIndex = (typeIndex: number) => {
-    switch (typeIndex) {
-      case 0:
-        return "car";
-      case 1:
-        return "estate";
-      case 2:
-        return "misc";
-      default:
-        return "car";
-    }
-  };
   useEffect(() => {
+    dispatch(setPostField({ posterId: uuid }));
     return () => {
       dispatch(resetPostData());
     };
-  }, [dispatch]);
+  }, [dispatch, uuid]);
   return (
     <div className="flex w-full justify-center">
       <div className="flex flex-col">
@@ -70,7 +62,7 @@ const PostEditor = () => {
               useState={[postData.price, handleChange]}
               onChange={handleChange}
             />
-            <CarForm />
+            <DetailsForm />
             <FormField
               type="textarea"
               placeholder="Описание объявления"

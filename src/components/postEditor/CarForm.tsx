@@ -1,5 +1,8 @@
+import { useDispatch } from "react-redux";
 import FormField from "../forms/FormField";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useAppSelector } from "@/app/redux/store";
+import { setPostField } from "@/app/redux/slices/postSlice";
 export type CarState = {
   kilometrage: string;
   year: string;
@@ -10,17 +13,44 @@ export type CarState = {
   engine: string;
   damaged: boolean;
 };
+type CarFormProps = {
+  handleChange: React.Dispatch<any>;
+};
+const CarForm = (props: CarFormProps) => {
+  const dispatch = useDispatch();
+  const postData = useAppSelector((state) => state.postReducer);
 
-const CarForm = () => {
-  const [kilo, setkilo] = useState<number>(0);
-  const [year, setYear] = useState<number>(0);
-  const [transmission, setTransmission] = useState<string>("");
-  const [brand, setBrand] = useState<string>("");
-  const [model, setModel] = useState<string>("");
-  const [color, setColor] = useState<string>("");
+  const { handleChange } = props;
+  const details = postData.details as CarState;
+  useEffect(() => {
+    const initialCarData = {
+      kilometrage: "0",
+      year: "0",
+      transmission: "",
+      brand: "",
+      model: "",
+      color: "",
+      engine: "",
+      damaged: false,
+    } as CarState;
+    dispatch(setPostField({ details: initialCarData }));
+  }, [dispatch]);
   return (
     <>
-      <div className="flex">{/* <FormField type="text" /> */}</div>
+      <div className="flex">
+        <FormField
+          type="number"
+          useState={[details.kilometrage, handleChange]}
+          name="kilometrage"
+          onChange={handleChange}
+        />
+        <FormField
+          type="number"
+          name="year"
+          useState={[details.year, handleChange]}
+          onChange={handleChange}
+        />
+      </div>
     </>
   );
 };
