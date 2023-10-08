@@ -21,7 +21,13 @@ const FormField = (props: FormFieldProps) => {
   const { type, icon, placeholder, cols, onChange, children, name, required } =
     props;
   const Icon = icon;
-
+  const preventFirefoxNumberInput = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="textfield  bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
       {Icon && <Icon />}
@@ -65,6 +71,9 @@ const FormField = (props: FormFieldProps) => {
                 : setState(e.currentTarget.value);
             }
           }}
+          onKeyDown={
+            type === "number" ? (e) => preventFirefoxNumberInput(e) : undefined
+          }
           required={required}
         />
       )}
