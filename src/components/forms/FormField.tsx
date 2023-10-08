@@ -1,10 +1,6 @@
 import { IconType } from "react-icons";
 import { PostState } from "../postEditor/PostEditor";
 
-type EventPointer =
-  | React.ChangeEvent<HTMLInputElement>
-  | React.ChangeEvent<HTMLTextAreaElement>;
-
 type FormFieldProps = {
   type: "text" | "password" | "email" | "number" | "textarea";
   icon?: IconType;

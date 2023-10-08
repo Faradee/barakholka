@@ -6,6 +6,7 @@ import CarForm, { CarState } from "./CarForm";
 import EstateForm, { EstateState } from "./EstateForm";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { changePostData } from "@/app/redux/slices/postSlice";
 export type PostState = {
   posterId: string;
   title: string;
@@ -17,13 +18,16 @@ export type PostState = {
 
 const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const initialState = useAppSelector((state) => state.postReducer);
-  const [postData, setPostData] = useState<PostState>(initialState);
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    console.log({ [e.currentTarget.name]: e.currentTarget.value });
-    setPostData({ ...postData, [e.currentTarget.name]: e.currentTarget.value });
+  const postData = useAppSelector((state) => state.postReducer);
+  // const [postData, setPostData] = useState<PostState>(initialState);
+  const handleChange: React.Dispatch<React.SetStateAction<any>> = (e) => {
+    dispatch(
+      changePostData({
+        ...postData,
+        [e.currentTarget.name]: e.currentTarget.value,
+      }),
+    );
+    console.log(postData);
   };
   const getTypeFromIndex = (typeIndex: number) => {
     switch (typeIndex) {
@@ -53,21 +57,21 @@ const PostEditor = () => {
               type="text"
               placeholder="Заголовок объявления"
               name="title"
-              useState={[postData.title, setPostData]}
+              useState={[postData.title, handleChange]}
               onChange={handleChange}
             />
             <FormField
               type="text"
               placeholder="Цена"
               name="price"
-              useState={[postData.price, setPostData]}
+              useState={[postData.price, handleChange]}
               onChange={handleChange}
             />
             <CarForm />
             <FormField
               type="textarea"
               placeholder="Описание объявления"
-              useState={[postData.description, setPostData]}
+              useState={[postData.description, handleChange]}
               onChange={handleChange}
               name="description"
             />
