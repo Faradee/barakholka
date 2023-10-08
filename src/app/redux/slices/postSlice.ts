@@ -24,13 +24,14 @@ export const post = createSlice({
   name: "post",
   initialState,
   reducers: {
-    changePostData: (state, action: PayloadAction<PostState>) => {
-      return {
-        ...action.payload,
-      };
+    setPostData: (state, action: PayloadAction<PostState>) => {
+      return action.payload;
+    },
+    resetPostData: () => {
+      return initialState;
     },
   },
 });
 
-export const { changePostData } = post.actions;
+export const { setPostData, resetPostData } = post.actions;
 export default post.reducer;

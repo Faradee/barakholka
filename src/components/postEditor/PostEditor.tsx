@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TypeToggle from "./TypeToggle";
 import FormField from "../forms/FormField";
 import CarForm, { CarState } from "./CarForm";
 import EstateForm, { EstateState } from "./EstateForm";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { changePostData } from "@/app/redux/slices/postSlice";
+import { setPostData, resetPostData } from "@/app/redux/slices/postSlice";
 export type PostState = {
   posterId: string;
   title: string;
@@ -19,15 +19,13 @@ export type PostState = {
 const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
   const postData = useAppSelector((state) => state.postReducer);
-  // const [postData, setPostData] = useState<PostState>(initialState);
   const handleChange: React.Dispatch<React.SetStateAction<any>> = (e) => {
     dispatch(
-      changePostData({
+      setPostData({
         ...postData,
         [e.currentTarget.name]: e.currentTarget.value,
       }),
     );
-    console.log(postData);
   };
   const getTypeFromIndex = (typeIndex: number) => {
     switch (typeIndex) {
@@ -41,6 +39,11 @@ const PostEditor = () => {
         return "car";
     }
   };
+  useEffect(() => {
+    return () => {
+      dispatch(resetPostData());
+    };
+  }, [dispatch]);
   return (
     <div className="flex w-full justify-center">
       <div className="flex flex-col">
@@ -61,7 +64,7 @@ const PostEditor = () => {
               onChange={handleChange}
             />
             <FormField
-              type="text"
+              type="number"
               placeholder="Цена"
               name="price"
               useState={[postData.price, handleChange]}

@@ -32,7 +32,9 @@ input:autofill {
 button.active {
   background-color: rgb(148 163 184) !important;
 }
-
+input[type="number"] {
+  appearance: textfield;
+}
 .thumbnail-list > div {
   height: 25%;
   object-fit: cover;
