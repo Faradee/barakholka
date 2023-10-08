@@ -10,34 +10,41 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
 } from "react-icons/ai";
-import { AppDispatch } from "@/app/redux/store";
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
 import FormField from "../forms/FormField";
 type AuthModalProps = {
   handleDim: () => void;
 };
+type Auth = {
+  email: string;
+  password: string;
+  name: string;
+  confirmPass: string;
+  isSignup: boolean;
+  showPassword: boolean;
+};
 
 const AuthModal = ({ handleDim }: AuthModalProps) => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [confirmPass, setConfirmPass] = useState<string>("");
-  const [isSignup, setIsSignup] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const initialAuth = {
+    email: "",
+    password: "",
+    name: "",
+    confirmPass: "",
+    isSignup: false,
+    showPassword: false,
+  };
+  const [auth, setAuth] = useState<Auth>(initialAuth);
+  const { email, password, name, confirmPass, isSignup, showPassword } = auth;
   const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setAuth({ ...initialAuth, showPassword: !showPassword });
   };
   const handleToggle = () => {
-    setIsSignup(!isSignup);
     setCredentialsWarning(false);
-    setEmail("");
-    setPassword("");
-    setConfirmPass("");
-    setName("");
-    setShowPassword(false);
+    setAuth({ ...initialAuth, isSignup: !isSignup });
   };
   const handleSignIn = async () => {
     const userData = {
@@ -67,11 +74,16 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     }
     setCredentialsWarning(true);
   };
+  const setAuthProp: React.Dispatch<React.SetStateAction<any>> = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setAuth({ ...auth, [e.currentTarget.name]: e.currentTarget.value });
+  };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    setState: React.Dispatch<React.SetStateAction<string>>,
+    setAuthProp: React.Dispatch<React.SetStateAction<any>>,
   ) => {
-    setState(e.currentTarget.value);
+    setAuthProp(e);
     setCredentialsWarning(false);
   };
   return (
@@ -95,10 +107,11 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       <form id="auth">
         {isSignup && (
           <FormField
-            useState={[name, setName]}
+            useState={[name, setAuthProp]}
             type="text"
             placeholder="Полное имя"
             onChange={handleChange}
+            name="name"
           />
         )}
         <FormField
@@ -106,13 +119,15 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
           type="email"
           onChange={handleChange}
           icon={BsFillEnvelopeFill}
-          useState={[email, setEmail]}
+          name="email"
+          useState={[email, setAuthProp]}
         />
         <FormField
           type={showPassword ? "text" : "password"}
           placeholder="Пароль"
-          useState={[password, setPassword]}
+          useState={[password, setAuthProp]}
           onChange={handleChange}
+          name="password"
           icon={AiFillLock}
         >
           {!isSignup && (
@@ -127,10 +142,11 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
         </FormField>
         {isSignup && (
           <FormField
-            useState={[confirmPass, setConfirmPass]}
+            useState={[confirmPass, setAuthProp]}
             placeholder="Подтвердите пароль"
             type={showPassword ? "text" : "password"}
             onChange={handleChange}
+            name="showPassword"
           />
         )}
         {credentialsWarning && (

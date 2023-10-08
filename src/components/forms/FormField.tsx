@@ -13,6 +13,7 @@ type FormFieldProps = {
   ) => void;
   children?: React.ReactNode;
   name?: string;
+  required?: boolean;
 };
 
 const FormField = (props: FormFieldProps) => {
@@ -33,6 +34,7 @@ const FormField = (props: FormFieldProps) => {
               ? props.onChange(e, setState)
               : setState(e.currentTarget.value)
           }
+          required={props.required}
         />
       ) : (
         <input
@@ -41,11 +43,17 @@ const FormField = (props: FormFieldProps) => {
           name={props.name}
           placeholder={props.placeholder}
           type={props.type}
-          onChange={(e) =>
-            props.onChange
-              ? props.onChange(e, setState)
-              : setState(e.currentTarget.value)
-          }
+          onChange={(e) => {
+            if (
+              props.type !== "number" ||
+              /[0 - 9]/.test(e.currentTarget.value)
+            ) {
+              props.onChange
+                ? props.onChange(e, setState)
+                : setState(e.currentTarget.value);
+            }
+          }}
+          required={props.required}
         />
       )}
       {props.children}
