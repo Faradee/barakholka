@@ -5,9 +5,9 @@ type LabelFormFieldProps = FormFieldProps & {
 };
 const LabelFormField = (props: LabelFormFieldProps) => {
   return (
-    <div className="flex w-full flex-col">
+    <div className="mx-0.5 flex w-full flex-col">
       <label htmlFor={props.name}>{props.label}: </label>
-      <FormField {...props} />
+      <FormField {...props} noMargin />
     </div>
   );
 };

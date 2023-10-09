@@ -3,6 +3,7 @@ import FormField from "../forms/FormField";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAppSelector } from "@/app/redux/store";
 import { setPostField } from "@/app/redux/slices/postSlice";
+import LabelFormField from "../forms/LabelFormField";
 export type CarState = {
   kilometrage: string;
   year: string;
@@ -11,7 +12,6 @@ export type CarState = {
   brand: string;
   model: string;
   color: string;
-  engine: string;
   damaged: boolean;
 };
 type CarFormProps = {
@@ -31,44 +31,47 @@ const CarForm = (props: CarFormProps) => {
       brand: "",
       model: "",
       color: "",
-      engine: "",
       damaged: false,
     } as CarState;
     dispatch(setPostField({ details: initialCarData }));
   }, [dispatch]);
   return (
     <>
-      <div className="flex">
-        <FormField
+      <div className="flex gap-x-0.5">
+        <LabelFormField
           type="number"
+          label="Километраж"
           useState={[details.kilometrage, handleChange]}
           placeholder="Километраж"
           name="kilometrage"
           onChange={handleChange}
         />
-        <FormField
+        <LabelFormField
           type="number"
           name="year"
+          label="Год Выпуска"
           placeholder="Год выпуска"
           useState={[details.year, handleChange]}
           onChange={handleChange}
         />
       </div>
 
-      <FormField
+      <LabelFormField
         type="number"
         name="horsepower"
+        label="Мощность двигателя(л.с.)"
         placeholder="Мощность двигателя(л.с.)"
         useState={[details.horsepower, handleChange]}
         onChange={handleChange}
       />
-      <div className="flex">
+      <div className="flex gap-x-0.5">
         <FormField
           type="text"
           name="brand"
           placeholder="Название бренда"
           useState={[details.brand, handleChange]}
           onChange={handleChange}
+          noMargin
         />
         <FormField
           type="text"
@@ -76,6 +79,7 @@ const CarForm = (props: CarFormProps) => {
           placeholder="Модель"
           useState={[details.model, handleChange]}
           onChange={handleChange}
+          noMargin
         />
       </div>
       <FormField

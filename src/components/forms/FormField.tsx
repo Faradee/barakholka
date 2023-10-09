@@ -12,14 +12,23 @@ export type FormFieldProps = {
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => void;
   children?: React.ReactNode;
-
+  noMargin?: boolean;
   required?: boolean;
 };
 
 const FormField = (props: FormFieldProps) => {
   const [state, setState] = props.useState;
-  const { type, icon, placeholder, cols, onChange, children, name, required } =
-    props;
+  const {
+    type,
+    icon,
+    placeholder,
+    cols,
+    onChange,
+    children,
+    name,
+    required,
+    noMargin,
+  } = props;
   const Icon = icon;
   //Решает нерабочее поведение input number в браузерах Firefox
   const preventFirefoxNumberInput = (
@@ -34,7 +43,10 @@ const FormField = (props: FormFieldProps) => {
     }
   };
   return (
-    <div className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
+    <div
+      className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
+      style={(noMargin && { marginRight: "0", marginLeft: "0" }) || {}}
+    >
       {Icon && <Icon />}
       {type === "textarea" ? (
         <textarea

@@ -38,48 +38,50 @@ const PostEditor = () => {
     };
   }, [dispatch, uuid]);
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex flex-col">
-        <div className="h-[55vh] w-[30vw] bg-slate-300">thumbnail</div>
-        <div className="flex h-[25vh] w-[30vw] flex-row bg-red-400">
-          thumbnails
-        </div>
-      </div>
-      <form>
-        <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
-          <TypeToggle />
-          <div className="flex flex-col items-center justify-center">
-            <FormField
-              type="text"
-              placeholder="Заголовок объявления"
-              name="title"
-              useState={[postData.title, handleChange]}
-              onChange={handleChange}
-            />
-            <LabelFormField
-              type="number"
-              label="Цена"
-              placeholder="Цена"
-              name="price"
-              useState={[postData.price, handleChange]}
-              onChange={handleChange}
-            />
-            <DetailsForm />
-            <FormField
-              type="textarea"
-              placeholder="Описание объявления"
-              useState={[postData.description, handleChange]}
-              onChange={handleChange}
-              name="description"
-            />
-            <button type="button" onClick={() => console.log(postData)}>
-              {" "}
-              hi
-            </button>
+    <form id="post">
+      <div className="flex w-full justify-center">
+        <div className="flex flex-col">
+          <div className="h-[55vh] w-[30vw] bg-slate-300">thumbnail</div>
+          <div className="flex h-[25vh] w-[30vw] flex-row bg-red-400">
+            thumbnails
           </div>
         </div>
-      </form>
-    </div>
+        <div>
+          <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
+            <TypeToggle />
+            <div className="flex flex-col items-center justify-center">
+              <FormField
+                type="text"
+                placeholder="Заголовок объявления"
+                name="title"
+                useState={[postData.title, handleChange]}
+                onChange={handleChange}
+              />
+              <LabelFormField
+                type="number"
+                label="Цена"
+                placeholder="Цена"
+                name="price"
+                useState={[postData.price, handleChange]}
+                onChange={handleChange}
+              />
+              <DetailsForm />
+              <FormField
+                type="textarea"
+                placeholder="Описание объявления"
+                useState={[postData.description, handleChange]}
+                onChange={handleChange}
+                name="description"
+              />
+              <button type="button" onClick={() => console.log(postData)}>
+                {" "}
+                hi
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 

@@ -26,7 +26,7 @@ const initialState = {
     brand: "",
     model: "",
     color: "",
-    engine: "",
+    horsepower: "",
     damaged: false,
   } as CarState,
 } as InitialState;
