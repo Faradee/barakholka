@@ -30,7 +30,11 @@ const initialState = {
     damaged: false,
   } as CarState,
 } as InitialState;
-
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+type DetailTypes = CarState | EstateState;
+type DetailsData = {
+  [Property in KeysOfUnion<DetailTypes>]?: string | boolean;
+};
 export const post = createSlice({
   name: "post",
   initialState,
@@ -38,11 +42,11 @@ export const post = createSlice({
     setPostField: (state: PostState, action: PayloadAction<PostData>) => {
       return { ...state, ...action.payload };
     },
-    setDetailsField: (
-      state: PostState,
-      action: PayloadAction<CarState | EstateState>,
-    ) => {
-      return { ...state, details: { ...state.details, ...action.payload } };
+    setDetailsField: (state: PostState, action: PayloadAction<DetailsData>) => {
+      return {
+        ...state,
+        details: { ...state.details, ...action.payload },
+      } as PostState;
     },
     resetPostData: () => {
       return initialState;

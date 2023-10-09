@@ -5,10 +5,6 @@ import CarForm, { CarState } from "./CarForm";
 import EstateForm, { EstateState } from "./EstateForm";
 import { PostState } from "@/app/create/page";
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-type Data = {
-  [P in KeysOfUnion<CarState | EstateState>]?: string | boolean;
-};
 const DetailsForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const postType = useAppSelector((state) => state.postReducer.type);
@@ -18,7 +14,7 @@ const DetailsForm = () => {
     dispatch(
       setDetailsField({
         [e.currentTarget.name]: e.currentTarget.value,
-      } as any),
+      }),
     );
   };
   return (
