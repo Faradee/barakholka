@@ -76,26 +76,24 @@ const Navbar = () => {
   }, [cachedHandleResize]);
   return (
     <>
-      <div
+      <nav
         className="fixed z-10 flex h-20 w-screen items-center justify-between
        bg-white px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
       >
         <div className="flex justify-start lg:hidden">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
         </div>
-        <div className="min-w-[150px] flex-grow-0 justify-center">
-          <Link href="/">
-            <Image
-              className="pr-4"
-              src="/rea-logo.png"
-              width="150"
-              height="300"
-              alt="Logo"
-            />
-          </Link>
-        </div>
+        <Link className="min-w-[150px] flex-grow-0 justify-center" href="/">
+          <Image
+            className="pr-4"
+            src="/rea-logo.png"
+            width="150"
+            height="300"
+            alt="Logo"
+          />
+        </Link>
 
-        <nav
+        <ul
           className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
         top-20 z-10 flex h-full w-64 flex-grow flex-col items-center
         border-t-2 border-slate-300 bg-white transition-all 
@@ -105,16 +103,17 @@ const Navbar = () => {
         >
           {buttons.map((button) => {
             return (
-              <Link
-                href={`/${button.url.toLowerCase()}`}
-                key={button.url}
-                className="nav-button"
-              >
-                {button.title}
-              </Link>
+              <li key={button.url}>
+                <Link
+                  href={`/${button.url.toLowerCase()}`}
+                  className="nav-button"
+                >
+                  {button.title}
+                </Link>
+              </li>
             );
           })}
-        </nav>
+        </ul>
         <div className="items-center justify-center lg:justify-end">
           {userData.name === "" ? (
             <button onClick={toggleAuthModal} className="nav-button">
@@ -126,7 +125,7 @@ const Navbar = () => {
             </button>
           )}
         </div>
-      </div>
+      </nav>
       {isAuth && <AuthModal handleDim={handleDim} />}
       <div
         onClick={handleDim}
