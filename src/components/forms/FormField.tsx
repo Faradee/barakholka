@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 
-type FormFieldProps = {
+export type FormFieldProps = {
   type: "text" | "password" | "email" | "number" | "textarea";
   icon?: IconType;
   useState: [string, React.Dispatch<React.SetStateAction<any>>];

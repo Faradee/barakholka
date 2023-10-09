@@ -24,7 +24,9 @@
 textarea {
   resize: none;
 }
-
+label {
+  @apply font-semibold;
+}
 input:autofill {
   box-shadow: 0 0 0 30px white inset !important;
 }

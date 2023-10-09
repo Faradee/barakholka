@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
+import LabelFormField from "@/components/forms/LabelFormField";
 export type PostState = {
   posterId: string;
   title: string;
@@ -55,8 +56,9 @@ const PostEditor = () => {
               useState={[postData.title, handleChange]}
               onChange={handleChange}
             />
-            <FormField
+            <LabelFormField
               type="number"
+              label="Цена"
               placeholder="Цена"
               name="price"
               useState={[postData.price, handleChange]}

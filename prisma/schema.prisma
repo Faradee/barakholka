@@ -39,11 +39,11 @@ model Car {
   postId       Int     @id
   kilometrage  Int
   year         Int
+  horsepower   Int
   transmission String
   brand        String
   model        String
   color        String
-  engine       String
   damaged      Boolean
 }
 

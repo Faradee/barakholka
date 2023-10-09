@@ -6,6 +6,7 @@ import { setPostField } from "@/app/redux/slices/postSlice";
 export type CarState = {
   kilometrage: string;
   year: string;
+  horsepower: string;
   transmission: string;
   brand: string;
   model: string;
@@ -41,16 +42,56 @@ const CarForm = (props: CarFormProps) => {
         <FormField
           type="number"
           useState={[details.kilometrage, handleChange]}
+          placeholder="Километраж"
           name="kilometrage"
           onChange={handleChange}
         />
         <FormField
           type="number"
           name="year"
+          placeholder="Год выпуска"
           useState={[details.year, handleChange]}
           onChange={handleChange}
         />
       </div>
+
+      <FormField
+        type="number"
+        name="horsepower"
+        placeholder="Мощность двигателя(л.с.)"
+        useState={[details.horsepower, handleChange]}
+        onChange={handleChange}
+      />
+      <div className="flex">
+        <FormField
+          type="text"
+          name="brand"
+          placeholder="Название бренда"
+          useState={[details.brand, handleChange]}
+          onChange={handleChange}
+        />
+        <FormField
+          type="text"
+          name="model"
+          placeholder="Модель"
+          useState={[details.model, handleChange]}
+          onChange={handleChange}
+        />
+      </div>
+      <FormField
+        type="text"
+        name="color"
+        placeholder="Цвет"
+        useState={[details.color, handleChange]}
+        onChange={handleChange}
+      />
+      <FormField
+        type="text"
+        name="transmission"
+        placeholder="Вид коробки передач"
+        useState={[details.transmission, handleChange]}
+        onChange={handleChange}
+      />
     </>
   );
 };
