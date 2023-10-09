@@ -34,7 +34,7 @@ const FormField = (props: FormFieldProps) => {
     }
   };
   return (
-    <div className="textfield  bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
+    <div className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2">
       {Icon && <Icon />}
       {type === "textarea" ? (
         <textarea
