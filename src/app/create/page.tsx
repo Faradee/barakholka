@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 import TypeToggle from "@/components/postEditor/TypeToggle";
 import FormField from "@/components/forms/FormField";
-import CarForm, { CarState } from "@/components/postEditor/CarForm";
+import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
 import LabelFormField from "@/components/forms/LabelFormField";
+import { StaticImageData } from "next/image";
 export type PostState = {
   posterId: string;
   title: string;
@@ -16,6 +17,7 @@ export type PostState = {
   description: string;
   price: string;
   details?: CarState | EstateState;
+  thumbnails?: (string | StaticImageData)[];
 };
 
 const PostEditor = () => {

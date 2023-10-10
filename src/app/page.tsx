@@ -1,12 +1,12 @@
 import prisma from "@/db";
 import PostCard, { Post } from "@/components/postCard/PostCard";
 
-type FetchedPost = Omit<Post, "thumbnail"> & { thumbnail?: string[] };
+type FetchedPost = Omit<Post, "thumbnails"> & { thumbnails?: string[] };
 
 const getPosts = async () => {
   const posts = (await prisma.post.findMany()) as FetchedPost[];
   for (const post of posts) {
-    post.thumbnail = [];
+    post.thumbnails = [];
     const thumbnails = await prisma.thumbnail.findMany({
       where: {
         postId: post.id,
@@ -14,7 +14,7 @@ const getPosts = async () => {
       take: 2,
     });
     thumbnails.forEach((thumbnail) => {
-      post.thumbnail?.push(thumbnail.thumbnail);
+      post.thumbnails?.push(thumbnail.thumbnail);
     });
   }
   return posts as Post[];

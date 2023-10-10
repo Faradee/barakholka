@@ -7,7 +7,7 @@ export type Post = {
   posterId: string;
   title: string;
   type: string;
-  thumbnail: (string | StaticImageData)[];
+  thumbnails: (string | StaticImageData)[];
   description?: string;
   price: number;
   createdAt: Date;
@@ -21,7 +21,7 @@ const PostCard = (props: Post) => {
       className="w-3/4 min-w-[200px] md:w-1/2 lg:w-1/4"
     >
       <div className="h-64 w-full">
-        <Thumbnail thumbnails={props.thumbnail} />
+        <Thumbnail thumbnails={props.thumbnails} />
       </div>
       <div className="w-full">
         <span>{props.title}</span>

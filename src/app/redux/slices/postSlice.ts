@@ -10,7 +10,7 @@ type PostState = {
   description: string;
   price: string;
   details: CarState | EstateState;
-  thumbnail: (string | StaticImageData)[];
+  thumbnails: (string | StaticImageData)[];
 };
 type InitialState = PostState;
 type PostData = {
@@ -37,7 +37,7 @@ const initialState = {
     horsepower: "",
     damaged: false,
   } as CarState,
-  thumbnail: [DefaultThumbnail],
+  thumbnails: [DefaultThumbnail],
 } as InitialState;
 export const post = createSlice({
   name: "post",

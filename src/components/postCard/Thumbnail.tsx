@@ -6,7 +6,7 @@ type ThumbnailProps = {
 };
 
 const Thumbnail = (props: ThumbnailProps) => {
-  const thumbnails = props.thumbnails;
+  const { thumbnails } = props;
   const [thumbnail, setThumbnail] = useState<string | StaticImageData>(
     thumbnails[0],
   );
