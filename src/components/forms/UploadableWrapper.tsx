@@ -5,26 +5,36 @@ import { setPostField } from "@/app/redux/slices/postSlice";
 import { useAppSelector } from "@/app/redux/store";
 import { useDispatch } from "react-redux";
 type UploadableWrapperProps = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 const UploadableWrapper = (props: UploadableWrapperProps) => {
+  const { children } = props;
   const dispatch = useDispatch();
-  const postThumbnail = useAppSelector((state) => state.postReducer.thumbnails);
+  const postThumbnails = useAppSelector(
+    (state) => state.postReducer.thumbnails,
+  );
   const handleUpload = (e: FormEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files;
     const reader = new FileReader();
     if (file) {
       reader.readAsDataURL(file[0]);
       reader.onload = () =>
-        dispatch(setPostField({ thumbnails: reader.result as string }));
+        dispatch(
+          setPostField({
+            thumbnails: [...postThumbnails, reader.result as string],
+          }),
+        );
     }
   };
 
   return (
-    <div>
-      <input name="thumbnail" onChange={(e) => handleUpload(e)} type="file" />
-    </div>
+    <>
+      <div className="absolute z-20 h-full w-full">
+        <input name="thumbnail" onChange={(e) => handleUpload(e)} type="file" />
+      </div>
+      {children}
+    </>
   );
 };
 

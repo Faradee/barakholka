@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
-import DefaultThumbnail from "thumbnailPlaceholder.png";
-import { StaticImageData } from "next/image";
 type PostState = {
   posterId: string;
   title: string;
@@ -10,7 +8,7 @@ type PostState = {
   description: string;
   price: string;
   details: CarState | EstateState;
-  thumbnails: (string | StaticImageData)[];
+  thumbnails: string[];
 };
 type InitialState = PostState;
 type PostData = {
@@ -37,7 +35,7 @@ const initialState = {
     horsepower: "",
     damaged: false,
   } as CarState,
-  thumbnails: [DefaultThumbnail],
+  thumbnails: ["/thumbnailPlaceholder.png"],
 } as InitialState;
 export const post = createSlice({
   name: "post",

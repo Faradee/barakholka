@@ -9,7 +9,7 @@ import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
 import LabelFormField from "@/components/forms/LabelFormField";
-import { StaticImageData } from "next/image";
+import Gallery from "@/components/postEditor/Gallery";
 export type PostState = {
   posterId: string;
   title: string;
@@ -17,7 +17,7 @@ export type PostState = {
   description: string;
   price: string;
   details?: CarState | EstateState;
-  thumbnails?: (string | StaticImageData)[];
+  thumbnails?: string[];
 };
 
 const PostEditor = () => {
@@ -42,12 +42,7 @@ const PostEditor = () => {
   return (
     <form id="post">
       <div className="flex w-full justify-center">
-        <div className="flex flex-col">
-          <div className="h-[55vh] w-[30vw] bg-slate-300">thumbnail</div>
-          <div className="flex h-[25vh] w-[30vw] flex-row bg-red-400">
-            thumbnails
-          </div>
-        </div>
+        <Gallery />
         <div>
           <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
             <TypeToggle />
