@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import Thumbnail from "./Thumbnail";
 import Link from "next/link";
@@ -7,7 +7,7 @@ export type Post = {
   posterId: string;
   title: string;
   type: string;
-  thumbnail: string[];
+  thumbnail: (string | StaticImageData)[];
   description?: string;
   price: number;
   createdAt: Date;

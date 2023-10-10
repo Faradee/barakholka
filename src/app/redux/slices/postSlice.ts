@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
+import DefaultThumbnail from "thumbnailPlaceholder.png";
+import { StaticImageData } from "next/image";
 type PostState = {
   posterId: string;
   title: string;
@@ -8,10 +10,16 @@ type PostState = {
   description: string;
   price: string;
   details: CarState | EstateState;
+  thumbnail: (string | StaticImageData)[];
 };
 type InitialState = PostState;
 type PostData = {
-  [Property in keyof PostState]?: PostState[Property];
+  [P in keyof PostState]?: PostState[P];
+};
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+type DetailTypes = CarState | EstateState;
+type DetailsData = {
+  [Property in KeysOfUnion<DetailTypes>]?: string | boolean;
 };
 const initialState = {
   posterId: "",
@@ -29,12 +37,8 @@ const initialState = {
     horsepower: "",
     damaged: false,
   } as CarState,
+  thumbnail: [DefaultThumbnail],
 } as InitialState;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-type DetailTypes = CarState | EstateState;
-type DetailsData = {
-  [Property in KeysOfUnion<DetailTypes>]?: string | boolean;
-};
 export const post = createSlice({
   name: "post",
   initialState,

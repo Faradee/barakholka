@@ -1,13 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 type ThumbnailProps = {
-  thumbnails: string[];
+  thumbnails: (string | StaticImageData)[];
 };
 
 const Thumbnail = (props: ThumbnailProps) => {
   const thumbnails = props.thumbnails;
-  const [thumbnail, setThumbnail] = useState<string>(thumbnails[0]);
+  const [thumbnail, setThumbnail] = useState<string | StaticImageData>(
+    thumbnails[0],
+  );
   const parts = thumbnails.length < 5 ? thumbnails.length : 5;
   return (
     <div
