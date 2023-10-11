@@ -32,7 +32,7 @@ const Thumbnail = (props: ThumbnailProps) => {
           }}
           onMouseOver={() => setThumbnail(thumbnail)}
         >
-          <div className="accordeon-bar absolute bottom-0 z-20 m-2 h-1 w-11/12 bg-slate-200 opacity-0 transition-all duration-200"></div>
+          <span className="accordeon-bar absolute bottom-0 z-10 m-2 block h-1 w-11/12 bg-slate-200 opacity-0 transition-all duration-200"></span>
         </div>
       ))}
     </div>

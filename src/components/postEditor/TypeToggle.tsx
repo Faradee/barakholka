@@ -1,5 +1,5 @@
 "use client";
-import { setPostData } from "@/app/redux/slices/postSlice";
+import { setPostField } from "@/app/redux/slices/postSlice";
 import { useAppSelector } from "@/app/redux/store";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ const TypeToggle = () => {
       children[childIndex].classList.add("active");
       setTypeIndex(childIndex);
       dispatch(
-        setPostData({ ...postData, type: getTypeFromIndex(childIndex) }),
+        setPostField({ ...postData, type: getTypeFromIndex(childIndex) }),
       );
     }
   };
