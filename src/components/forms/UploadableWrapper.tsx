@@ -4,6 +4,7 @@ import Image from "next/image";
 import { setPostField } from "@/app/redux/slices/postSlice";
 import { useAppSelector } from "@/app/redux/store";
 import { useDispatch } from "react-redux";
+import { toggleDim } from "@/app/redux/slices/dimSlice";
 type UploadableWrapperProps = {
   children: React.ReactNode;
 };
@@ -14,6 +15,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   const postThumbnails = useAppSelector(
     (state) => state.postReducer.thumbnails,
   );
+  const [localDim, setLocalDim] = useState<boolean>(false);
   const handleUpload = (e: FormEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files;
     const reader = new FileReader();
@@ -29,12 +31,23 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   };
 
   return (
-    <>
-      <div className="absolute z-20 h-full w-full">
-        <input name="thumbnail" onChange={(e) => handleUpload(e)} type="file" />
-      </div>
+    <div
+      onDragOver={(e) => {
+        e.preventDefault();
+        console.log("onDrag");
+        dispatch(toggleDim());
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        dispatch(toggleDim());
+        console.log("onDrop");
+      }}
+      className="mix-h-screen relative w-full"
+    >
+      <div className="dragged absolute min-h-screen w-full"></div>
+
       {children}
-    </>
+    </div>
   );
 };
 

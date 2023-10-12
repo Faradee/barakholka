@@ -8,6 +8,8 @@ import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
 import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
+import { toggleDim, setDim } from "@/app/redux/slices/dimSlice";
+import DimOverlay from "../DimOverlay";
 
 type Button = {
   title: string;
@@ -16,25 +18,17 @@ type Button = {
 const Navbar = () => {
   const router = useRouter();
   const [isNav, setNav] = useState<boolean>(false);
-  const [isDimmed, setDimmed] = useState<boolean>(false);
+
+  // const [isDimmed, setDimmed] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const userData = useAppSelector((state) => state.authReducer);
+  const isDimmed = useAppSelector((state) => state.dimReducer.isDimmed);
 
   //on nav button press
   const handleIsNav = () => {
-    setDimmed(!isDimmed);
+    dispatch(toggleDim());
     setNav(!isNav);
-    isDimmed
-      ? (document.body.style.overflow = "auto")
-      : (document.body.style.overflow = "hidden");
-  };
-
-  //on dim overlay press
-  const handleDim = () => {
-    setDimmed(!isDimmed);
-    setNav(false);
-    setAuth(false);
     isDimmed
       ? (document.body.style.overflow = "auto")
       : (document.body.style.overflow = "hidden");
@@ -47,27 +41,37 @@ const Navbar = () => {
   //on auth button press
   const toggleAuthModal = useCallback(() => {
     setNav(false);
-    setDimmed(true);
+    dispatch(toggleDim());
     setAuth(true);
     document.body.style.overflow = "hidden";
-  }, []);
+  }, [dispatch]);
 
   const handleResize = () => {
     if (isDimmed && isNav && window.innerWidth > 1000) {
       document.body.style.overflow = "auto";
       setNav(false);
-      setDimmed(false);
+      dispatch(toggleDim());
     }
   };
 
-  const cachedHandleResize = useCallback(handleResize, [isDimmed, isNav]);
+  const cachedHandleResize = useCallback(handleResize, [
+    isDimmed,
+    isNav,
+    dispatch,
+  ]);
   const buttons = [
     { title: "Недвижимость", url: "estate" },
     { title: "Авто", url: "car" },
     { title: "Вещи", url: "misc" },
     { title: "Создать объявление", url: "create" },
   ] as Button[];
-
+  useEffect(() => {
+    if (!isDimmed) {
+      setNav(false);
+      setAuth(false);
+      document.body.style.overflow = "hidden";
+    } else document.body.style.overflow = "auto";
+  }, [isDimmed]);
   useEffect(() => {
     window.addEventListener("resize", cachedHandleResize);
     return () => {
@@ -126,16 +130,8 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      {isAuth && <AuthModal handleDim={handleDim} />}
-      <div
-        onClick={handleDim}
-        className={`${
-          isDimmed ? " opacity-70  brightness-0" : "pointer-events-auto hidden"
-        }
-    fixed ${
-      !isAuth ? "lg:hidden" : "z-30"
-    } h-full min-h-screen w-full bg-slate-300`}
-      />
+      {isAuth && <AuthModal />}
+      <DimOverlay />
       <span className="mb-4 block h-20 w-full" />
     </>
   );

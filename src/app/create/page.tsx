@@ -10,6 +10,7 @@ import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
 import LabelFormField from "@/components/forms/LabelFormField";
 import Gallery from "@/components/postEditor/Gallery";
+import UploadableWrapper from "@/components/forms/UploadableWrapper";
 export type PostState = {
   posterId: string;
   title: string;
@@ -41,43 +42,47 @@ const PostEditor = () => {
   }, [dispatch, uuid]);
   return (
     <form id="post">
-      <div className="flex w-full justify-center">
-        <Gallery />
-        <div>
-          <div className="h-[80vh] w-[25vw] bg-green-400 px-10 py-5">
-            <TypeToggle />
-            <div className="flex flex-col items-center justify-center">
-              <FormField
-                type="text"
-                placeholder="Заголовок объявления"
-                name="title"
-                useState={[postData.title, handleChange]}
-                onChange={handleChange}
-              />
-              <LabelFormField
-                type="number"
-                label="Цена"
-                placeholder="Цена"
-                name="price"
-                useState={[postData.price, handleChange]}
-                onChange={handleChange}
-              />
-              <DetailsForm />
-              <FormField
-                type="textarea"
-                placeholder="Описание объявления"
-                useState={[postData.description, handleChange]}
-                onChange={handleChange}
-                name="description"
-              />
-              <button type="button" onClick={() => console.log(postData)}>
-                {" "}
-                hi
-              </button>
+      <UploadableWrapper>
+        <div className="flex h-full w-full items-stretch justify-center lg:px-64">
+          <div className="min-h-min w-full">
+            <Gallery />
+          </div>
+          <div className="w-full">
+            <div className="bg-green-400 px-10 py-5">
+              <TypeToggle />
+              <div className="flex flex-col items-center justify-center">
+                <FormField
+                  type="text"
+                  placeholder="Заголовок объявления"
+                  name="title"
+                  useState={[postData.title, handleChange]}
+                  onChange={handleChange}
+                />
+                <LabelFormField
+                  type="number"
+                  label="Цена"
+                  placeholder="Цена"
+                  name="price"
+                  useState={[postData.price, handleChange]}
+                  onChange={handleChange}
+                />
+                <DetailsForm />
+                <FormField
+                  type="textarea"
+                  placeholder="Описание объявления"
+                  useState={[postData.description, handleChange]}
+                  onChange={handleChange}
+                  name="description"
+                />
+                <button type="button" onClick={() => console.log(postData)}>
+                  {" "}
+                  hi
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </UploadableWrapper>
     </form>
   );
 };

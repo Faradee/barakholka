@@ -1,28 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type dimState = {
-  value: {
-    isDimmed: boolean;
-  };
+type DimState = {
+  isDimmed: boolean;
 };
 const initialState = {
-  value: {
-    isDimmed: false,
-  },
-} as dimState;
+  isDimmed: false,
+} as DimState;
 export const dim = createSlice({
   name: "slice",
   initialState,
   reducers: {
     toggleDim: (state) => {
       return {
-        value: {
-          isDimmed: !state.value.isDimmed,
-        },
+        isDimmed: !state.isDimmed,
+      };
+    },
+    setDim: (state, action: PayloadAction<boolean>) => {
+      return {
+        isDimmed: action.payload,
       };
     },
   },
 });
 
-export const { toggleDim } = dim.actions;
+export const { toggleDim, setDim } = dim.actions;
 export default dim.reducer;

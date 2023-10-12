@@ -13,9 +13,7 @@ import {
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
 import FormField from "../forms/FormField";
-type AuthModalProps = {
-  handleDim: () => void;
-};
+import { toggleDim } from "@/app/redux/slices/dimSlice";
 type Auth = {
   email: string;
   password: string;
@@ -25,7 +23,7 @@ type Auth = {
   showPassword: boolean;
 };
 
-const AuthModal = ({ handleDim }: AuthModalProps) => {
+const AuthModal = () => {
   const initialAuth = {
     email: "",
     password: "",
@@ -55,7 +53,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
     const fetchedUser = await signUser(userData);
     if (fetchedUser) {
       dispatch(signIn(fetchedUser));
-      handleDim();
+      dispatch(toggleDim());
     } else setCredentialsWarning(true);
   };
   const handleSignUp = async () => {
@@ -68,7 +66,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
       const createdUser = await createUser(userData);
       if (createdUser) {
         dispatch(signIn(createdUser));
-        handleDim();
+        dispatch(toggleDim());
         return;
       }
     }
@@ -96,7 +94,7 @@ const AuthModal = ({ handleDim }: AuthModalProps) => {
         alt="Logo"
       />
       <div
-        onClick={handleDim}
+        onClick={() => dispatch(toggleDim())}
         className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
       >
         <AiOutlineClose size={40} color="white" />
