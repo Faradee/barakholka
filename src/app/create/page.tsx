@@ -43,7 +43,7 @@ const PostEditor = () => {
   return (
     <form id="post">
       <UploadableWrapper>
-        <div className="flex h-full w-full items-stretch justify-center lg:px-64">
+        <div className="flex h-full w-full items-stretch justify-center">
           <div className="min-h-min w-full">
             <Gallery />
           </div>

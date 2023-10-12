@@ -69,8 +69,8 @@ const Navbar = () => {
     if (!isDimmed) {
       setNav(false);
       setAuth(false);
-      document.body.style.overflow = "hidden";
-    } else document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    } else document.body.style.overflow = "hidden";
   }, [isDimmed]);
   useEffect(() => {
     window.addEventListener("resize", cachedHandleResize);
