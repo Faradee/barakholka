@@ -37,7 +37,7 @@ const CarForm = (props: CarFormProps) => {
   }, [dispatch]);
   return (
     <>
-      <div className="flex gap-x-0.5">
+      <div className="flex w-full gap-x-0.5">
         <LabelFormField
           type="number"
           label="Километраж"
@@ -64,7 +64,7 @@ const CarForm = (props: CarFormProps) => {
         useState={[details.horsepower, handleChange]}
         onChange={handleChange}
       />
-      <div className="flex gap-x-0.5">
+      <div className="flex w-full gap-x-0.5">
         <FormField
           type="text"
           name="brand"
