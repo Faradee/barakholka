@@ -43,7 +43,7 @@ const FormField = (props: FormFieldProps) => {
     }
   };
   return (
-    <div
+    <label
       className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
       style={(noMargin && { marginRight: "0", marginLeft: "0" }) || {}}
     >
@@ -86,7 +86,7 @@ const FormField = (props: FormFieldProps) => {
         />
       )}
       {children}
-    </div>
+    </label>
   );
 };
 

@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
 import FormField from "../forms/FormField";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { useAppSelector } from "@/app/redux/store";
 import { setPostField } from "@/app/redux/slices/postSlice";
-import LabelFormField from "../forms/LabelFormField";
 export type CarState = {
   kilometrage: string;
   year: string;
@@ -38,28 +37,25 @@ const CarForm = (props: CarFormProps) => {
   return (
     <>
       <div className="flex w-full gap-x-0.5">
-        <LabelFormField
+        <FormField
           type="number"
-          label="Километраж"
           useState={[details.kilometrage, handleChange]}
           placeholder="Километраж"
           name="kilometrage"
           onChange={handleChange}
         />
-        <LabelFormField
+        <FormField
           type="number"
           name="year"
-          label="Год Выпуска"
           placeholder="Год выпуска"
           useState={[details.year, handleChange]}
           onChange={handleChange}
         />
       </div>
 
-      <LabelFormField
+      <FormField
         type="number"
         name="horsepower"
-        label="Мощность двигателя(л.с.)"
         placeholder="Мощность двигателя(л.с.)"
         useState={[details.horsepower, handleChange]}
         onChange={handleChange}

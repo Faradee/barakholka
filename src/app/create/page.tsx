@@ -51,7 +51,7 @@ const PostEditor = () => {
   return (
     <form id="post">
       <UploadableWrapper addFile={addImage}>
-        <div className="flex h-full w-full items-stretch justify-center">
+        <div className="flex h-full min-h-screen w-full items-stretch justify-center">
           <div className="min-h-min w-full">
             <Gallery />
           </div>
@@ -66,9 +66,8 @@ const PostEditor = () => {
                   useState={[postData.title, handleChange]}
                   onChange={handleChange}
                 />
-                <LabelFormField
+                <FormField
                   type="number"
-                  label="Цена"
                   placeholder="Цена"
                   name="price"
                   useState={[postData.price, handleChange]}
