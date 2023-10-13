@@ -42,6 +42,9 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+svg {
+  pointer-events: none;
+}
 .thumbnail-list > div {
   height: 25%;
   object-fit: cover;

@@ -1,7 +1,8 @@
 "use client";
 import React, { SetStateAction, useState } from "react";
 import { useAppSelector } from "@/app/redux/store";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import Uploadable from "./Uploadable";
+
 type UploadableWrapperProps = {
   children: React.ReactNode;
   addFile: (file: string) => void;
@@ -47,13 +48,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
         className="absolute z-30 hidden h-full w-full items-center justify-center bg-black text-white opacity-0"
         style={localDim ? { opacity: "0.7", display: "flex" } : {}}
       >
-        {" "}
-        {localDim && (
-          <div className="pointer-events-none flex translate-y-[-25%] flex-col items-center justify-center">
-            <AiOutlineCloudUpload size={"xl"} />
-            Отпустите чтобы загрузить файл
-          </div>
-        )}
+        <Uploadable />
       </div>
       <div onDragEnter={() => setLocalDim(true)}>{children}</div>
     </div>
