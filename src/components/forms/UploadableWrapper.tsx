@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Uploadable from "./Uploadable";
+import { useAppSelector } from "@/app/redux/store";
 
 type UploadableWrapperProps = {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ type UploadableWrapperProps = {
 const UploadableWrapper = (props: UploadableWrapperProps) => {
   const { children, addFile } = props;
   const [localDim, setLocalDim] = useState<boolean>(false);
+  const dragAllow = useAppSelector((state) => state.dragReducer.dragAllow);
   const handleUpload = (e: React.DragEvent) => {
     const reader = new FileReader();
     console.log(e.dataTransfer.items);
@@ -26,7 +28,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="h-full w-full" onDrop={(e) => e.preventDefault()}>
       <div
         onDragEnter={(e) => {
           e.preventDefault();
@@ -36,17 +38,29 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           e.preventDefault();
           setLocalDim(false);
         }}
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
         onDrop={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           setLocalDim(false);
           handleUpload(e);
         }}
-        className="absolute z-30 hidden h-full w-full items-center justify-center bg-black text-white opacity-0"
-        style={localDim ? { opacity: "0.7", display: "flex" } : {}}
+        className="absolute z-30 hidden h-full w-full select-none items-center justify-center bg-black text-white opacity-70"
+        style={localDim ? { display: "flex" } : {}}
       >
         <Uploadable />
       </div>
-      <div onDragEnter={() => setLocalDim(true)}>{children}</div>
+      <div
+        onDragEnter={(e) => {
+          e.preventDefault();
+          if (dragAllow) setLocalDim(true);
+        }}
+        className="h-full w-full"
+      >
+        {children}
+      </div>
     </div>
   );
 };

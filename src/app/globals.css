@@ -43,7 +43,8 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 svg {
-  pointer-events: none;
+  pointer-events: none !important;
+  user-select: none;
 }
 .thumbnail-list > div {
   height: 25%;

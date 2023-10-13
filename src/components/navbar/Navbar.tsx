@@ -81,8 +81,8 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="fixed z-30 flex h-20 w-screen items-center justify-between
-       bg-white px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
+        className="fixed z-30 flex h-20 w-screen items-center justify-between bg-white
+       px-5 py-4 lg:z-0 lg:justify-center lg:px-64 lg:shadow-md "
       >
         <div className="flex justify-start lg:hidden">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />

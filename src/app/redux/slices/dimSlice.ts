@@ -7,7 +7,7 @@ const initialState = {
   isDimmed: false,
 } as DimState;
 export const dim = createSlice({
-  name: "slice",
+  name: "dim",
   initialState,
   reducers: {
     toggleDim: (state) => {

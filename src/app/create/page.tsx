@@ -49,48 +49,49 @@ const PostEditor = () => {
     };
   }, [dispatch, uuid]);
   return (
-    <form id="post">
-      <UploadableWrapper addFile={addImage}>
-        <div className="min-h-fullscreen flex h-full w-full items-stretch justify-center lg:px-64">
-          <div className="min-h-min w-full">
-            <Gallery addImage={addImage} />
-          </div>
-          <div className="w-full">
-            <div className="h-full bg-green-400 px-10 py-5">
-              <TypeToggle />
-              <div className="flex flex-col items-center justify-center">
-                <FormField
-                  type="text"
-                  placeholder="Заголовок объявления"
-                  name="title"
-                  useState={[postData.title, handleChange]}
-                  onChange={handleChange}
-                />
-                <FormField
-                  type="number"
-                  placeholder="Цена"
-                  name="price"
-                  useState={[postData.price, handleChange]}
-                  onChange={handleChange}
-                />
-                <DetailsForm />
-                <FormField
-                  type="textarea"
-                  placeholder="Описание объявления"
-                  useState={[postData.description, handleChange]}
-                  onChange={handleChange}
-                  name="description"
-                />
-                <button type="button" onClick={() => console.log(postData)}>
-                  {" "}
-                  hi
-                </button>
-              </div>
+    <UploadableWrapper addFile={addImage}>
+      <div
+        className="min-h-fullscreen flex h-full w-full items-stretch justify-center lg:px-[10vw]"
+        onDrop={(e) => e.preventDefault()}
+      >
+        <div className="min-h-min w-full">
+          <Gallery addImage={addImage} />
+        </div>
+        <div className="w-full">
+          <div className="h-full bg-green-400 px-10 py-5">
+            <TypeToggle />
+            <div className="flex flex-col items-center justify-center">
+              <FormField
+                type="text"
+                placeholder="Заголовок объявления"
+                name="title"
+                useState={[postData.title, handleChange]}
+                onChange={handleChange}
+              />
+              <FormField
+                type="number"
+                placeholder="Цена"
+                name="price"
+                useState={[postData.price, handleChange]}
+                onChange={handleChange}
+              />
+              <DetailsForm />
+              <FormField
+                type="textarea"
+                placeholder="Описание объявления"
+                useState={[postData.description, handleChange]}
+                onChange={handleChange}
+                name="description"
+              />
+              <button type="button" onClick={() => console.log(postData)}>
+                {" "}
+                hi
+              </button>
             </div>
           </div>
         </div>
-      </UploadableWrapper>
-    </form>
+      </div>
+    </UploadableWrapper>
   );
 };
 
