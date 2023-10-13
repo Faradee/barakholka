@@ -51,12 +51,12 @@ const PostEditor = () => {
   return (
     <form id="post">
       <UploadableWrapper addFile={addImage}>
-        <div className="flex h-full min-h-screen w-full items-stretch justify-center">
+        <div className="min-h-fullscreen flex h-full w-full items-stretch justify-center lg:px-64">
           <div className="min-h-min w-full">
             <Gallery />
           </div>
           <div className="w-full">
-            <div className="bg-green-400 px-10 py-5">
+            <div className="h-full bg-green-400 px-10 py-5">
               <TypeToggle />
               <div className="flex flex-col items-center justify-center">
                 <FormField

@@ -62,7 +62,7 @@ const Navbar = () => {
   const buttons = [
     { title: "Недвижимость", url: "estate" },
     { title: "Авто", url: "car" },
-    { title: "Вещи", url: "misc" },
+    { title: "Другое", url: "misc" },
     { title: "Создать объявление", url: "create" },
   ] as Button[];
   useEffect(() => {
@@ -132,7 +132,7 @@ const Navbar = () => {
       </nav>
       {isAuth && <AuthModal />}
       <DimOverlay />
-      <span className="mb-4 block h-20 w-full" />
+      <span className="block h-20 w-full" />
     </>
   );
 };

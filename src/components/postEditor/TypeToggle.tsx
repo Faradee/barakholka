@@ -57,7 +57,7 @@ const TypeToggle = () => {
         onClick={() => handleTypeToggle(2)}
         className="w-36 border-b-2 border-black bg-slate-200"
       >
-        Вещи
+        Другое
       </button>
     </div>
   );

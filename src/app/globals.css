@@ -52,6 +52,9 @@ input[type="number"] {
 .accordeon:hover > .accordeon-step > .accordeon-bar {
   opacity: 1;
 }
+.min-h-fullscreen {
+  min-height: calc(100vh - 5rem) !important;
+}
 .accordeon-step:hover > .accordeon-bar {
   background-color: rgb(200, 0, 0);
 }

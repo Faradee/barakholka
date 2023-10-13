@@ -22,7 +22,7 @@ const getPosts = async () => {
 const Home = async () => {
   const posts = await getPosts();
   return (
-    <div className="">
+    <div className="lg:px-64">
       <h1 className="text-2x1 font-bold">Posts</h1>
       {
         <ul className="flex flex-wrap justify-center lg:mx-10 lg:justify-start">
