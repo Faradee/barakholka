@@ -1,6 +1,5 @@
 "use client";
-import React, { SetStateAction, useState } from "react";
-import { useAppSelector } from "@/app/redux/store";
+import { useState } from "react";
 import Uploadable from "./Uploadable";
 
 type UploadableWrapperProps = {
@@ -11,9 +10,6 @@ type UploadableWrapperProps = {
 const UploadableWrapper = (props: UploadableWrapperProps) => {
   const { children, addFile } = props;
   const [localDim, setLocalDim] = useState<boolean>(false);
-  const postThumbnails = useAppSelector(
-    (state) => state.postReducer.thumbnails,
-  );
   const handleUpload = (e: React.DragEvent) => {
     const reader = new FileReader();
     console.log(e.dataTransfer.items);

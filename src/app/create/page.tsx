@@ -53,7 +53,7 @@ const PostEditor = () => {
       <UploadableWrapper addFile={addImage}>
         <div className="min-h-fullscreen flex h-full w-full items-stretch justify-center lg:px-64">
           <div className="min-h-min w-full">
-            <Gallery />
+            <Gallery addImage={addImage} />
           </div>
           <div className="w-full">
             <div className="h-full bg-green-400 px-10 py-5">
