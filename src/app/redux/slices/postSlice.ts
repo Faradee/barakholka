@@ -24,10 +24,10 @@ const initialState = {
   title: "",
   type: "car",
   description: "",
-  price: "0",
+  price: "",
   details: {
-    kilometrage: "0",
-    year: "0",
+    kilometrage: "",
+    year: "",
     transmission: "",
     brand: "",
     model: "",

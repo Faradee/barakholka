@@ -25,8 +25,8 @@ const CarForm = (props: CarFormProps) => {
   const details = postData.details as CarState;
   useEffect(() => {
     const initialCarData = {
-      kilometrage: "0",
-      year: "0",
+      kilometrage: "",
+      year: "",
       transmission: "",
       brand: "",
       model: "",

@@ -69,19 +69,10 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           type={type}
           onChange={(e) => {
-            if (type === "number") {
-              if (/^$/.test(e.currentTarget.value)) {
-                e.currentTarget.value = "0";
-                onChange
-                  ? onChange(e, setState)
-                  : setState(e.currentTarget.value);
-              }
-              if (!/^[1-9][0-9]*$/.test(e.currentTarget.value))
-                e.currentTarget.value = e.currentTarget.value.substring(1);
-            }
             if (
               type !== "number" ||
-              /^[1-9][0-9]*$/.test(e.currentTarget.value)
+              /^[1-9][0-9]*$/.test(e.currentTarget.value) ||
+              e.currentTarget.value === ""
             ) {
               onChange
                 ? onChange(e, setState)
