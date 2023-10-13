@@ -35,7 +35,7 @@ const initialState = {
     horsepower: "",
     damaged: false,
   } as CarState,
-  thumbnails: ["/thumbnailPlaceholder.png"],
+  thumbnails: [],
 } as InitialState;
 export const post = createSlice({
   name: "post",

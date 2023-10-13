@@ -1,16 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import { setPostField } from "@/app/redux/slices/postSlice";
+import React, { SetStateAction, useState } from "react";
 import { useAppSelector } from "@/app/redux/store";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { useDispatch } from "react-redux";
 type UploadableWrapperProps = {
   children: React.ReactNode;
+  addFile: (file: string) => void;
 };
 
 const UploadableWrapper = (props: UploadableWrapperProps) => {
-  const { children } = props;
-  const dispatch = useDispatch();
+  const { children, addFile } = props;
   const [localDim, setLocalDim] = useState<boolean>(false);
   const postThumbnails = useAppSelector(
     (state) => state.postReducer.thumbnails,
@@ -24,12 +22,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
         if (file.kind === "file" && file.type.match("^image/")) {
           const image = file.getAsFile();
           reader.readAsDataURL(image as Blob);
-          reader.onload = () =>
-            dispatch(
-              setPostField({
-                thumbnails: [...postThumbnails, reader.result as string],
-              }),
-            );
+          reader.onload = () => addFile(reader.result as string);
         }
       }
     }
@@ -40,11 +33,9 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
       <div
         onDragEnter={(e) => {
           e.preventDefault();
-          console.log("onDrag");
           setLocalDim(true);
         }}
         onDragLeave={(e) => {
-          console.log("poop");
           e.preventDefault();
           setLocalDim(false);
         }}
@@ -52,7 +43,6 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           e.preventDefault();
           setLocalDim(false);
           handleUpload(e);
-          console.log("onDrop");
         }}
         className="absolute z-30 hidden h-full w-full items-center justify-center bg-black text-white opacity-0"
         style={localDim ? { opacity: "0.7", display: "flex" } : {}}

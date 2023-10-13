@@ -25,12 +25,20 @@ const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { uuid } = useAppSelector((state) => state.authReducer);
   const postData = useAppSelector((state) => state.postReducer);
+  const postThumbnails = postData.thumbnails;
   const handleChange: React.Dispatch<React.SetStateAction<any>> = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     dispatch(
       setPostField({
         [e.currentTarget.name]: e.currentTarget.value,
+      }),
+    );
+  };
+  const addImage = (file: string) => {
+    dispatch(
+      setPostField({
+        thumbnails: [...postThumbnails, file],
       }),
     );
   };
@@ -42,7 +50,7 @@ const PostEditor = () => {
   }, [dispatch, uuid]);
   return (
     <form id="post">
-      <UploadableWrapper>
+      <UploadableWrapper addFile={addImage}>
         <div className="flex h-full w-full items-stretch justify-center">
           <div className="min-h-min w-full">
             <Gallery />
