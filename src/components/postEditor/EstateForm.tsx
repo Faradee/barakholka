@@ -3,6 +3,7 @@ import { useAppSelector } from "@/app/redux/store";
 import { setPostField } from "@/app/redux/slices/postSlice";
 import { useEffect } from "react";
 import FormField from "../forms/FormField";
+import LabelFormField from "../forms/LabelFormField";
 import { setDetailsField } from "@/app/redux/slices/postSlice";
 export type EstateState = {
   space: string;
@@ -49,7 +50,7 @@ const EstateForm = (props: EstateFormProps) => {
         <FormField
           type="number"
           useState={[details.space, handleChange]}
-          placeholder="Площадь в м^2^"
+          placeholder="Площадь в м^2"
           name="space"
           onChange={handleChange}
         />
@@ -62,10 +63,10 @@ const EstateForm = (props: EstateFormProps) => {
         />
       </div>
       <div className="flex w-full justify-start">
-        <FormField
+        <LabelFormField
           type="boolean"
           name="furniture"
-          placeholder="Наличие мебели"
+          label="Наличие мебели"
           useState={[details.furniture, toggleBoolean]}
         />
       </div>

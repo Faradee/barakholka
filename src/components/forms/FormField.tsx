@@ -57,6 +57,7 @@ const FormField = (props: FormFieldProps) => {
                 state === true ? "rgb(34, 197, 94)" : "rgb(226 232 240)",
               transition: "background-color 0.3s",
               justifyContent: state === true ? "end" : "start",
+              cursor: "pointer",
             }
           : noMargin
           ? { marginRight: "0", marginLeft: "0" }

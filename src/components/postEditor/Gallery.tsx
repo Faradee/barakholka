@@ -58,11 +58,13 @@ const Gallery = (props: GalleryProps) => {
           />
         )}
       </div>
-      <div className="flex h-[40%] flex-row flex-wrap gap-2  bg-red-400 p-2">
+      <div className="flex h-[40%] flex-row flex-wrap gap-2 p-2">
         {first10.map((image: string, index: number) => (
           <div
             key={index}
-            className="outline-3 drop-shadow-green-300 relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] outline-green-300 drop-shadow-xl"
+            className={`outline-2 ${
+              index === selectIndex && "shadow-md"
+            } relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] shadow-red-400 outline-red-400`}
             onClick={() => setSelectIndex(index)}
             style={index === selectIndex ? { outlineStyle: "solid" } : {}}
           >
@@ -72,7 +74,7 @@ const Gallery = (props: GalleryProps) => {
               onDragStart={() => handleDrag(false)}
               onDragEnd={() => handleDrag(true)}
               fill
-              className="object-cover"
+              className="cursor-pointer object-cover"
             />
           </div>
         ))}
