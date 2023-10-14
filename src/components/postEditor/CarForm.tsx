@@ -33,6 +33,9 @@ const CarForm = (props: CarFormProps) => {
       damaged: false,
     } as CarState;
     dispatch(setPostField({ details: initialCarData }));
+    return () => {
+      dispatch(setPostField({ details: initialCarData }));
+    };
   }, [dispatch]);
   return (
     <>

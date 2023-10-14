@@ -1,9 +1,8 @@
 import { setDetailsField } from "@/app/redux/slices/postSlice";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { useDispatch } from "react-redux";
-import CarForm, { CarState } from "./CarForm";
-import EstateForm, { EstateState } from "./EstateForm";
-import { PostState } from "@/app/create/page";
+import CarForm from "./CarForm";
+import EstateForm from "./EstateForm";
 
 const DetailsForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,7 +21,7 @@ const DetailsForm = () => {
       {postType === "car" ? (
         <CarForm handleChange={handleChange} />
       ) : postType === "estate" ? (
-        <EstateForm />
+        <EstateForm handleChange={handleChange} />
       ) : (
         <></>
       )}

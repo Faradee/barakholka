@@ -47,7 +47,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           setLocalDim(false);
           handleUpload(e);
         }}
-        className="absolute z-30 hidden h-full w-full select-none items-center justify-center bg-black text-white opacity-70"
+        className="absolute z-30 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70"
         style={localDim ? { display: "flex" } : {}}
       >
         <Uploadable />

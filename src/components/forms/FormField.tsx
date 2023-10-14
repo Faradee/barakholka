@@ -1,14 +1,14 @@
 import { IconType } from "react-icons";
 
 export type FormFieldProps = {
-  type: "text" | "password" | "email" | "number" | "textarea";
+  type: "text" | "password" | "email" | "number" | "textarea" | "boolean";
   icon?: IconType;
-  useState: [string, React.Dispatch<React.SetStateAction<any>>];
+  useState: [string | boolean, React.Dispatch<React.SetStateAction<any>>];
   name: string;
   placeholder?: string;
   cols?: number;
   onChange?: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent | React.MouseEvent,
     setState: React.Dispatch<React.SetStateAction<string>>,
   ) => void;
   children?: React.ReactNode;
@@ -45,13 +45,29 @@ const FormField = (props: FormFieldProps) => {
   return (
     <label
       className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
-      style={(noMargin && { marginRight: "0", marginLeft: "0" }) || {}}
+      style={
+        type === "boolean"
+          ? {
+              width: "50px",
+              height: "25px",
+              borderRadius: "9999px",
+              padding: "0 2px",
+              display: "flex",
+              backgroundColor:
+                state === true ? "rgb(34, 197, 94)" : "rgb(226 232 240)",
+              transition: "background-color 0.3s",
+              justifyContent: state === true ? "end" : "start",
+            }
+          : noMargin
+          ? { marginRight: "0", marginLeft: "0" }
+          : {}
+      }
     >
       {Icon && <Icon />}
       {type === "textarea" ? (
         <textarea
           className="w-full outline-none"
-          value={state}
+          value={state as string}
           name={name}
           cols={cols}
           placeholder={placeholder}
@@ -61,10 +77,23 @@ const FormField = (props: FormFieldProps) => {
           }}
           required={required}
         />
+      ) : type === "boolean" ? (
+        <>
+          <input
+            type="checkbox"
+            name={name}
+            checked={state as boolean}
+            className="hidden"
+            onClick={(e) => {
+              setState(e);
+            }}
+          />
+          <div className="h-[20px] w-[20px] rounded-full bg-white shadow-lg shadow-black"></div>
+        </>
       ) : (
         <input
           className="w-full outline-none"
-          value={state}
+          value={state as string}
           name={name}
           placeholder={placeholder}
           type={type}

@@ -24,9 +24,6 @@ const Gallery = (props: GalleryProps) => {
       );
     };
   };
-  const handleSelect = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.classList.add("outline-2");
-  };
   const handleDrag = (drag: boolean) => {
     dispatch(setDrag(drag));
   };
@@ -39,6 +36,9 @@ const Gallery = (props: GalleryProps) => {
         {thumbnailList.length === 0 ? (
           <>
             <Uploadable textless />
+            <span className="text-center">
+              <p>Перетащите картинку в окно</p> <p>или</p>{" "}
+            </span>
             <input
               type="file"
               name="thumbnail"
@@ -62,7 +62,7 @@ const Gallery = (props: GalleryProps) => {
         {first10.map((image: string, index: number) => (
           <div
             key={index}
-            className="outline-3 relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] outline-green-300"
+            className="outline-3 drop-shadow-green-300 relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] outline-green-300 drop-shadow-xl"
             onClick={() => setSelectIndex(index)}
             style={index === selectIndex ? { outlineStyle: "solid" } : {}}
           >
