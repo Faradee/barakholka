@@ -30,6 +30,7 @@ const CarForm = (props: CarFormProps) => {
       brand: "",
       model: "",
       color: "",
+      horsepower: "",
       damaged: false,
     } as CarState;
     dispatch(setPostField({ details: initialCarData }));

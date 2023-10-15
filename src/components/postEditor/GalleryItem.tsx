@@ -10,14 +10,16 @@ const GalleryItem = (props: GalleryItemProps) => {
   const dispatch = useDispatch();
 
   return (
-    <Image
-      src={image}
-      alt=""
-      onDragStart={() => dispatch(setDrag(false))}
-      onDragEnd={() => dispatch(setDrag(true))}
-      fill
-      className="cursor-pointer object-cover"
-    />
+    image && (
+      <Image
+        src={image}
+        alt=""
+        onDragStart={() => dispatch(setDrag(false))}
+        onDragEnd={() => dispatch(setDrag(true))}
+        fill
+        className="cursor-pointer object-cover"
+      />
+    )
   );
 };
 

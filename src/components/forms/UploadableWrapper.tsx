@@ -14,7 +14,6 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   const dragAllow = useAppSelector((state) => state.dragReducer.dragAllow);
   const handleUpload = (e: React.DragEvent) => {
     const reader = new FileReader();
-    console.log(e.dataTransfer.items);
     if (e.dataTransfer.items) {
       for (let i = 0; i < e.dataTransfer.items.length; i++) {
         const file = e.dataTransfer.items[i];

@@ -43,7 +43,15 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
-
+.circle {
+  clip-path: circle(40%);
+}
+.onhover {
+  display: none;
+}
+*:hover > .onhover {
+  display: block;
+}
 svg {
   pointer-events: none !important;
   user-select: none;

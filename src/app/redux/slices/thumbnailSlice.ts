@@ -15,10 +15,10 @@ export const thumbnail = createSlice({
       };
     },
     removeThumbnail: (state, action: PayloadAction<number>) => {
+      const arr = [...state.thumbnails];
+      arr.splice(action.payload, 1);
       return {
-        thumbnails: state.thumbnails.filter(
-          (item) => item !== state.thumbnails[action.payload],
-        ),
+        thumbnails: arr,
       };
     },
     swapThumbnails: (state, action: PayloadAction<[number, number]>) => {

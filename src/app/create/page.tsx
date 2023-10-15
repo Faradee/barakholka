@@ -89,6 +89,10 @@ const PostEditor = () => {
                 {" "}
                 hi
               </button>
+              <button type="button" onClick={() => console.log(postThumbnails)}>
+                {" "}
+                hi
+              </button>
             </div>
           </div>
         </div>

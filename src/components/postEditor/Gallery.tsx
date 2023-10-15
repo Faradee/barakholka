@@ -1,10 +1,9 @@
 import Uploadable from "../forms/Uploadable";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { setPostField } from "@/app/redux/slices/postSlice";
 import { useState, memo } from "react";
-import { setDrag } from "@/app/redux/slices/dragSlice";
 import GalleryItem from "./GalleryItem";
+import { AiOutlineClose } from "react-icons/ai";
+import { removeThumbnail } from "@/app/redux/slices/thumbnailSlice";
+import { useDispatch } from "react-redux";
 type GalleryProps = {
   addImage: (file: string) => void;
   thumbnailList: string[];
@@ -14,11 +13,15 @@ type GalleryProps = {
 const Gallery = (props: GalleryProps) => {
   const { thumbnailList, addImage } = props;
   const first10 = thumbnailList.slice(0, 10);
+  const dispatch = useDispatch();
   const [selectIndex, setSelectIndex] = useState<number>(0);
   const handleUpload = (file: File) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => addImage(reader.result as string);
+  };
+  const handleDelete = (index: number) => {
+    dispatch(removeThumbnail(index));
   };
   return (
     <div className="flex h-full w-full flex-col">
@@ -56,6 +59,12 @@ const Gallery = (props: GalleryProps) => {
             style={index === selectIndex ? { outlineStyle: "solid" } : {}}
             onClick={() => setSelectIndex(index)}
           >
+            <div
+              className="onhover absolute right-0 z-10 m-1 cursor-pointer backdrop-blur-sm"
+              onClick={() => handleDelete(index)}
+            >
+              <AiOutlineClose size={20} color="red" />
+            </div>
             <GalleryItem image={image} />
           </div>
         ))}
