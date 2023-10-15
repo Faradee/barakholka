@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TypeToggle from "@/components/postEditor/TypeToggle";
 import FormField from "@/components/forms/FormField";
 import { CarState } from "@/components/postEditor/CarForm";
@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
-import LabelFormField from "@/components/forms/LabelFormField";
 import Gallery from "@/components/postEditor/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
+import { addThumbnail } from "../redux/slices/thumbnailSlice";
 export type PostState = {
   posterId: string;
   title: string;
@@ -25,7 +25,9 @@ const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { uuid } = useAppSelector((state) => state.authReducer);
   const postData = useAppSelector((state) => state.postReducer);
-  const postThumbnails = postData.thumbnails;
+  const postThumbnails = useAppSelector(
+    (state) => state.thumbnailReducer.thumbnails,
+  );
   const handleChange: React.Dispatch<React.SetStateAction<any>> = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -36,11 +38,7 @@ const PostEditor = () => {
     );
   };
   const addImage = (file: string) => {
-    dispatch(
-      setPostField({
-        thumbnails: [...postThumbnails, file],
-      }),
-    );
+    dispatch(addThumbnail(file));
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
@@ -55,7 +53,7 @@ const PostEditor = () => {
         onDrop={(e) => e.preventDefault()}
       >
         <div className="min-h-min w-full">
-          <Gallery addImage={addImage} />
+          <Gallery thumbnailList={postThumbnails} />
         </div>
         <div className="w-full">
           <div className="h-full bg-green-400 px-10 py-5">

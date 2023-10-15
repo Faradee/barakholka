@@ -1,28 +1,25 @@
-import { useAppSelector } from "@/app/redux/store";
 import Uploadable from "../forms/Uploadable";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { setPostField } from "@/app/redux/slices/postSlice";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { setDrag } from "@/app/redux/slices/dragSlice";
 type GalleryProps = {
-  addImage: (file: string) => void;
+  thumbnailList: string[];
 };
+
+//TODO: MEMOIZE THUMBNAILS and add plus sign to upload image in the top right
 const Gallery = (props: GalleryProps) => {
-  const thumbnailList = useAppSelector((state) => state.postReducer.thumbnails);
+  // const thumbnailList = useAppSelector((state) => state.postReducer.thumbnails);
+  console.log("poop");
+  const { thumbnailList } = props;
   const first10 = thumbnailList.slice(0, 10);
   const dispatch = useDispatch();
   const [selectIndex, setSelectIndex] = useState<number>(0);
   const handleUpload = (file: File) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => {
-      dispatch(
-        setPostField({
-          thumbnails: [...thumbnailList, reader.result as string],
-        }),
-      );
-    };
+    // reader.onload = () => addImage(reader.result as string);
   };
   const handleDrag = (drag: boolean) => {
     dispatch(setDrag(drag));
@@ -83,4 +80,4 @@ const Gallery = (props: GalleryProps) => {
   );
 };
 
-export default Gallery;
+export default memo(Gallery);

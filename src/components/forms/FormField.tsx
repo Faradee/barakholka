@@ -56,7 +56,6 @@ const FormField = (props: FormFieldProps) => {
               backgroundColor:
                 state === true ? "rgb(34, 197, 94)" : "rgb(226 232 240)",
               transition: "background-color 0.3s",
-              justifyContent: state === true ? "end" : "start",
               cursor: "pointer",
             }
           : noMargin
@@ -89,7 +88,10 @@ const FormField = (props: FormFieldProps) => {
               setState(e);
             }}
           />
-          <div className="h-[20px] w-[20px] rounded-full bg-white shadow-lg shadow-black"></div>
+          <div
+            className="ml-0 h-[20px] w-[20px] rounded-full bg-white shadow-lg shadow-black transition-all duration-300"
+            style={state ? { marginLeft: "50%" } : {}}
+          ></div>
         </>
       ) : (
         <input
