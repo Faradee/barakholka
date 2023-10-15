@@ -4,25 +4,21 @@ import { useDispatch } from "react-redux";
 import { setPostField } from "@/app/redux/slices/postSlice";
 import { useState, memo } from "react";
 import { setDrag } from "@/app/redux/slices/dragSlice";
+import GalleryItem from "./GalleryItem";
 type GalleryProps = {
+  addImage: (file: string) => void;
   thumbnailList: string[];
 };
 
-//TODO: MEMOIZE THUMBNAILS and add plus sign to upload image in the top right
+//TODO: add plus sign to upload image in the top right
 const Gallery = (props: GalleryProps) => {
-  // const thumbnailList = useAppSelector((state) => state.postReducer.thumbnails);
-  console.log("poop");
-  const { thumbnailList } = props;
+  const { thumbnailList, addImage } = props;
   const first10 = thumbnailList.slice(0, 10);
-  const dispatch = useDispatch();
   const [selectIndex, setSelectIndex] = useState<number>(0);
   const handleUpload = (file: File) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    // reader.onload = () => addImage(reader.result as string);
-  };
-  const handleDrag = (drag: boolean) => {
-    dispatch(setDrag(drag));
+    reader.onload = () => addImage(reader.result as string);
   };
   return (
     <div className="flex h-full w-full flex-col">
@@ -47,12 +43,7 @@ const Gallery = (props: GalleryProps) => {
             />
           </>
         ) : (
-          <Image
-            src={thumbnailList[selectIndex]}
-            alt="thumbnail"
-            className="object-cover"
-            fill
-          />
+          <GalleryItem image={thumbnailList[selectIndex]} />
         )}
       </div>
       <div className="flex h-[40%] flex-row flex-wrap gap-2 p-2">
@@ -62,17 +53,10 @@ const Gallery = (props: GalleryProps) => {
             className={`outline-2 ${
               index === selectIndex && "shadow-md"
             } relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] shadow-red-400 outline-red-400`}
-            onClick={() => setSelectIndex(index)}
             style={index === selectIndex ? { outlineStyle: "solid" } : {}}
+            onClick={() => setSelectIndex(index)}
           >
-            <Image
-              src={image}
-              alt=""
-              onDragStart={() => handleDrag(false)}
-              onDragEnd={() => handleDrag(true)}
-              fill
-              className="cursor-pointer object-cover"
-            />
+            <GalleryItem image={image} />
           </div>
         ))}
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import TypeToggle from "@/components/postEditor/TypeToggle";
 import FormField from "@/components/forms/FormField";
 import { CarState } from "@/components/postEditor/CarForm";
@@ -28,18 +28,22 @@ const PostEditor = () => {
   const postThumbnails = useAppSelector(
     (state) => state.thumbnailReducer.thumbnails,
   );
-  const handleChange: React.Dispatch<React.SetStateAction<any>> = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    dispatch(
-      setPostField({
-        [e.currentTarget.name]: e.currentTarget.value,
-      }),
-    );
-  };
-  const addImage = (file: string) => {
-    dispatch(addThumbnail(file));
-  };
+  const handleChange: React.Dispatch<React.SetStateAction<any>> = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      dispatch(
+        setPostField({
+          [e.currentTarget.name]: e.currentTarget.value,
+        }),
+      );
+    },
+    [dispatch],
+  );
+  const addImage = useCallback(
+    (file: string) => {
+      dispatch(addThumbnail(file));
+    },
+    [dispatch],
+  );
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
     return () => {
@@ -53,7 +57,7 @@ const PostEditor = () => {
         onDrop={(e) => e.preventDefault()}
       >
         <div className="min-h-min w-full">
-          <Gallery thumbnailList={postThumbnails} />
+          <Gallery addImage={addImage} thumbnailList={postThumbnails} />
         </div>
         <div className="w-full">
           <div className="h-full bg-green-400 px-10 py-5">
