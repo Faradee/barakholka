@@ -31,9 +31,6 @@ input:autofill {
   box-shadow: 0 0 0 30px white inset !important;
 }
 
-button.active {
-  background-color: rgb(148 163 184) !important;
-}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

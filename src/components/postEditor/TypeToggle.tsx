@@ -1,13 +1,11 @@
 "use client";
 import { setPostField } from "@/app/redux/slices/postSlice";
-import { useAppSelector } from "@/app/redux/store";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CarState } from "./CarForm";
 import { EstateState } from "./EstateForm";
 const TypeToggle = () => {
   const dispatch = useDispatch();
-  const postData = useAppSelector((state) => state.postReducer);
   const [typeIndex, setTypeIndex] = useState<number>(0);
   const buttonListRef = useRef<HTMLDivElement>(null);
   const handleTypeToggle = (childIndex: number) => {
@@ -61,31 +59,49 @@ const TypeToggle = () => {
     dispatch(setPostField({ type: getTypeFromIndex(typeIndex) }));
   }, [typeIndex, dispatch]);
   return (
-    <div ref={buttonListRef} className="flex justify-center">
-      <button
-        type="button"
-        id="car"
-        onClick={() => handleTypeToggle(0)}
-        className="active w-36 border-b-2 border-black bg-slate-200"
-      >
-        Машина
-      </button>
-      <button
-        type="button"
-        id="estate"
-        onClick={() => handleTypeToggle(1)}
-        className="w-36 border-b-2 border-black bg-slate-200"
-      >
-        Недвижимость
-      </button>
-      <button
-        type="button"
-        id="misc"
-        onClick={() => handleTypeToggle(2)}
-        className="w-36 border-b-2 border-black bg-slate-200"
-      >
-        Другое
-      </button>
+    <div className=" left-1/2 flex w-full justify-center">
+      <div className="relative flex w-[27rem] bg-slate-300">
+        <div
+          className="relative z-0 block h-10 w-36  bg-slate-500 transition-all duration-300"
+          style={
+            typeIndex === 0
+              ? { left: 0 }
+              : typeIndex === 1
+              ? { left: "33.33%" }
+              : { left: "66.66%" }
+          }
+        >
+          {" "}
+        </div>
+        <div className="absolute  flex  ">
+          <div ref={buttonListRef} className="flex ">
+            <button
+              type="button"
+              id="car"
+              onClick={() => handleTypeToggle(0)}
+              className=" h-10 w-36 border-b-2 border-black "
+            >
+              Машина
+            </button>
+            <button
+              type="button"
+              id="estate"
+              onClick={() => handleTypeToggle(1)}
+              className=" h-10 w-36 border-b-2 border-black "
+            >
+              Недвижимость
+            </button>
+            <button
+              type="button"
+              id="misc"
+              onClick={() => handleTypeToggle(2)}
+              className="h-10 w-36 border-b-2 border-black "
+            >
+              Другое
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
