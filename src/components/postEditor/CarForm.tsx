@@ -17,27 +17,10 @@ type CarFormProps = {
   handleChange: React.Dispatch<any>;
 };
 const CarForm = (props: CarFormProps) => {
-  const dispatch = useDispatch();
   const postData = useAppSelector((state) => state.postReducer);
 
   const { handleChange } = props;
   const details = postData.details as CarState;
-  useEffect(() => {
-    const initialCarData = {
-      kilometrage: "",
-      year: "",
-      transmission: "",
-      brand: "",
-      model: "",
-      color: "",
-      horsepower: "",
-      damaged: false,
-    } as CarState;
-    dispatch(setPostField({ details: initialCarData }));
-    return () => {
-      dispatch(setPostField({ details: initialCarData }));
-    };
-  }, [dispatch]);
   return (
     <>
       <div className="flex w-full gap-x-0.5">

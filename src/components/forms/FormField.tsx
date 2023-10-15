@@ -82,7 +82,7 @@ const FormField = (props: FormFieldProps) => {
           <input
             type="checkbox"
             name={name}
-            checked={state as boolean}
+            defaultChecked={state as boolean}
             className="hidden"
             onClick={(e) => {
               setState(e);

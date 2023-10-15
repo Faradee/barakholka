@@ -29,21 +29,6 @@ const EstateForm = (props: EstateFormProps) => {
     );
   };
   const details = postData.details as EstateState;
-  useEffect(() => {
-    const initialEstateData = {
-      space: "",
-      rooms: "",
-      floor: "",
-      furniture: false,
-      renovation: "",
-      balcony: "",
-      type: "",
-    } as EstateState;
-    dispatch(setPostField({ details: initialEstateData }));
-    return () => {
-      dispatch(setPostField({ details: initialEstateData }));
-    };
-  }, [dispatch]);
   return (
     <>
       <div className="flex w-full gap-x-0.5">

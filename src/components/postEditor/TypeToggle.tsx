@@ -1,9 +1,10 @@
 "use client";
 import { setPostField } from "@/app/redux/slices/postSlice";
 import { useAppSelector } from "@/app/redux/store";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-
+import { CarState } from "./CarForm";
+import { EstateState } from "./EstateForm";
 const TypeToggle = () => {
   const dispatch = useDispatch();
   const postData = useAppSelector((state) => state.postReducer);
@@ -13,26 +14,52 @@ const TypeToggle = () => {
     if (buttonListRef.current) {
       const children = buttonListRef.current.children;
       children[typeIndex].classList.remove("active");
-
       children[childIndex].classList.add("active");
       setTypeIndex(childIndex);
-      dispatch(
-        setPostField({ ...postData, type: getTypeFromIndex(childIndex) }),
-      );
     }
   };
-  const getTypeFromIndex = (typeIndex: number) => {
+
+  useEffect(() => {
+    const getTypeFromIndex = (typeIndex: number) => {
+      switch (typeIndex) {
+        case 0:
+          return "car";
+        case 1:
+          return "estate";
+        case 2:
+          return "misc";
+        default:
+          return "car";
+      }
+    };
+    const initialCarData = {
+      kilometrage: "",
+      year: "",
+      transmission: "",
+      brand: "",
+      model: "",
+      color: "",
+      horsepower: "",
+      damaged: false,
+    } as CarState;
+    const initialEstateData = {
+      space: "",
+      rooms: "",
+      floor: "",
+      furniture: false,
+      renovation: "",
+      balcony: "",
+      type: "",
+    } as EstateState;
     switch (typeIndex) {
       case 0:
-        return "car";
+        dispatch(setPostField({ details: initialCarData }));
+        break;
       case 1:
-        return "estate";
-      case 2:
-        return "misc";
-      default:
-        return "car";
+        dispatch(setPostField({ details: initialEstateData }));
     }
-  };
+    dispatch(setPostField({ type: getTypeFromIndex(typeIndex) }));
+  }, [typeIndex, dispatch]);
   return (
     <div ref={buttonListRef} className="flex justify-center">
       <button
