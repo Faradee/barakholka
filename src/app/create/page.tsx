@@ -53,14 +53,14 @@ const PostEditor = () => {
   return (
     <UploadableWrapper addFile={addImage}>
       <div
-        className="min-h-fullscreen flex h-full w-full items-stretch justify-center lg:px-[10vw]"
+        className="min-h-fullscreen flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap lg:px-[10vw]"
         onDrop={(e) => e.preventDefault()}
       >
-        <div className="min-h-min w-full">
+        <div className=" min-h-[70vh] w-full">
           <Gallery addImage={addImage} thumbnailList={postThumbnails} />
         </div>
-        <div className="w-full">
-          <div className="h-full bg-green-400 px-10 py-5">
+        <div className="w-full lg:w-auto">
+          <div className="h-full  px-10 py-5">
             <TypeToggle />
             <div className="flex flex-col items-center justify-center">
               <FormField

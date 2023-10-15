@@ -60,21 +60,27 @@ const TypeToggle = () => {
   }, [typeIndex, dispatch]);
   return (
     <div className=" left-1/2 flex w-full justify-center">
-      <div className="relative flex w-[27rem] bg-slate-300">
+      <div className="relative mb-2 flex h-[7.5rem] bg-slate-300 lg:h-auto lg:w-[27rem]">
         <div
-          className="relative z-0 block h-10 w-36  bg-slate-500 transition-all duration-300"
+          className="relative block h-10 w-36 flex-col bg-slate-500 transition-all duration-300 lg:w-36 lg:flex-row"
           style={
-            typeIndex === 0
-              ? { left: 0 }
+            screen.width > 1024
+              ? typeIndex === 0
+                ? { left: 0 }
+                : typeIndex === 1
+                ? { left: "33.33%" }
+                : { left: "66.66%" }
+              : typeIndex === 0
+              ? { top: 0 }
               : typeIndex === 1
-              ? { left: "33.33%" }
-              : { left: "66.66%" }
+              ? { top: "33.33%" }
+              : { top: "66.66%" }
           }
         >
           {" "}
         </div>
-        <div className="absolute  flex  ">
-          <div ref={buttonListRef} className="flex ">
+        <div className="absolute flex flex-col lg:flex-row">
+          <div ref={buttonListRef} className="flex flex-col lg:flex-row">
             <button
               type="button"
               id="car"

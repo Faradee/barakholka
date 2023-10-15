@@ -78,7 +78,7 @@ const AuthModal = () => {
     setAuth({ ...auth, [e.currentTarget.name]: e.currentTarget.value });
   };
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent | React.MouseEvent,
     setAuthProp: React.Dispatch<React.SetStateAction<any>>,
   ) => {
     setAuthProp(e);

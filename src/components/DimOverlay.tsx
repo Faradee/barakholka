@@ -9,7 +9,9 @@ const DimOverlay = () => {
     <div
       onClick={() => dispatch(toggleDim())}
       className={`${
-        isDimmed ? " opacity-70  brightness-0" : "pointer-events-auto hidden"
+        isDimmed
+          ? " z-30 opacity-70 brightness-0"
+          : "pointer-events-auto hidden"
       } fixed h-full min-h-screen w-full bg-slate-300`}
     />
   );

@@ -24,9 +24,9 @@ const Gallery = (props: GalleryProps) => {
     dispatch(removeThumbnail(index));
   };
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-full min-h-min w-full min-w-min flex-col">
       <div
-        className="relative flex h-[60%] flex-col items-center justify-center bg-slate-300"
+        className="relative flex h-[60%] flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (

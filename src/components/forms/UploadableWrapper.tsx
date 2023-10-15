@@ -27,7 +27,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   };
 
   return (
-    <div className="h-full w-full" onDrop={(e) => e.preventDefault()}>
+    <div className="overflow-hidden" onDrop={(e) => e.preventDefault()}>
       <div
         onDragEnter={(e) => {
           e.preventDefault();
@@ -46,7 +46,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           setLocalDim(false);
           handleUpload(e);
         }}
-        className="absolute z-30 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70"
+        className="absolute z-20 hidden h-full w-full select-none items-center justify-center bg-black text-white opacity-70"
         style={localDim ? { display: "flex" } : {}}
       >
         <Uploadable />
@@ -56,7 +56,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           e.preventDefault();
           if (dragAllow) setLocalDim(true);
         }}
-        className="h-full w-full"
+        className=""
       >
         {children}
       </div>

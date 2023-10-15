@@ -43,15 +43,22 @@ input[type="number"] {
 .circle {
   clip-path: circle(40%);
 }
-.onhover {
-  display: none;
+@media (min-width: 1024px) {
+  .onhover {
+    display: none;
+  }
 }
+
 *:hover > .onhover {
   display: block;
 }
 svg {
   pointer-events: none !important;
   user-select: none;
+}
+image,
+svg {
+  z-index: 0;
 }
 .thumbnail-list > div {
   height: 25%;
