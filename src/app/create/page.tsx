@@ -12,6 +12,7 @@ import Gallery from "@/components/postEditor/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
+import { createPost } from "@/serverActions";
 export type PostState = {
   posterId: string;
   title: string;
@@ -19,7 +20,9 @@ export type PostState = {
   description: string;
   price: string;
   details?: CarState | EstateState;
-  thumbnails?: string[];
+};
+export type PostData = PostState & {
+  thumbnails: string[];
 };
 
 const PostEditor = () => {
@@ -45,6 +48,11 @@ const PostEditor = () => {
     },
     [dispatch],
   );
+  const handleSubmit = () => {
+    console.log("Creating post...");
+    createPost({ thumbnails: postThumbnails, ...postData });
+    console.log("Post created!");
+  };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
     return () => {
@@ -88,10 +96,7 @@ const PostEditor = () => {
                 rows={6}
               />
             </div>
-            <Button
-              onClick={() => console.log("poop")}
-              title="Создать объявление"
-            />
+            <Button onClick={handleSubmit} title="Создать объявление" />
           </div>
         </div>
       </div>

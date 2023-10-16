@@ -7,7 +7,7 @@ export type Post = {
   type: string;
   thumbnails: string[];
   description?: string;
-  price: number;
+  price: string;
   createdAt: Date;
   updatedAt: Date;
 };

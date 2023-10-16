@@ -1,4 +1,7 @@
 "use server";
+import { PostData } from "./app/create/page";
+import { CarState } from "./components/postEditor/CarForm";
+import { EstateState } from "./components/postEditor/EstateForm";
 import prisma from "./db";
 import argon2 from "argon2";
 export type UserData = {
@@ -43,4 +46,41 @@ export async function signUser(userData: UserData) {
     const { password, createdAt, ...returnUser } = foundUser;
     return returnUser;
   } else return null;
+}
+
+export async function createPost(postData: PostData) {
+  if (postData) {
+    try {
+      const { id } = await prisma.post.create({
+        data: {
+          posterId: postData.posterId,
+          title: postData.title,
+          type: postData.type,
+          description: postData.description,
+          price: postData.price,
+        },
+      });
+      const promises = [
+        ...postData.thumbnails.map((thumbnail) => {
+          return prisma.thumbnail.create({
+            data: {
+              postId: id,
+              thumbnail: thumbnail,
+            },
+          });
+        }),
+      ];
+      await Promise.all(promises);
+      if (postData.type === "car")
+        await prisma.car.create({
+          data: { postId: id, ...(postData.details as CarState) },
+        });
+      else if (postData.type === "estate")
+        await prisma.estate.create({
+          data: { postId: id, ...(postData.details as EstateState) },
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

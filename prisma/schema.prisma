@@ -21,7 +21,7 @@ model Post {
   title       String
   type        String
   description String
-  price       Int
+  price       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -34,9 +34,9 @@ model Thumbnail {
 
 model Car {
   postId       Int     @id
-  kilometrage  Int
-  year         Int
-  horsepower   Int
+  kilometrage  String
+  year         String
+  horsepower   String
   transmission String
   brand        String
   model        String
@@ -47,12 +47,11 @@ model Car {
 
 model Estate {
   postId     Int     @id
-  space      Int
-  rooms      Int
-  floor      Int
+  space      String
+  rooms      String
+  floor      String
   furniture  Boolean
   renovation Boolean
-  balcony    String
 }
 
 model User {

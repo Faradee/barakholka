@@ -145,7 +145,7 @@ const AuthModal = () => {
             placeholder="Подтвердите пароль"
             type={showPassword ? "text" : "password"}
             onChange={handleChange}
-            name="showPassword"
+            name="confirmPass"
           />
         )}
         {credentialsWarning && (
