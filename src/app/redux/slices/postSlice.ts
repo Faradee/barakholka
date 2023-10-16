@@ -33,6 +33,7 @@ const initialState = {
     color: "",
     horsepower: "",
     damaged: false,
+    trade: false,
   } as CarState,
 } as InitialState;
 export const post = createSlice({

@@ -42,6 +42,7 @@ model Car {
   model        String
   color        String
   damaged      Boolean
+  trade        Boolean
 }
 
 model Estate {

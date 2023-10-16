@@ -60,7 +60,7 @@ const Gallery = (props: GalleryProps) => {
             onClick={() => setSelectIndex(index)}
           >
             <div
-              className="onhover absolute right-0 z-10 m-1 cursor-pointer backdrop-blur-sm"
+              className="onhover absolute right-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
               onClick={() => handleDelete(index)}
             >
               <AiOutlineClose size={20} color="red" />

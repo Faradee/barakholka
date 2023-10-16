@@ -6,7 +6,7 @@ export type FormFieldProps = {
   useState: [string | boolean, React.Dispatch<React.SetStateAction<any>>];
   name: string;
   placeholder?: string;
-  cols?: number;
+  rows?: number;
   onChange?: (
     e: React.ChangeEvent | React.MouseEvent,
     setState: React.Dispatch<React.SetStateAction<string>>,
@@ -22,7 +22,7 @@ const FormField = (props: FormFieldProps) => {
     type,
     icon,
     placeholder,
-    cols,
+    rows,
     onChange,
     children,
     name,
@@ -44,7 +44,7 @@ const FormField = (props: FormFieldProps) => {
   };
   return (
     <label
-      className="textfield  mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
+      className="textfield mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
       style={
         type === "boolean"
           ? {
@@ -67,10 +67,10 @@ const FormField = (props: FormFieldProps) => {
 
       {type === "textarea" ? (
         <textarea
-          className="w-full outline-none"
+          className="h-full w-full outline-none"
           value={state as string}
           name={name}
-          cols={cols}
+          rows={rows}
           placeholder={placeholder}
           onChange={(e) => {
             e.preventDefault();
@@ -118,7 +118,7 @@ const FormField = (props: FormFieldProps) => {
         />
       ) : (
         <input
-          className="w-fuill outline-none"
+          className="w-full outline-none"
           value={state as string}
           name={name}
           placeholder={placeholder}

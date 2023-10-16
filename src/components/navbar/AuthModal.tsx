@@ -14,6 +14,7 @@ import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
 import FormField from "../forms/FormField";
 import { toggleDim } from "@/app/redux/slices/dimSlice";
+import Button from "../forms/Button";
 type Auth = {
   email: string;
   password: string;
@@ -154,13 +155,10 @@ const AuthModal = () => {
               : "Неправильный пароль или почта"}
           </span>
         )}
-        <button
-          type="button"
+        <Button
           onClick={isSignup ? handleSignUp : handleSignIn}
-          className="h-12 w-full rounded-md bg-red-600 font-semibold text-white hover:bg-red-700 active:bg-red-800"
-        >
-          {isSignup ? "Создать аккаунт" : "Войти"}
-        </button>
+          title={isSignup ? "Создать аккаунт" : "Войти"}
+        />
       </form>
       <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
         <span className="mx-2">Или</span>

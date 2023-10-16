@@ -12,6 +12,7 @@ export type CarState = {
   model: string;
   color: string;
   damaged: boolean;
+  trade: boolean;
 };
 type CarFormProps = {
   handleChange: React.Dispatch<any>;
@@ -61,7 +62,6 @@ const CarForm = (props: CarFormProps) => {
           placeholder="Название бренда"
           useState={[details.brand, handleChange]}
           onChange={handleChange}
-          noMargin
         />
         <FormField
           type="text"
@@ -69,7 +69,6 @@ const CarForm = (props: CarFormProps) => {
           placeholder="Модель"
           useState={[details.model, handleChange]}
           onChange={handleChange}
-          noMargin
         />
       </section>
       <FormField
@@ -86,12 +85,20 @@ const CarForm = (props: CarFormProps) => {
         useState={[details.transmission, handleChange]}
         onChange={handleChange}
       />
-      <LabelFormField
-        type="boolean"
-        name="damaged"
-        label="Повреждения"
-        useState={[details.damaged, toggleBoolean]}
-      />
+      <section className="flex w-full items-center gap-x-0.5">
+        <LabelFormField
+          type="boolean"
+          name="damaged"
+          label="Повреждения"
+          useState={[details.damaged, toggleBoolean]}
+        />
+        <LabelFormField
+          type="boolean"
+          name="trade"
+          label="Возможен обмен"
+          useState={[details.trade, toggleBoolean]}
+        />
+      </section>
     </>
   );
 };

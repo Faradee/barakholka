@@ -11,6 +11,7 @@ import DetailsForm from "@/components/postEditor/DetailsForm";
 import Gallery from "@/components/postEditor/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail } from "../redux/slices/thumbnailSlice";
+import Button from "@/components/forms/Button";
 export type PostState = {
   posterId: string;
   title: string;
@@ -60,9 +61,9 @@ const PostEditor = () => {
           <Gallery addImage={addImage} thumbnailList={postThumbnails} />
         </div>
         <div className="w-full lg:w-auto">
-          <div className="h-full  px-10 py-5">
+          <div className="h-full px-10 py-5">
             <TypeToggle />
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex min-h-[70vh] w-full flex-col items-center">
               <FormField
                 type="text"
                 placeholder="Заголовок объявления"
@@ -84,16 +85,13 @@ const PostEditor = () => {
                 useState={[postData.description, handleChange]}
                 onChange={handleChange}
                 name="description"
+                rows={6}
               />
-              <button type="button" onClick={() => console.log(postData)}>
-                {" "}
-                hi
-              </button>
-              <button type="button" onClick={() => console.log(postThumbnails)}>
-                {" "}
-                hi
-              </button>
             </div>
+            <Button
+              onClick={() => console.log("poop")}
+              title="Создать объявление"
+            />
           </div>
         </div>
       </div>
