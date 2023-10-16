@@ -45,9 +45,8 @@ const TypeToggle = () => {
       rooms: "",
       floor: "",
       furniture: false,
-      renovation: "",
+      renovation: false,
       balcony: "",
-      type: "",
     } as EstateState;
     switch (typeIndex) {
       case 0:

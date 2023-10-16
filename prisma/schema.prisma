@@ -50,9 +50,8 @@ model Estate {
   rooms      Int
   floor      Int
   furniture  Boolean
-  renovation String
-  balcony    String?
-  type       String
+  renovation Boolean
+  balcony    String
 }
 
 model User {

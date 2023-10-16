@@ -8,8 +8,7 @@ export type EstateState = {
   rooms: string;
   floor: string;
   furniture: boolean;
-  renovation: string;
-  type: string;
+  renovation: boolean;
 };
 type EstateFormProps = {
   handleChange: React.Dispatch<any>;
@@ -52,23 +51,11 @@ const EstateForm = (props: EstateFormProps) => {
           label="Наличие мебели"
           useState={[details.furniture, toggleBoolean]}
         />
-      </div>
-      <div className="flex w-full gap-x-0.5">
-        <FormField
-          type="text"
-          name="brand"
-          placeholder="Тип ремонта"
-          useState={[details.renovation, handleChange]}
-          onChange={handleChange}
-          noMargin
-        />
-        <FormField
-          type="text"
-          name="model"
-          placeholder="Вид недвижимости"
-          useState={[details.type, handleChange]}
-          onChange={handleChange}
-          noMargin
+        <LabelFormField
+          type="boolean"
+          name="renovation"
+          label="Ремонт"
+          useState={[details.renovation, toggleBoolean]}
         />
       </div>
     </>

@@ -1,5 +1,8 @@
+import { useDispatch } from "react-redux";
 import FormField from "../forms/FormField";
+import LabelFormField from "../forms/LabelFormField";
 import { useAppSelector } from "@/app/redux/store";
+import { setDetailsField } from "@/app/redux/slices/postSlice";
 export type CarState = {
   kilometrage: string;
   year: string;
@@ -14,13 +17,20 @@ type CarFormProps = {
   handleChange: React.Dispatch<any>;
 };
 const CarForm = (props: CarFormProps) => {
+  const dispatch = useDispatch();
   const postData = useAppSelector((state) => state.postReducer);
-
+  const toggleBoolean = (e: React.MouseEvent<HTMLInputElement>) => {
+    dispatch(
+      setDetailsField({
+        [e.currentTarget.name]: e.currentTarget.checked,
+      }),
+    );
+  };
   const { handleChange } = props;
   const details = postData.details as CarState;
   return (
     <>
-      <div className="flex w-full gap-x-0.5">
+      <section className="flex w-full items-center gap-x-0.5">
         <FormField
           type="number"
           useState={[details.kilometrage, handleChange]}
@@ -35,8 +45,7 @@ const CarForm = (props: CarFormProps) => {
           useState={[details.year, handleChange]}
           onChange={handleChange}
         />
-      </div>
-
+      </section>
       <FormField
         type="number"
         name="horsepower"
@@ -44,7 +53,8 @@ const CarForm = (props: CarFormProps) => {
         useState={[details.horsepower, handleChange]}
         onChange={handleChange}
       />
-      <div className="flex w-full gap-x-0.5">
+
+      <section className="flex w-full items-center gap-x-0.5">
         <FormField
           type="text"
           name="brand"
@@ -61,7 +71,7 @@ const CarForm = (props: CarFormProps) => {
           onChange={handleChange}
           noMargin
         />
-      </div>
+      </section>
       <FormField
         type="text"
         name="color"
@@ -75,6 +85,12 @@ const CarForm = (props: CarFormProps) => {
         placeholder="Вид коробки передач"
         useState={[details.transmission, handleChange]}
         onChange={handleChange}
+      />
+      <LabelFormField
+        type="boolean"
+        name="damaged"
+        label="Повреждения"
+        useState={[details.damaged, toggleBoolean]}
       />
     </>
   );

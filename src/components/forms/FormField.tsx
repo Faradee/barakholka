@@ -64,6 +64,7 @@ const FormField = (props: FormFieldProps) => {
       }
     >
       {Icon && <Icon />}
+
       {type === "textarea" ? (
         <textarea
           className="w-full outline-none"
@@ -93,7 +94,7 @@ const FormField = (props: FormFieldProps) => {
             style={state ? { marginLeft: "50%" } : {}}
           ></div>
         </>
-      ) : (
+      ) : type === "number" ? (
         <input
           className="w-full outline-none"
           value={state as string}
@@ -102,7 +103,6 @@ const FormField = (props: FormFieldProps) => {
           type={type}
           onChange={(e) => {
             if (
-              type !== "number" ||
               /^[1-9][0-9]*$/.test(e.currentTarget.value) ||
               e.currentTarget.value === ""
             ) {
@@ -116,6 +116,18 @@ const FormField = (props: FormFieldProps) => {
           }
           required={required}
         />
+      ) : (
+        <input
+          className="w-fuill outline-none"
+          value={state as string}
+          name={name}
+          placeholder={placeholder}
+          type={type}
+          onChange={(e) => {
+            e.preventDefault();
+            onChange ? onChange(e, setState) : setState(e.currentTarget.value);
+          }}
+        ></input>
       )}
       {children}
     </label>
