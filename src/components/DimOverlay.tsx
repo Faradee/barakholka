@@ -1,5 +1,4 @@
 import { useAppSelector } from "@/app/redux/store";
-import React from "react";
 import { toggleDim } from "@/app/redux/slices/dimSlice";
 import { useDispatch } from "react-redux";
 const DimOverlay = () => {

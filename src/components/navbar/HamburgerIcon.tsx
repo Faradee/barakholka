@@ -1,5 +1,3 @@
-import React from "react";
-
 type HamburgerProps = {
   active: boolean;
   onClick: React.MouseEventHandler<HTMLDivElement>;

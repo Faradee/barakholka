@@ -1,8 +1,5 @@
-import { useDispatch } from "react-redux";
 import FormField from "../forms/FormField";
-import { useEffect } from "react";
 import { useAppSelector } from "@/app/redux/store";
-import { setPostField } from "@/app/redux/slices/postSlice";
 export type CarState = {
   kilometrage: string;
   year: string;

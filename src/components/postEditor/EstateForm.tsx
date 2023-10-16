@@ -1,7 +1,5 @@
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/app/redux/store";
-import { setPostField } from "@/app/redux/slices/postSlice";
-import { useEffect } from "react";
 import FormField from "../forms/FormField";
 import LabelFormField from "../forms/LabelFormField";
 import { setDetailsField } from "@/app/redux/slices/postSlice";

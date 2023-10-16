@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
 import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
-import { toggleDim, setDim } from "@/app/redux/slices/dimSlice";
+import { toggleDim } from "@/app/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
 
 type Button = {

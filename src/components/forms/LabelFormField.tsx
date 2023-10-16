@@ -1,4 +1,3 @@
-import React from "react";
 import FormField, { FormFieldProps } from "./FormField";
 type LabelFormFieldProps = FormFieldProps & {
   label: string;

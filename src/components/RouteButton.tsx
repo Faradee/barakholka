@@ -1,9 +1,5 @@
-import React from 'react'
-
 const RouteButton = () => {
-  return (
-    <div>RouteButton</div>
-  )
-}
+  return <div>RouteButton</div>;
+};
 
-export default RouteButton
+export default RouteButton;
