@@ -8,18 +8,29 @@ const page = (params: { params: { id: string } }) => {
         id: id,
       },
     });
-
-    const thumbnails = await prisma.thumbnail.findMany({
-      where: {
-        postId: post.id,
-      },
-      take: 5,
-    });
-    thumbnails.forEach((thumbnail) => {
-      post.thumbnails?.push(thumbnail.thumbnail);
-    });
-    return posts as Post[];
+    if (post) {
+      const thumbnails = await prisma.thumbnail.findMany({
+        where: {
+          postId: id,
+        },
+      });
+      const details = await (post.type === "car"
+        ? prisma.car.findFirst({
+            where: {
+              postId: id,
+            },
+          })
+        : post.type === "estate"
+        ? prisma.estate.findFirst({
+            where: {
+              postId: id,
+            },
+          })
+        : undefined);
+      return { post: post, thumbnails: thumbnails, details: details };
+    } else return undefined;
   };
+  const postData = getPostData(parseInt(id));
   return <div>{id} </div>;
 };
 
