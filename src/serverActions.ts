@@ -60,7 +60,7 @@ export async function createPost(postData: PostData) {
           price: postData.price,
         },
       });
-      const promises = [
+      await Promise.all([
         ...postData.thumbnails.map((thumbnail) => {
           return prisma.thumbnail.create({
             data: {
@@ -69,8 +69,7 @@ export async function createPost(postData: PostData) {
             },
           });
         }),
-      ];
-      await Promise.all(promises);
+      ]);
       if (postData.type === "car")
         await prisma.car.create({
           data: { postId: id, ...(postData.details as CarState) },
