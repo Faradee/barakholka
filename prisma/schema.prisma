@@ -16,7 +16,9 @@ model Todo {
 }
 
 model Post {
+  ///////postId в других схемах///////
   id          Int      @id @default(autoincrement())
+  ////////////////////////////////////
   posterId    String
   title       String
   type        String

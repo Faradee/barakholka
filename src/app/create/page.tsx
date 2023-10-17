@@ -13,6 +13,7 @@ import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/serverActions";
+import { useRouter } from "next/navigation";
 export type PostState = {
   posterId: string;
   title: string;
@@ -26,6 +27,7 @@ export type PostData = PostState & {
 };
 
 const PostEditor = () => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { uuid } = useAppSelector((state) => state.authReducer);
   const postData = useAppSelector((state) => state.postReducer);
@@ -51,8 +53,11 @@ const PostEditor = () => {
 
   const handleSubmit = () => {
     console.log("Creating post...");
-    createPost({ thumbnails: postThumbnails, ...postData });
+    if (postData.title && postData.price)
+      createPost({ thumbnails: postThumbnails, ...postData });
     console.log("Post created!");
+    dispatch(resetPostData());
+    router.replace("/");
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
