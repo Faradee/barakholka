@@ -10,59 +10,52 @@ const TypeToggle = () => {
   const [style, setStyle] = useState<React.CSSProperties | undefined>(
     undefined,
   );
-  const buttonListRef = useRef<HTMLDivElement>(null);
-  const handleTypeToggle = (childIndex: number) => {
-    if (buttonListRef.current) {
-      const children = buttonListRef.current.children;
-      children[typeIndex].classList.remove("active");
-      children[childIndex].classList.add("active");
-      setTypeIndex(childIndex);
+  const initialCarData = {
+    kilometrage: "",
+    year: "",
+    transmission: "",
+    brand: "",
+    model: "",
+    color: "",
+    horsepower: "",
+    damaged: false,
+    trade: false,
+  } as CarState;
+  const initialEstateData = {
+    space: "",
+    rooms: "",
+    floor: "",
+    furniture: false,
+    renovation: false,
+    balcony: "",
+  } as EstateState;
+  const getTypeFromIndex = (typeIndex: number) => {
+    switch (typeIndex) {
+      case 0:
+        return "car";
+      case 1:
+        return "estate";
+      case 2:
+        return "misc";
+      default:
+        return "car";
     }
   };
-
-  useEffect(() => {
-    const getTypeFromIndex = (typeIndex: number) => {
-      switch (typeIndex) {
-        case 0:
-          return "car";
-        case 1:
-          return "estate";
-        case 2:
-          return "misc";
-        default:
-          return "car";
-      }
-    };
-    const initialCarData = {
-      kilometrage: "",
-      year: "",
-      transmission: "",
-      brand: "",
-      model: "",
-      color: "",
-      horsepower: "",
-      damaged: false,
-      trade: false,
-    } as CarState;
-    const initialEstateData = {
-      space: "",
-      rooms: "",
-      floor: "",
-      furniture: false,
-      renovation: false,
-      balcony: "",
-    } as EstateState;
-    switch (typeIndex) {
+  const handleTypeToggle = (childIndex: number) => {
+    switch (childIndex) {
       case 0:
         dispatch(setPostField({ details: initialCarData }));
         break;
       case 1:
         dispatch(setPostField({ details: initialEstateData }));
+        break;
       case 2:
         dispatch(setPostField({ details: undefined }));
+        break;
     }
-    dispatch(setPostField({ type: getTypeFromIndex(typeIndex) }));
-  }, [typeIndex, dispatch]);
+    dispatch(setPostField({ type: getTypeFromIndex(childIndex) }));
+    setTypeIndex(childIndex);
+  };
   useEffect(() => {
     setStyle(
       window.screen.width > 1024
@@ -87,10 +80,7 @@ const TypeToggle = () => {
         >
           {" "}
         </div>
-        <div
-          ref={buttonListRef}
-          className="z-10 flex w-full flex-col lg:flex-row"
-        >
+        <div className="z-10 flex w-full flex-col lg:flex-row">
           <button
             type="button"
             id="car"

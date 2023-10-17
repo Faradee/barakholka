@@ -17,7 +17,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         onDragStart={() => dispatch(setDrag(false))}
         onDragEnd={() => dispatch(setDrag(true))}
         fill
-        className="cursor-pointer object-cover"
+        className="w-1/2 cursor-pointer object-cover"
       />
     )
   );

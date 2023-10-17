@@ -48,6 +48,7 @@ const PostEditor = () => {
     },
     [dispatch],
   );
+
   const handleSubmit = () => {
     console.log("Creating post...");
     createPost({ thumbnails: postThumbnails, ...postData });
