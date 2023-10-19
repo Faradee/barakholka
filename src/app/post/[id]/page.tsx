@@ -48,8 +48,7 @@ const page = async (params: { params: { id: string } }) => {
       return { post: undefined, thumbnails: undefined, details: undefined };
   };
   const postData = await getPostData(parseInt(id));
-  const { post, thumbnails, details, carDetails, estateDetails } = postData;
-
+  const { post, thumbnails, carDetails, estateDetails } = postData;
   return (
     <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       <div className="lg:mx-[10vw]">
