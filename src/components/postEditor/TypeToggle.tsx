@@ -27,7 +27,6 @@ const TypeToggle = () => {
     floor: "",
     furniture: false,
     renovation: false,
-    balcony: "",
   } as EstateState;
   const getTypeFromIndex = (typeIndex: number) => {
     switch (typeIndex) {
