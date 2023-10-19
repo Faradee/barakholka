@@ -81,7 +81,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="absolute z-50 flex h-20 w-screen items-center justify-between overflow-hidden bg-white
+        className="absolute z-50 flex h-20 w-full items-center justify-between overflow-hidden bg-white
        px-5 py-4 lg:z-0 lg:justify-center lg:px-64 lg:shadow-md "
       >
         <div className="flex justify-start lg:hidden">

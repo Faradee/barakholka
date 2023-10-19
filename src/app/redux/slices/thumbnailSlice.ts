@@ -21,6 +21,11 @@ export const thumbnail = createSlice({
         thumbnails: arr,
       };
     },
+    resetThumbnails: () => {
+      return {
+        thumbnails: [],
+      };
+    },
     swapThumbnails: (state, action: PayloadAction<[number, number]>) => {
       const payloadSorted = action.payload.sort();
       return {
@@ -39,6 +44,10 @@ export const thumbnail = createSlice({
   },
 });
 
-export const { addThumbnail, removeThumbnail, swapThumbnails } =
-  thumbnail.actions;
+export const {
+  addThumbnail,
+  removeThumbnail,
+  swapThumbnails,
+  resetThumbnails,
+} = thumbnail.actions;
 export default thumbnail.reducer;

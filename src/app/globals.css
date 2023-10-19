@@ -70,6 +70,17 @@ svg {
 .accordeon:hover > .accordeon-step > .accordeon-bar {
   opacity: 1;
 }
+.details-list > li {
+  display: flex;
+}
+.details-list > li > span {
+  width: 10vw;
+  max-width: 200px;
+  min-width: 100px;
+}
+.details-list > li > span:first-child {
+  color: gray;
+}
 .min-h-fullscreen {
   min-height: calc(100vh - 5rem) !important;
 }

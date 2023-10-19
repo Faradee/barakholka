@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import TypeToggle from "@/components/postEditor/TypeToggle";
 import FormField from "@/components/forms/FormField";
 import { CarState } from "@/components/postEditor/CarForm";
@@ -10,10 +10,11 @@ import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
 import Gallery from "@/components/postEditor/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
-import { addThumbnail } from "../redux/slices/thumbnailSlice";
+import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/serverActions";
 import { useRouter } from "next/navigation";
+import { setError } from "../redux/slices/errorSlice";
 export type PostState = {
   posterId: string;
   title: string;
@@ -31,6 +32,8 @@ const PostEditor = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { uuid } = useAppSelector((state) => state.authReducer);
   const postData = useAppSelector((state) => state.postReducer);
+  const error = useAppSelector((state) => state.errorReducer.error);
+  const [filesSize, setFilesSize] = useState<number>(0);
   const postThumbnails = useAppSelector(
     (state) => state.thumbnailReducer.thumbnails,
   );
@@ -46,9 +49,11 @@ const PostEditor = () => {
   );
   const addImage = useCallback(
     (file: string) => {
-      dispatch(addThumbnail(file));
+      const size = new Blob([file]).size;
+      if (filesSize + size < 1024 * 1024 * 5) dispatch(addThumbnail(file));
+      else dispatch(setError("SizeOverflow"));
     },
-    [dispatch],
+    [dispatch, filesSize],
   );
 
   const handleSubmit = () => {
@@ -57,16 +62,31 @@ const PostEditor = () => {
       createPost({ thumbnails: postThumbnails, ...postData });
     console.log("Post created!");
     dispatch(resetPostData());
+    dispatch(resetThumbnails());
     router.replace("/");
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
     return () => {
       dispatch(resetPostData());
+      dispatch(resetThumbnails());
     };
   }, [dispatch, uuid]);
+  useEffect(() => {
+    let size: number = 0;
+    postThumbnails.forEach((thumbnail) => {
+      size += new Blob([thumbnail]).size;
+    });
+    if (size < 1024 * 1024 * 5) dispatch(setError(null));
+    setFilesSize(size);
+  }, [postThumbnails, dispatch]);
   return (
     <UploadableWrapper addFile={addImage}>
+      {error === "SizeOverflow" && (
+        <div className="flex w-full justify-center text-red-600">
+          <span>Суммарный размер файлов не должен превышать 5MB!</span>
+        </div>
+      )}
       <div
         className="min-h-fullscreen flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap lg:px-[10vw]"
         onDrop={(e) => e.preventDefault()}

@@ -4,7 +4,11 @@ type UploadableProps = {
 };
 const Uploadable = (props: UploadableProps) => {
   return (
-    <div className="pointer-events-none flex translate-y-[-5%]  flex-col  items-center justify-center">
+    <div
+      className={`pointer-events-none flex ${
+        !props.textless && "-translate-y-[50%]"
+      } flex-col  items-center  justify-center overflow-auto`}
+    >
       <AiOutlineCloudUpload
         size={"150"}
         className="pointer-events-none relative "

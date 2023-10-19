@@ -5,6 +5,7 @@ import authReducer from "./slices/authSlice";
 import postReducer from "./slices/postSlice";
 import dragReducer from "./slices/dragSlice";
 import thumbnailReducer from "./slices/thumbnailSlice";
+import errorReducer from "./slices/errorSlice";
 export const store = configureStore({
   reducer: {
     dimReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
     postReducer,
     thumbnailReducer,
     dragReducer,
+    errorReducer,
   },
 });
 

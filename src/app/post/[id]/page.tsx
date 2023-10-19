@@ -3,6 +3,8 @@ import Image from "next/image";
 import prisma from "@/db";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
+import CarDetails from "@/components/post/CarDetails";
+import EstateDetails from "@/components/post/EstateDetails";
 const page = async (params: { params: { id: string } }) => {
   const { id } = params.params;
   const getPostData = async (id: number) => {
@@ -53,23 +55,23 @@ const page = async (params: { params: { id: string } }) => {
       <div className="lg:mx-[10vw]">
         {post && (
           <div>
-            <div className=" ml-20 flex items-center text-2xl font-bold">
+            <div className=" mb-2 flex items-center border-b-4 border-black pl-20 text-2xl font-bold">
               <span className="w-[70%]">{post.title} </span>
               <span className="flex w-[30%] justify-end">
                 {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
               </span>
             </div>
             <div className="flex">
-              <div className="h-[100vh] w-[30vw]">
+              <ul className="details-list h-[100vh] w-[20vw] ">
                 {post.type === "car" && carDetails ? (
-                  <div>
-                    <div>{carDetails.kilometrage}</div>
-                    <div>{carDetails.brand}</div>
-                  </div>
+                  <CarDetails carDetails={carDetails} />
                 ) : (
-                  <div></div>
+                  post.type === "estate" &&
+                  estateDetails && (
+                    <EstateDetails estateDetails={estateDetails} />
+                  )
                 )}
-              </div>
+              </ul>
               <div className="relative h-[60vh] w-[50vw]">
                 {thumbnails && (
                   <Image
