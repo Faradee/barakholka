@@ -19,6 +19,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         onDragStart={() => dispatch(setDrag(false))}
         onDragEnd={() => dispatch(setDrag(true))}
         fill
+        priority
         className={`w-1/2 ${pointer && "cursor-pointer"} ${
           contain ? "object-contain" : "object-cover"
         }`}

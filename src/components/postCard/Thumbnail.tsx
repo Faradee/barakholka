@@ -20,6 +20,7 @@ const Thumbnail = (props: ThumbnailProps) => {
           style={{ borderRadius: "10px", objectFit: "cover" }}
           fill={true}
           alt="thumbnail"
+          priority
         />
       </div>
       {thumbnails.map((thumbnail, index) => (
