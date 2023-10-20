@@ -24,7 +24,6 @@ const Home = async () => {
   const posts = await getPosts();
   return (
     <>
-      <h1 className="text-2x1 font-bold">Posts</h1>
       {
         <ul className="flex flex-wrap justify-center lg:mx-10 lg:justify-start">
           {posts.map((post) => (
