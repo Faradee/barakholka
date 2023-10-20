@@ -53,15 +53,15 @@ const page = async (params: { params: { id: string } }) => {
     <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
         <div>
-          <div className=" mb-2 flex items-center border-b-4 border-black pl-20 text-2xl font-bold">
-            <span className="w-[70%]">{post.title} </span>
-            <span className="flex w-[30%] justify-end">
+          <div className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
+            <span className="mr-16 lg:w-[70%]">{post.title} </span>
+            <span className="flex justify-end lg:w-[30%]">
               {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
             </span>
           </div>
-          <div className="mb-10 flex">
+          <div className=" mb-10 flex flex-col  lg:flex-row">
             {post.type !== "misc" && (
-              <ul className="details-list w-[20vw] ">
+              <ul className="details-list order-last w-full lg:order-first lg:w-[20vw] ">
                 {post.type === "car" && carDetails ? (
                   <CarDetails carDetails={carDetails} />
                 ) : (
@@ -83,9 +83,11 @@ const page = async (params: { params: { id: string } }) => {
               )}
             </div>
           </div>
-          <span className=" text-4xl font-bold">Комментарий продавца</span>
-          <div className="mb-5 min-h-[300px] w-full border-2 border-black p-5">
-            {post.description ? post.description : "Отсутствует"}
+          <div className="m-5">
+            <span className=" text-4xl font-bold">Комментарий продавца</span>
+            <div className="mb-5 min-h-[300px] w-full border-2 border-black p-5">
+              {post.description ? post.description : "Отсутствует"}
+            </div>
           </div>
         </div>
       )}
