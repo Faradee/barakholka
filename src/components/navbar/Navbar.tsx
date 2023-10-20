@@ -15,11 +15,13 @@ type Button = {
   title: string;
   url: string;
 };
+// ADD SEARCH PARAM AUTH STATE
 const Navbar = () => {
   const router = useRouter();
+  // const params = useSearchParams();
+  // const pathname = usePathname();
   const [isNav, setNav] = useState<boolean>(false);
 
-  // const [isDimmed, setDimmed] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const userData = useAppSelector((state) => state.authReducer);
@@ -60,9 +62,9 @@ const Navbar = () => {
     dispatch,
   ]);
   const buttons = [
-    { title: "Недвижимость", url: "estate" },
-    { title: "Авто", url: "car" },
-    { title: "Другое", url: "misc" },
+    // { title: "Недвижимость", url: "estate" },
+    // { title: "Авто", url: "car" },
+    // { title: "Другое", url: "misc" },
     { title: "Создать объявление", url: "create" },
   ] as Button[];
   useEffect(() => {
@@ -115,6 +117,11 @@ const Navbar = () => {
                 <Link
                   href={`/${button.url.toLowerCase()}`}
                   className="nav-button"
+                  style={
+                    userData.uuid
+                      ? { pointerEvents: "auto" }
+                      : { pointerEvents: "none", color: "gray" }
+                  }
                 >
                   {button.title}
                 </Link>

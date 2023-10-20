@@ -81,6 +81,9 @@ const PostEditor = () => {
     if (size < 1024 * 1024 * 5) dispatch(setError(null));
     setFilesSize(size);
   }, [postThumbnails, dispatch]);
+  useEffect(() => {
+    if (!uuid) router.replace("/");
+  }, [uuid, router]);
   return (
     <UploadableWrapper addFile={addImage}>
       {error === "SizeOverflow" && (
