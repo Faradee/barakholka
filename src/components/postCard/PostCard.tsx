@@ -1,3 +1,4 @@
+"use client";
 import Thumbnail from "./Thumbnail";
 import Link from "next/link";
 export type Post = {

@@ -16,6 +16,7 @@ import { createPost } from "@/serverActions";
 import { useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
 import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
+import { loadResource } from "@/components/Loading";
 export type PostState = {
   posterId: string;
   title: string;
@@ -57,15 +58,16 @@ const PostEditor = () => {
     [dispatch, filesSize],
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Creating post...");
     if (postData.title && postData.price)
-      createPost({ thumbnails: postThumbnails, ...postData });
+      await createPost({ thumbnails: postThumbnails, ...postData });
     console.log("Post created!");
     router.replace("/");
     dispatch(resetPostData());
     dispatch(resetThumbnails());
   };
+
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
     return () => {
@@ -128,7 +130,10 @@ const PostEditor = () => {
                 rows={6}
               />
             </div>
-            <Button onClick={handleSubmit} title="Создать объявление" />
+            <Button
+              onClick={() => loadResource(handleSubmit())}
+              title="Создать объявление"
+            />
           </div>
         </div>
       </div>

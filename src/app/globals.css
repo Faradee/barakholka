@@ -49,6 +49,19 @@ input[type="number"] {
   }
 }
 
+@keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.loading {
+  pointer-events: none;
+  animation: loading 2s linear infinite;
+}
 *:hover > .onhover {
   display: block;
 }

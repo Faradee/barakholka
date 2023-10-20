@@ -10,11 +10,12 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
 } from "react-icons/ai";
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { AppDispatch } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
 import FormField from "../forms/FormField";
 import { toggleDim } from "@/app/redux/slices/dimSlice";
 import Button from "../forms/Button";
+import { loadResource } from "../Loading";
 type Auth = {
   email: string;
   password: string;
@@ -37,7 +38,6 @@ const AuthModal = () => {
   const { email, password, name, confirmPass, isSignup, showPassword } = auth;
   const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-
   const handleShowPassword = () => {
     setAuth({ ...initialAuth, showPassword: !showPassword });
   };
@@ -59,6 +59,7 @@ const AuthModal = () => {
   };
   const handleSignUp = async () => {
     if (name && email && password && confirmPass && confirmPass === password) {
+      dispatch(toggleDim());
       const userData = {
         name: name,
         email: email,
@@ -67,7 +68,6 @@ const AuthModal = () => {
       const createdUser = await createUser(userData);
       if (createdUser) {
         dispatch(signIn(createdUser));
-        dispatch(toggleDim());
         return;
       }
     }
@@ -86,7 +86,7 @@ const AuthModal = () => {
     setCredentialsWarning(false);
   };
   return (
-    <div className="fixed left-1/2 top-1/2 z-40 flex  w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
+    <div className="fixed left-1/2 top-1/2 z-30 flex  w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
       <Image
         className=""
         src="/rea-logo.png"
@@ -156,7 +156,11 @@ const AuthModal = () => {
           </span>
         )}
         <Button
-          onClick={isSignup ? handleSignUp : handleSignIn}
+          onClick={
+            isSignup
+              ? () => loadResource(handleSignUp())
+              : () => loadResource(handleSignIn())
+          }
           title={isSignup ? "Создать аккаунт" : "Войти"}
         />
       </form>

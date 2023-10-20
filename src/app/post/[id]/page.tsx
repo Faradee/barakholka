@@ -60,14 +60,19 @@ const page = async (params: { params: { id: string } }) => {
             </span>
           </div>
           <div className="mb-10 flex">
-            <ul className="details-list w-[20vw] ">
-              {post.type === "car" && carDetails ? (
-                <CarDetails carDetails={carDetails} />
-              ) : (
-                post.type === "estate" &&
-                estateDetails && <EstateDetails estateDetails={estateDetails} />
-              )}
-            </ul>
+            {post.type !== "misc" && (
+              <ul className="details-list w-[20vw] ">
+                {post.type === "car" && carDetails ? (
+                  <CarDetails carDetails={carDetails} />
+                ) : (
+                  post.type === "estate" &&
+                  estateDetails && (
+                    <EstateDetails estateDetails={estateDetails} />
+                  )
+                )}
+              </ul>
+            )}
+
             <div className="relative min-h-[200px] w-full">
               {thumbnails && (
                 <Gallery

@@ -6,6 +6,7 @@ import postReducer from "./slices/postSlice";
 import dragReducer from "./slices/dragSlice";
 import thumbnailReducer from "./slices/thumbnailSlice";
 import errorReducer from "./slices/errorSlice";
+import loadingReducer from "./slices/loadingSlice";
 export const store = configureStore({
   reducer: {
     dimReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
     thumbnailReducer,
     dragReducer,
     errorReducer,
+    loadingReducer,
   },
 });
 
