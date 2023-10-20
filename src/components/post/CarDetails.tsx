@@ -8,7 +8,7 @@ const CarDetails = (props: CarDetailsProps) => {
     <>
       <li>
         <span>Год</span>
-        <span>{carDetails.year}</span>
+        <span>{carDetails.year} г.</span>
       </li>
       <li>
         <span>Марка</span>
@@ -20,7 +20,7 @@ const CarDetails = (props: CarDetailsProps) => {
       </li>
       <li>
         <span>Пробег</span>
-        <span>{carDetails.kilometrage}</span>
+        <span>{carDetails.kilometrage} км</span>
       </li>
       <li>
         <span>Цвет</span>
@@ -28,7 +28,7 @@ const CarDetails = (props: CarDetailsProps) => {
       </li>
       <li>
         <span>Мощность(л.с.)</span>
-        <span>{carDetails.horsepower}</span>
+        <span>{carDetails.horsepower} л.с.</span>
       </li>
       <li>
         <span>Коробка</span>

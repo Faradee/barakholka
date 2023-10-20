@@ -51,40 +51,36 @@ const page = async (params: { params: { id: string } }) => {
   const { post, thumbnails, carDetails, estateDetails } = postData;
   return (
     <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
-      <div className="lg:mx-[10vw]">
-        {post && (
-          <div>
-            <div className=" mb-2 flex items-center border-b-4 border-black pl-20 text-2xl font-bold">
-              <span className="w-[70%]">{post.title} </span>
-              <span className="flex w-[30%] justify-end">
-                {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
-              </span>
-            </div>
-            <div className="flex">
-              <ul className="details-list h-[100vh] w-[20vw] ">
-                {post.type === "car" && carDetails ? (
-                  <CarDetails carDetails={carDetails} />
-                ) : (
-                  post.type === "estate" &&
-                  estateDetails && (
-                    <EstateDetails estateDetails={estateDetails} />
-                  )
-                )}
-              </ul>
-              <div className="relative h-[60vh] w-[50vw]">
-                {thumbnails && (
-                  <Image
-                    src={thumbnails[0].thumbnail}
-                    alt="thumbnail"
-                    fill
-                    style={{ objectFit: "contain" }}
-                  />
-                )}
-              </div>
+      {post && (
+        <div>
+          <div className=" mb-2 flex items-center border-b-4 border-black pl-20 text-2xl font-bold">
+            <span className="w-[70%]">{post.title} </span>
+            <span className="flex w-[30%] justify-end">
+              {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
+            </span>
+          </div>
+          <div className="flex">
+            <ul className="details-list h-[100vh] w-[20vw] ">
+              {post.type === "car" && carDetails ? (
+                <CarDetails carDetails={carDetails} />
+              ) : (
+                post.type === "estate" &&
+                estateDetails && <EstateDetails estateDetails={estateDetails} />
+              )}
+            </ul>
+            <div className="relative h-[50vh] min-h-[200px] w-full">
+              {thumbnails && (
+                <Image
+                  src={thumbnails[0].thumbnail}
+                  alt="thumbnail"
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+              )}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

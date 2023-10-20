@@ -88,16 +88,16 @@ const PostEditor = () => {
         </div>
       )}
       <div
-        className="min-h-fullscreen flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap lg:px-[10vw]"
+        className="min-h-fullscreen flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
-        <div className=" min-h-[70vh] w-full">
+        <div className="w-full">
           <Gallery addImage={addImage} thumbnailList={postThumbnails} />
         </div>
         <div className="w-full lg:w-auto">
           <div className="h-full px-10 py-5">
             <TypeToggle />
-            <div className="flex min-h-[70vh] w-full flex-col items-center">
+            <div className="flex w-full flex-col items-center">
               <FormField
                 type="text"
                 placeholder="Заголовок объявления"

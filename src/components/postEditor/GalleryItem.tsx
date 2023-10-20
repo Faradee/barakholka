@@ -5,9 +5,10 @@ import { setDrag } from "@/app/redux/slices/dragSlice";
 type GalleryItemProps = {
   image: string;
   contain?: boolean;
+  pointer?: boolean;
 };
 const GalleryItem = (props: GalleryItemProps) => {
-  const { image, contain } = props;
+  const { image, contain, pointer } = props;
   const dispatch = useDispatch();
 
   return (
@@ -18,7 +19,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         onDragStart={() => dispatch(setDrag(false))}
         onDragEnd={() => dispatch(setDrag(true))}
         fill
-        className={`w-1/2 cursor-pointer ${
+        className={`w-1/2 ${pointer && "cursor-pointer"} ${
           contain ? "object-contain" : "object-cover"
         }`}
       />

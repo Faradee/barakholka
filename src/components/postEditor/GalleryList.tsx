@@ -17,13 +17,13 @@ const GalleryList = (props: GalleryListProps) => {
   };
 
   return (
-    <div className="flex h-[40%] flex-row flex-wrap gap-2 p-2">
+    <div className="flex flex-row flex-wrap gap-2 p-2">
       {first10.map((image: string, index: number) => (
         <div
           key={index}
           className={`outline-2 ${
             index === selectIndex && "shadow-md"
-          } relative h-[calc(50%-0.25rem)] w-[calc(20%-0.4rem)] shadow-red-400 outline-red-400`}
+          } relative h-[150px] w-[calc(20%-0.4rem)] shadow-red-400 outline-red-400`}
           style={index === selectIndex ? { outlineStyle: "solid" } : {}}
           onClick={() => setSelectIndex(index)}
         >
@@ -33,7 +33,7 @@ const GalleryList = (props: GalleryListProps) => {
           >
             <AiOutlineClose size={20} color="red" />
           </div>
-          <GalleryItem image={image} />
+          <GalleryItem image={image} pointer />
         </div>
       ))}
     </div>

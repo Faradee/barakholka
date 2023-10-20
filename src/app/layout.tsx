@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <ReduxProvider>
           <Navbar />
-          {children}
+          <div className="relative lg:px-64">{children}</div>
         </ReduxProvider>
       </body>
     </html>

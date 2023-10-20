@@ -18,9 +18,9 @@ const Gallery = (props: GalleryProps) => {
   };
 
   return (
-    <div className="flex h-full min-h-min w-full min-w-min flex-col">
+    <div className="flex h-full w-full min-w-min flex-col">
       <div
-        className="relative flex h-[60%] flex-col items-center justify-center"
+        className="relative flex h-[50vh] flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (
