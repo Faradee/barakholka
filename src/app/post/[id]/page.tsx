@@ -1,10 +1,10 @@
 "use server";
-import Image from "next/image";
 import prisma from "@/db";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import CarDetails from "@/components/post/CarDetails";
 import EstateDetails from "@/components/post/EstateDetails";
+import Gallery from "@/components/gallery/Gallery";
 const page = async (params: { params: { id: string } }) => {
   const { id } = params.params;
   const getPostData = async (id: number) => {
@@ -59,8 +59,8 @@ const page = async (params: { params: { id: string } }) => {
               {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
             </span>
           </div>
-          <div className="flex">
-            <ul className="details-list h-[100vh] w-[20vw] ">
+          <div className="mb-10 flex">
+            <ul className="details-list w-[20vw] ">
               {post.type === "car" && carDetails ? (
                 <CarDetails carDetails={carDetails} />
               ) : (
@@ -68,16 +68,19 @@ const page = async (params: { params: { id: string } }) => {
                 estateDetails && <EstateDetails estateDetails={estateDetails} />
               )}
             </ul>
-            <div className="relative h-[50vh] min-h-[200px] w-full">
+            <div className="relative min-h-[200px] w-full">
               {thumbnails && (
-                <Image
-                  src={thumbnails[0].thumbnail}
-                  alt="thumbnail"
-                  fill
-                  style={{ objectFit: "contain" }}
+                <Gallery
+                  thumbnailList={thumbnails.map((thumbnail) => {
+                    return thumbnail.thumbnail;
+                  })}
                 />
               )}
             </div>
+          </div>
+          <span className=" text-4xl font-bold">Комментарий продавца</span>
+          <div className="mb-5 min-h-[300px] w-full border-2 border-black p-5">
+            {post.description ? post.description : "Отсутствует"}
           </div>
         </div>
       )}

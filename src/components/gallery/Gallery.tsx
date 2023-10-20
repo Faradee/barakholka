@@ -1,22 +1,18 @@
+"use client";
 import Uploadable from "../forms/Uploadable";
 import { useState, memo } from "react";
 import GalleryItem from "./GalleryItem";
 import GalleryList from "./GalleryList";
 type GalleryProps = {
-  addImage: (file: string) => void;
   thumbnailList: string[];
+  children?: React.ReactNode;
+  deleteable?: boolean;
 };
 
 //TODO: add plus sign to upload image in the top right
 const Gallery = (props: GalleryProps) => {
-  const { thumbnailList, addImage } = props;
+  const { thumbnailList, children, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
-  const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => addImage(reader.result as string);
-  };
-
   return (
     <div className="flex h-full w-full min-w-min flex-col">
       <div
@@ -24,21 +20,7 @@ const Gallery = (props: GalleryProps) => {
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (
-          <>
-            <Uploadable textless />
-            <span className="text-center">
-              <p>Перетащите картинку в окно</p> <p>или</p>{" "}
-            </span>
-            <input
-              type="file"
-              name="thumbnail"
-              className="items-center"
-              value={thumbnailList[0]}
-              onChange={(e) => {
-                e.currentTarget.files && handleUpload(e.currentTarget.files[0]);
-              }}
-            />
-          </>
+          children
         ) : (
           <div className="relative flex h-full w-3/4 justify-center">
             <GalleryItem image={thumbnailList[selectIndex]} contain />
@@ -49,7 +31,7 @@ const Gallery = (props: GalleryProps) => {
         thumbnailList={thumbnailList}
         setSelectIndex={setSelectIndex}
         selectIndex={selectIndex}
-        deletable
+        deleteable={deleteable}
       />
     </div>
   );

@@ -8,13 +8,14 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
-import Gallery from "@/components/postEditor/Gallery";
+import Gallery from "@/components/gallery/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/serverActions";
 import { useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
+import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
 export type PostState = {
   posterId: string;
   title: string;
@@ -61,9 +62,9 @@ const PostEditor = () => {
     if (postData.title && postData.price)
       createPost({ thumbnails: postThumbnails, ...postData });
     console.log("Post created!");
+    router.replace("/");
     dispatch(resetPostData());
     dispatch(resetThumbnails());
-    router.replace("/");
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
@@ -92,7 +93,9 @@ const PostEditor = () => {
         onDrop={(e) => e.preventDefault()}
       >
         <div className="w-full">
-          <Gallery addImage={addImage} thumbnailList={postThumbnails} />
+          <Gallery thumbnailList={postThumbnails} deleteable>
+            <UploadPlaceholder addImage={addImage} />
+          </Gallery>
         </div>
         <div className="w-full lg:w-auto">
           <div className="h-full px-10 py-5">

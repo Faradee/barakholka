@@ -6,10 +6,10 @@ type GalleryListProps = {
   thumbnailList: string[];
   selectIndex: number;
   setSelectIndex: React.Dispatch<React.SetStateAction<number>>;
-  deletable?: boolean;
+  deleteable?: boolean;
 };
 const GalleryList = (props: GalleryListProps) => {
-  const { thumbnailList, selectIndex, setSelectIndex } = props;
+  const { thumbnailList, selectIndex, setSelectIndex, deleteable } = props;
   const dispatch = useDispatch();
   const first10 = thumbnailList.slice(0, 10);
   const handleDelete = (index: number) => {
@@ -27,12 +27,15 @@ const GalleryList = (props: GalleryListProps) => {
           style={index === selectIndex ? { outlineStyle: "solid" } : {}}
           onClick={() => setSelectIndex(index)}
         >
-          <div
-            className="onhover absolute right-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
-            onClick={() => handleDelete(index)}
-          >
-            <AiOutlineClose size={20} color="red" />
-          </div>
+          {deleteable && (
+            <div
+              className="onhover absolute right-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
+              onClick={() => handleDelete(index)}
+            >
+              <AiOutlineClose size={20} color="red" />
+            </div>
+          )}
+
           <GalleryItem image={image} pointer />
         </div>
       ))}
