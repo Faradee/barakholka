@@ -83,8 +83,10 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="fixed z-20 flex h-20 w-full items-center justify-between overflow-hidden bg-white
-       px-5 py-4 lg:justify-center lg:px-64 lg:shadow-md "
+        className={`fixed ${
+          isNav ? "z-30" : "z-20"
+        } flex h-20 w-full items-center justify-between overflow-hidden bg-white px-5
+       py-4 lg:z-10 lg:justify-center lg:px-64 lg:shadow-md `}
       >
         <div className="flex justify-start lg:hidden">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
@@ -101,9 +103,9 @@ const Navbar = () => {
 
         <ul
           className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
-        top-20 flex h-full w-64 flex-grow flex-col items-center
-        border-t-2 border-slate-300 bg-white transition-all 
-        duration-200  ease-out lg:relative lg:left-0 lg:top-0 lg:h-auto lg:w-auto
+        top-20 flex h-full w-64 flex-grow flex-col
+        items-center border-t-2 border-slate-300 bg-white transition-all duration-200 
+        ease-out  lg:relative lg:left-0 lg:top-0 lg:h-auto lg:w-auto
         lg:flex-row lg:justify-start lg:border-t-0 lg:transition-none 
       `}
         >
