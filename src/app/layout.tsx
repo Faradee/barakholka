@@ -21,7 +21,6 @@ export default function RootLayout({
         <ReduxProvider>
           <Loading />
           <Navbar />
-
           <div className="relative lg:px-64">{children}</div>
         </ReduxProvider>
       </body>
