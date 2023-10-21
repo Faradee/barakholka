@@ -1,26 +1,32 @@
-"use client";
+"use server";
 import Thumbnail from "./Thumbnail";
-import Link from "next/link";
+import prisma from "@/db";
 export type Post = {
   id: number;
   posterId: string;
   title: string;
   type: string;
-  thumbnails: string[];
   description?: string;
   price: string;
   createdAt: Date;
   updatedAt: Date;
 };
 
-const PostCard = (props: Post) => {
+const PostCard = async (props: Post) => {
+  const { id } = props;
+  const thumbnails = (
+    await prisma.thumbnail.findMany({
+      where: {
+        postId: id,
+      },
+    })
+  ).map((thumbnail) => {
+    return thumbnail.thumbnail;
+  });
   return (
-    <Link
-      href={`/post/${props.id}`}
-      className="ml-5 w-3/4 min-w-[200px] md:w-1/2 lg:w-1/4"
-    >
+    <>
       <div className="h-64 w-full">
-        <Thumbnail thumbnails={props.thumbnails} />
+        <Thumbnail thumbnails={thumbnails} />
       </div>
       <div className="w-full">
         <span>{props.title}</span>
@@ -31,7 +37,7 @@ const PostCard = (props: Post) => {
           Выставлено: {props.createdAt.toLocaleDateString("ru-RU").toString()}
         </span>
       </div>
-    </Link>
+    </>
   );
 };
 

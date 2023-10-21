@@ -1,24 +1,15 @@
 "use server";
 import prisma from "@/db";
 import PostCard, { Post } from "@/components/postCard/PostCard";
-
+import { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
+import Link from "next/link";
+import "react-loading-skeleton/dist/skeleton.css";
 type FetchedPost = Post;
 
 const Home = async () => {
   const getPosts = async () => {
     const posts = (await prisma.post.findMany()) as FetchedPost[];
-    for (const post of posts) {
-      post.thumbnails = [];
-      const thumbnails = await prisma.thumbnail.findMany({
-        where: {
-          postId: post.id,
-        },
-        take: 5,
-      });
-      thumbnails.forEach((thumbnail) => {
-        post.thumbnails?.push(thumbnail.thumbnail);
-      });
-    }
     return posts as Post[];
   };
   const posts = await getPosts();
@@ -27,7 +18,22 @@ const Home = async () => {
       {
         <ul className="flex flex-wrap justify-center lg:mx-10 lg:justify-start">
           {posts.map((post) => (
-            <PostCard key={post.id} {...post} />
+            <Link
+              key={post.id}
+              href={`/post/${post.id}`}
+              className="ml-5 min-h-[350px] w-3/4 min-w-[200px] md:w-1/2 lg:w-1/4"
+            >
+              <Suspense
+                fallback={
+                  <>
+                    <Skeleton className="block h-[80%] w-full" />
+                    <Skeleton className="block h-[10%] w-full" count={2} />
+                  </>
+                }
+              >
+                <PostCard {...post} />
+              </Suspense>
+            </Link>
           ))}
         </ul>
       }

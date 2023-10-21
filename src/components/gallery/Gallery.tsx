@@ -23,7 +23,7 @@ const Gallery = (props: GalleryProps) => {
           children
         ) : (
           <div className="relative flex h-full w-3/4 justify-center">
-            <GalleryItem image={thumbnailList[selectIndex]} contain priority />
+            <GalleryItem image={thumbnailList[selectIndex]} contain />
           </div>
         )}
       </div>

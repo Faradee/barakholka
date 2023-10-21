@@ -4,7 +4,10 @@ import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import CarDetails from "@/components/post/CarDetails";
 import EstateDetails from "@/components/post/EstateDetails";
-import Gallery from "@/components/gallery/Gallery";
+import { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import GalleryProvider from "@/components/post/GalleryProvider";
 const page = async (params: { params: { id: string } }) => {
   const { id } = params.params;
   const getPostData = async (id: number) => {
@@ -14,11 +17,6 @@ const page = async (params: { params: { id: string } }) => {
       },
     });
     if (post) {
-      const thumbnails = await prisma.thumbnail.findMany({
-        where: {
-          postId: id,
-        },
-      });
       const details = await (post.type === "car"
         ? prisma.car.findFirst({
             where: {
@@ -35,20 +33,17 @@ const page = async (params: { params: { id: string } }) => {
       if (post.type === "car")
         return {
           post: post,
-          thumbnails: thumbnails,
           carDetails: details as CarState,
         };
       else
         return {
           post: post,
-          thumbnails: thumbnails,
           estateDetails: details as EstateState,
         };
-    } else
-      return { post: undefined, thumbnails: undefined, details: undefined };
+    } else return { post: undefined, details: undefined };
   };
   const postData = await getPostData(parseInt(id));
-  const { post, thumbnails, carDetails, estateDetails } = postData;
+  const { post, carDetails, estateDetails } = postData;
   return (
     <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
@@ -61,7 +56,7 @@ const page = async (params: { params: { id: string } }) => {
           </div>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             {post.type !== "misc" && (
-              <ul className="details-list order-last w-full lg:order-first lg:w-[20vw] ">
+              <ul className="details-list order-last w-full lg:order-first lg:w-[30vw] ">
                 {post.type === "car" && carDetails ? (
                   <CarDetails carDetails={carDetails} />
                 ) : (
@@ -73,13 +68,13 @@ const page = async (params: { params: { id: string } }) => {
               </ul>
             )}
 
-            <div className="relative min-h-[200px] w-full">
-              {thumbnails && (
-                <Gallery
-                  thumbnailList={thumbnails.map((thumbnail) => {
-                    return thumbnail.thumbnail;
-                  })}
-                />
+            <div className="relative min-h-[400px] w-full">
+              {post && (
+                <Suspense
+                  fallback={<Skeleton className="block h-full w-full" />}
+                >
+                  <GalleryProvider id={post.id} />
+                </Suspense>
               )}
             </div>
           </div>
