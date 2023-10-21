@@ -56,7 +56,7 @@ const page = async (params: { params: { id: string } }) => {
           </div>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             {post.type !== "misc" && (
-              <ul className="details-list order-last w-full lg:order-first lg:w-[30vw] ">
+              <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
                 {post.type === "car" && carDetails ? (
                   <CarDetails carDetails={carDetails} />
                 ) : (
@@ -68,7 +68,7 @@ const page = async (params: { params: { id: string } }) => {
               </ul>
             )}
 
-            <div className="relative min-h-[400px] w-full">
+            <div className="relative h-[70vh] w-full">
               {post && (
                 <Suspense
                   fallback={<Skeleton className="block h-full w-full" />}

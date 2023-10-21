@@ -17,7 +17,7 @@ const GalleryList = (props: GalleryListProps) => {
   };
 
   return (
-    <div className="flex flex-row flex-wrap gap-2 p-2">
+    <div className="flex flex-row flex-wrap gap-2">
       {first10.map((image: string, index: number) => (
         <div
           key={index}
