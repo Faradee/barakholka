@@ -91,12 +91,12 @@ const Navbar = () => {
         <div className="flex justify-start lg:hidden">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
         </div>
-        <Link className="min-w-[150px] flex-grow-0 justify-center" href="/">
+        <Link className="flex-grow-0 justify-center" href="/">
           <Image
             className="pr-4"
             src="/rea-logo.png"
             width="150"
-            height="300"
+            height="200"
             alt="Logo"
           />
         </Link>
