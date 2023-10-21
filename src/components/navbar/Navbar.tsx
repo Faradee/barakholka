@@ -145,7 +145,7 @@ const Navbar = () => {
       </nav>
       {isAuth && <AuthModal />}
       <DimOverlay />
-      <span className="block h-20 w-full overflow-hidden" />
+      <span className="mb-5 block h-20 w-full overflow-hidden" />
     </>
   );
 };

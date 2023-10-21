@@ -103,7 +103,7 @@ const PostEditor = () => {
           </Gallery>
         </div>
         <div className="w-full lg:w-auto">
-          <div className="h-full px-10 py-5">
+          <div className="h-full px-10">
             <TypeToggle />
             <div className="flex w-full flex-col items-center">
               <FormField
