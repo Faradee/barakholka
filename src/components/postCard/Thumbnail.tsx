@@ -27,7 +27,7 @@ const Thumbnail = (props: ThumbnailProps) => {
         <div
           className={`${
             thumbnails.length > 1 && "accordeon-step"
-          } absolute flex h-full justify-center`}
+          } absolute hidden h-full justify-center lg:flex`}
           key={index}
           style={{
             left: `${(index / parts) * 100}%`,
