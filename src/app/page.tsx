@@ -4,13 +4,26 @@ import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Metadata } from "next";
 type FetchedPost = Post;
-
-const Home = async () => {
-  const getPosts = async () => {
-    const posts = (await prisma.post.findMany()) as FetchedPost[];
-    return posts as Post[];
+const getPosts = async () => {
+  const posts = (await prisma.post.findMany()) as FetchedPost[];
+  return posts as Post[];
+};
+export async function generateMetadata(params: {
+  id: number;
+}): Promise<Metadata | null> {
+  const posts = await getPosts();
+  const titles: string[] = [];
+  posts.forEach((post) => {
+    titles.push(post.title);
+  });
+  return {
+    description: "Место для покупки машин, недвижимости и прочего",
+    keywords: titles,
   };
+}
+const Home = async () => {
   const posts = await getPosts();
   return (
     <>
