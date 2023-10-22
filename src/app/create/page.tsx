@@ -12,7 +12,7 @@ import Gallery from "@/components/gallery/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
-import { createPost } from "@/serverActions";
+import { createPost } from "@/actions";
 import { redirect, useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
 import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
@@ -59,10 +59,8 @@ const PostEditor = () => {
   );
 
   const handleSubmit = async () => {
-    console.log("Creating post...");
     if (postData.title && postData.price)
       await createPost({ thumbnails: postThumbnails, ...postData });
-    console.log("Post created!");
     dispatch(resetPostData());
     dispatch(resetThumbnails());
     redirect("/");

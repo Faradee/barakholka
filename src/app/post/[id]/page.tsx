@@ -3,14 +3,14 @@ import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import CarDetails from "@/components/post/CarDetails";
 import EstateDetails from "@/components/post/EstateDetails";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
-export const revalidate = 3600;
-
-const getPostData = async (id: number) => {
+export const revalidate = 1800;
+export const dynamic = "force-static";
+const getPostData = cache(async (id: number) => {
   const post = await prisma.post.findFirst({
     where: {
       id: id,
@@ -41,7 +41,7 @@ const getPostData = async (id: number) => {
         estateDetails: details as EstateState,
       };
   } else return { post: undefined, details: undefined };
-};
+});
 type Props = {
   params: { id: string };
 };
@@ -65,11 +65,9 @@ export async function generateMetadata({
     };
   } else return null;
 }
-
-const page = async (params: { params: { id: string } }) => {
-  const { id } = params.params;
-  const postData = await getPostData(parseInt(id));
-  const { post, carDetails, estateDetails } = postData;
+const page = async ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+  const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
   return (
     <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (

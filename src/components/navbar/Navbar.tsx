@@ -1,6 +1,6 @@
 "use client";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { signOut } from "@/app/redux/slices/authSlice";
+import { signIn, signOut } from "@/app/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { redirect, useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
+import { signUserOut } from "@/actions";
 
 type Button = {
   title: string;
@@ -17,8 +18,6 @@ type Button = {
 };
 // ADD SEARCH PARAM AUTH STATE
 const Navbar = () => {
-  // const params = useSearchParams();
-  // const pathname = usePathname();
   const [isNav, setNav] = useState<boolean>(false);
 
   const [isAuth, setAuth] = useState<boolean>(false);
@@ -34,8 +33,9 @@ const Navbar = () => {
       ? (document.body.style.overflow = "auto")
       : (document.body.style.overflow = "hidden");
   };
-
   const handleSignOut = () => {
+    localStorage.clear();
+    signUserOut();
     dispatch(signOut());
     redirect("/");
   };
@@ -94,7 +94,13 @@ const Navbar = () => {
           className="relative h-[35px] w-[150px] flex-grow-0 justify-center"
           href="/"
         >
-          <Image className="pr-4" src="/rea-logo.png" alt="Logo" fill />
+          <Image
+            className="pr-4"
+            src="/rea-logo.png"
+            sizes="100px"
+            alt="Logo"
+            fill
+          />
         </Link>
 
         <ul

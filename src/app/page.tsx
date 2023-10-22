@@ -1,15 +1,16 @@
 import prisma from "@/db";
 import PostCard, { Post } from "@/components/postCard/PostCard";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
+export const revalidate = 5;
 type FetchedPost = Post;
-const getPosts = async () => {
+const getPosts = cache(async () => {
   const posts = (await prisma.post.findMany()) as FetchedPost[];
   return posts as Post[];
-};
+});
 export async function generateMetadata(): Promise<Metadata> {
   const posts = await getPosts();
   const titles: string[] = [];

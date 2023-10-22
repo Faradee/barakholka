@@ -11,7 +11,7 @@ import {
   AiFillEyeInvisible,
 } from "react-icons/ai";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { UserData, createUser, signUser } from "@/serverActions";
+import { UserData, createUser, signUser } from "@/actions";
 import FormField from "../forms/FormField";
 import { setDim } from "@/app/redux/slices/dimSlice";
 import Button from "../forms/Button";
@@ -54,6 +54,12 @@ const AuthModal = () => {
     } as UserData;
     const fetchedUser = await signUser(userData);
     if (fetchedUser) {
+      for (let prop in fetchedUser) {
+        localStorage.setItem(
+          prop,
+          fetchedUser[prop as keyof typeof fetchedUser],
+        );
+      }
       dispatch(signIn(fetchedUser));
       dispatch(setDim(false));
     } else setCredentialsWarning(true);
@@ -68,6 +74,12 @@ const AuthModal = () => {
       const createdUser = await createUser(userData);
       dispatch(setDim(false));
       if (createdUser) {
+        for (let prop in createdUser) {
+          localStorage.setItem(
+            prop,
+            createdUser[prop as keyof typeof createdUser],
+          );
+        }
         dispatch(signIn(createdUser));
         return;
       }

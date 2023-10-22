@@ -5,11 +5,10 @@ type UserState = {
   email: string;
   uuid: string;
 };
-
 const initialState = {
-  name: "",
-  email: "",
-  uuid: "",
+  name: localStorage.getItem("name") ? localStorage.getItem("name") : "",
+  email: localStorage.getItem("email") ? localStorage.getItem("email") : "",
+  uuid: localStorage.getItem("uuid") ? localStorage.getItem("uuid") : "",
 } as UserState;
 
 export const auth = createSlice({
