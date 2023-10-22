@@ -1,4 +1,3 @@
-"use server";
 import prisma from "@/db";
 import PostCard, { Post } from "@/components/postCard/PostCard";
 import { Suspense } from "react";

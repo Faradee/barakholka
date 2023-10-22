@@ -1,4 +1,3 @@
-"use server";
 import prisma from "@/db";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
@@ -8,6 +7,7 @@ import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
+export const revalidate = 3600;
 const page = async (params: { params: { id: string } }) => {
   const { id } = params.params;
   const getPostData = async (id: number) => {
