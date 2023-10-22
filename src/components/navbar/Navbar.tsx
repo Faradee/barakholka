@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
@@ -17,7 +17,6 @@ type Button = {
 };
 // ADD SEARCH PARAM AUTH STATE
 const Navbar = () => {
-  const router = useRouter();
   // const params = useSearchParams();
   // const pathname = usePathname();
   const [isNav, setNav] = useState<boolean>(false);
@@ -38,12 +37,12 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     dispatch(signOut());
-    router.replace("/");
+    redirect("/");
   };
   //on auth button press
   const toggleAuthModal = useCallback(() => {
     setNav(false);
-    dispatch(toggleDim());
+    dispatch(setDim(true));
     setAuth(true);
     document.body.style.overflow = "hidden";
   }, [dispatch]);
@@ -52,7 +51,7 @@ const Navbar = () => {
     if (isDimmed && isNav && window.innerWidth > 1000) {
       document.body.style.overflow = "auto";
       setNav(false);
-      dispatch(toggleDim());
+      dispatch(setDim(false));
     }
   };
 

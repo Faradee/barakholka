@@ -10,10 +10,10 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
 } from "react-icons/ai";
-import { AppDispatch } from "@/app/redux/store";
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { UserData, createUser, signUser } from "@/serverActions";
 import FormField from "../forms/FormField";
-import { toggleDim } from "@/app/redux/slices/dimSlice";
+import { setDim } from "@/app/redux/slices/dimSlice";
 import Button from "../forms/Button";
 import { loadResource } from "../Loading";
 type Auth = {
@@ -37,6 +37,7 @@ const AuthModal = () => {
   const [auth, setAuth] = useState<Auth>(initialAuth);
   const { email, password, name, confirmPass, isSignup, showPassword } = auth;
   const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
+  const isLoading = useAppSelector((state) => state.loadingReducer.loading);
   const dispatch = useDispatch<AppDispatch>();
   const handleShowPassword = () => {
     setAuth({ ...initialAuth, showPassword: !showPassword });
@@ -54,18 +55,18 @@ const AuthModal = () => {
     const fetchedUser = await signUser(userData);
     if (fetchedUser) {
       dispatch(signIn(fetchedUser));
-      dispatch(toggleDim());
+      dispatch(setDim(false));
     } else setCredentialsWarning(true);
   };
   const handleSignUp = async () => {
     if (name && email && password && confirmPass && confirmPass === password) {
-      dispatch(toggleDim());
       const userData = {
         name: name,
         email: email,
         password: password,
       } as UserData;
       const createdUser = await createUser(userData);
+      dispatch(setDim(false));
       if (createdUser) {
         dispatch(signIn(createdUser));
         return;
@@ -86,7 +87,11 @@ const AuthModal = () => {
     setCredentialsWarning(false);
   };
   return (
-    <div className="fixed left-1/2 top-1/2 z-30 flex  w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
+    <div className="fixed left-1/2 top-1/2 z-30 flex w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
+      {isLoading && (
+        <div className="absolute z-10 -mt-4 h-full w-full rounded-3xl bg-white opacity-50"></div>
+      )}
+
       <Image
         className=""
         src="/rea-logo.png"
@@ -94,12 +99,15 @@ const AuthModal = () => {
         height="300"
         alt="Logo"
       />
-      <div
-        onClick={() => dispatch(toggleDim())}
-        className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
-      >
-        <AiOutlineClose size={40} color="white" />
-      </div>
+      {!isLoading && (
+        <div
+          onClick={() => dispatch(setDim(false))}
+          className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
+        >
+          <AiOutlineClose size={40} color="white" />
+        </div>
+      )}
+
       <h1 className="text-2xl font-semibold">
         {isSignup ? "Создание аккаунта" : "Вход"}
       </h1>

@@ -13,7 +13,7 @@ import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/serverActions";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
 import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
 import { loadResource } from "@/components/Loading";
@@ -63,9 +63,9 @@ const PostEditor = () => {
     if (postData.title && postData.price)
       await createPost({ thumbnails: postThumbnails, ...postData });
     console.log("Post created!");
-    router.replace("/");
     dispatch(resetPostData());
     dispatch(resetThumbnails());
+    redirect("/");
   };
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const PostEditor = () => {
     setFilesSize(size);
   }, [postThumbnails, dispatch]);
   useEffect(() => {
-    if (!uuid) router.replace("/");
+    if (!uuid) redirect("/");
   }, [uuid, router]);
   return (
     <UploadableWrapper addFile={addImage}>
