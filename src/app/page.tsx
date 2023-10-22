@@ -17,22 +17,23 @@ const Home = async () => {
       {
         <ul className="flex flex-wrap justify-center lg:mx-10 lg:justify-start">
           {posts.map((post) => (
-            <Link
+            <li
               key={post.id}
-              href={`/post/${post.id}`}
               className="ml-5 min-h-[350px] w-3/4 min-w-[200px] md:w-1/2 lg:w-1/4"
             >
-              <Suspense
-                fallback={
-                  <>
-                    <Skeleton className="block h-[80%] w-full" />
-                    <Skeleton className="block h-[10%] w-full" count={2} />
-                  </>
-                }
-              >
-                <PostCard {...post} />
-              </Suspense>
-            </Link>
+              <Link href={`/post/${post.id}`}>
+                <Suspense
+                  fallback={
+                    <>
+                      <Skeleton className="block h-[80%] w-full" />
+                      <Skeleton className="block h-[10%] w-full" count={2} />
+                    </>
+                  }
+                >
+                  <PostCard {...post} />
+                </Suspense>
+              </Link>
+            </li>
           ))}
         </ul>
       }

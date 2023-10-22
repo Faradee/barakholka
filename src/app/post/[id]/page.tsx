@@ -7,41 +7,65 @@ import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
+import { Metadata } from "next";
 export const revalidate = 3600;
+
+const getPostData = async (id: number) => {
+  const post = await prisma.post.findFirst({
+    where: {
+      id: id,
+    },
+  });
+  if (post) {
+    const details = await (post.type === "car"
+      ? prisma.car.findFirst({
+          where: {
+            postId: id,
+          },
+        })
+      : post.type === "estate"
+      ? prisma.estate.findFirst({
+          where: {
+            postId: id,
+          },
+        })
+      : undefined);
+    if (post.type === "car")
+      return {
+        post: post,
+        carDetails: details as CarState,
+      };
+    else
+      return {
+        post: post,
+        estateDetails: details as EstateState,
+      };
+  } else return { post: undefined, details: undefined };
+};
+
+export async function generateMetadata(params: {
+  id: number;
+}): Promise<Metadata | null> {
+  const { id } = params;
+
+  const { post, carDetails, estateDetails } = await getPostData(id);
+  const details = carDetails ? carDetails : estateDetails;
+  const props: string[] = [];
+  for (let prop in details) {
+    if (typeof details[prop as keyof typeof details] === "string")
+      props.push(details[prop as keyof typeof details]);
+  }
+  if (post) {
+    return {
+      title: post.title,
+      description: post.description,
+      keywords: props,
+    };
+  } else return null;
+}
+
 const page = async (params: { params: { id: string } }) => {
   const { id } = params.params;
-  const getPostData = async (id: number) => {
-    const post = await prisma.post.findFirst({
-      where: {
-        id: id,
-      },
-    });
-    if (post) {
-      const details = await (post.type === "car"
-        ? prisma.car.findFirst({
-            where: {
-              postId: id,
-            },
-          })
-        : post.type === "estate"
-        ? prisma.estate.findFirst({
-            where: {
-              postId: id,
-            },
-          })
-        : undefined);
-      if (post.type === "car")
-        return {
-          post: post,
-          carDetails: details as CarState,
-        };
-      else
-        return {
-          post: post,
-          estateDetails: details as EstateState,
-        };
-    } else return { post: undefined, details: undefined };
-  };
   const postData = await getPostData(parseInt(id));
   const { post, carDetails, estateDetails } = postData;
   return (
