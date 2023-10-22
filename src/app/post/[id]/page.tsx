@@ -42,13 +42,15 @@ const getPostData = async (id: number) => {
       };
   } else return { post: undefined, details: undefined };
 };
-
-export async function generateMetadata(params: {
-  id: number;
-}): Promise<Metadata | null> {
+type Props = {
+  params: { id: string };
+};
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata | null> {
   const { id } = params;
 
-  const { post, carDetails, estateDetails } = await getPostData(id);
+  const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
   const details = carDetails ? carDetails : estateDetails;
   const props: string[] = [];
   for (let prop in details) {

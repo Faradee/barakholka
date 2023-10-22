@@ -10,9 +10,7 @@ const getPosts = async () => {
   const posts = (await prisma.post.findMany()) as FetchedPost[];
   return posts as Post[];
 };
-export async function generateMetadata(params: {
-  id: number;
-}): Promise<Metadata | null> {
+export async function generateMetadata(): Promise<Metadata> {
   const posts = await getPosts();
   const titles: string[] = [];
   posts.forEach((post) => {
