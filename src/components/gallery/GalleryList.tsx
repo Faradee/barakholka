@@ -37,7 +37,9 @@ const GalleryList = (props: GalleryListProps) => {
           )}
           {index === 9 && thumbnailList.length > 10 && (
             <div className="pointer-events-none absolute z-20 flex h-full w-full items-center justify-center text-lg text-white before:absolute before:-z-10 before:h-full before:w-full before:bg-black before:opacity-60 ">
-              Еще {thumbnailList.length - index - 1} фото
+              <span className="text-center">
+                Еще {thumbnailList.length - index - 1} фото
+              </span>
             </div>
           )}
           <GalleryItem image={image} pointer />

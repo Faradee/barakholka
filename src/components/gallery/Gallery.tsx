@@ -14,9 +14,9 @@ const Gallery = (props: GalleryProps) => {
   const { thumbnailList, children, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
   return (
-    <div className="flex  w-full min-w-min flex-col p-2">
+    <div className="flex w-full min-w-min flex-col p-2">
       <div
-        className="relative mb-5 min-h-[400px] w-full"
+        className="relative mb-5 flex h-full justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (
@@ -25,7 +25,7 @@ const Gallery = (props: GalleryProps) => {
           <>
             {selectIndex !== 0 && (
               <button
-                className="absolute top-1/2 z-10 float-left -translate-y-1/2 cursor-pointer"
+                className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setSelectIndex(selectIndex - 1);
                 }}
@@ -37,12 +37,13 @@ const Gallery = (props: GalleryProps) => {
                 />
               </button>
             )}
-            <GalleryItem image={thumbnailList[selectIndex]} blurred />
-            <GalleryItem image={thumbnailList[selectIndex]} contain />
-
+            <div className="relative min-h-[400px] w-full lg:max-w-[50vw]">
+              <GalleryItem image={thumbnailList[selectIndex]} blurred />
+              <GalleryItem image={thumbnailList[selectIndex]} contain />
+            </div>
             {selectIndex !== thumbnailList.length - 1 && (
               <button
-                className="absolute right-0 top-1/2 z-10 float-right -translate-y-1/2 cursor-pointer"
+                className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setSelectIndex(selectIndex + 1);
                 }}
