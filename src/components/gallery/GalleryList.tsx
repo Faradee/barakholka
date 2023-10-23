@@ -17,25 +17,29 @@ const GalleryList = (props: GalleryListProps) => {
   };
 
   return (
-    <div className="flex flex-row flex-wrap gap-2">
+    <div className="flex flex-row flex-wrap gap-1">
       {first10.map((image: string, index: number) => (
         <div
           key={index}
-          className={`outline-2 ${
-            index === selectIndex && "shadow-md"
-          } relative h-[150px] w-[calc(20%-0.4rem)] shadow-red-400 outline-red-400`}
-          style={index === selectIndex ? { outlineStyle: "solid" } : {}}
+          className={`flex items-center justify-center ${
+            (index === selectIndex || (index === 9 && selectIndex >= 9)) &&
+            "shadow-lg outline outline-2"
+          } relative h-[100px] w-[calc(20%-0.25rem)] shadow-red-400 outline-red-400`}
           onClick={() => setSelectIndex(index)}
         >
           {deleteable && (
             <div
-              className="onhover absolute right-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
+              className="onhover absolute right-0 top-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
               onClick={() => handleDelete(index)}
             >
               <AiOutlineClose size={20} color="red" />
             </div>
           )}
-
+          {index === 9 && thumbnailList.length > 10 && (
+            <div className="pointer-events-none absolute z-20 flex h-full w-full items-center justify-center text-lg text-white before:absolute before:-z-10 before:h-full before:w-full before:bg-black before:opacity-60 ">
+              Еще {thumbnailList.length - index - 1} фото
+            </div>
+          )}
           <GalleryItem image={image} pointer />
         </div>
       ))}

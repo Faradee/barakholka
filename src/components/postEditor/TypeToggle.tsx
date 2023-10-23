@@ -7,9 +7,7 @@ import { EstateState } from "./EstateForm";
 const TypeToggle = () => {
   const dispatch = useDispatch();
   const [typeIndex, setTypeIndex] = useState<number>(0);
-  const [style, setStyle] = useState<React.CSSProperties | undefined>(
-    undefined,
-  );
+  const [style, setStyle] = useState<string>("");
   const initialCarData = {
     kilometrage: "",
     year: "",
@@ -59,32 +57,28 @@ const TypeToggle = () => {
     setStyle(
       window.screen.width > 1024
         ? typeIndex === 0
-          ? { left: 0 }
+          ? "before:left-0"
           : typeIndex === 1
-          ? { left: "33.33%" }
-          : { left: "66.66%" }
+          ? "before:left-1/3"
+          : "before:left-2/3"
         : typeIndex === 0
-        ? { top: 0 }
+        ? "before:top-0"
         : typeIndex === 1
-        ? { top: "33.33%" }
-        : { top: "66.66%" },
+        ? "before:top-1/3"
+        : "before:top-2/3",
     );
   }, [typeIndex]);
   return (
-    <div className=" left-1/2 flex w-full justify-center">
-      <div className="relative mb-2 flex h-[7.5rem] w-1/2 bg-slate-300 lg:h-auto lg:w-[27rem]">
+    <div className="left-1/2 flex w-full justify-center">
+      <div className="relative mb-2 flex h-[7.5rem] w-1/2 before:bg-slate-300 lg:h-auto lg:w-[27rem]">
         <div
-          className="absolute block h-10 w-full flex-col bg-slate-500 transition-all duration-300 lg:w-1/3  lg:flex-row"
-          style={style}
+          className={`pointer-events-auto relative flex w-full flex-col before:absolute before:-z-10 before:h-1/3 lg:before:h-full ${style} before:w-full before:bg-slate-400 before:transition-all before:duration-300 lg:flex-row lg:before:w-1/3`}
         >
-          {" "}
-        </div>
-        <div className="z-10 flex w-full flex-col lg:flex-row">
           <button
             type="button"
             id="car"
             onClick={() => handleTypeToggle(0)}
-            className=" h-10 w-full border-b-2 border-black lg:w-1/3 "
+            className="h-10 w-full border-b-2 border-black lg:w-1/3 "
           >
             Машина
           </button>
@@ -92,7 +86,7 @@ const TypeToggle = () => {
             type="button"
             id="estate"
             onClick={() => handleTypeToggle(1)}
-            className=" h-10 w-full border-b-2 border-black lg:w-1/3 "
+            className="h-10 w-full border-b-2 border-black lg:w-1/3 "
           >
             Недвижимость
           </button>

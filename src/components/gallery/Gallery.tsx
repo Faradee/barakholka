@@ -30,7 +30,11 @@ const Gallery = (props: GalleryProps) => {
                   setSelectIndex(selectIndex - 1);
                 }}
               >
-                <AiOutlineArrowLeft size={50} className="opacity-80" />
+                <AiOutlineArrowLeft
+                  size={50}
+                  color="white"
+                  className="opacity-80"
+                />
               </button>
             )}
             <GalleryItem image={thumbnailList[selectIndex]} blurred />
@@ -43,7 +47,11 @@ const Gallery = (props: GalleryProps) => {
                   setSelectIndex(selectIndex + 1);
                 }}
               >
-                <AiOutlineArrowRight className="opacity-80" size={50} />
+                <AiOutlineArrowRight
+                  color="white"
+                  className="opacity-80"
+                  size={50}
+                />
               </button>
             )}
           </>
