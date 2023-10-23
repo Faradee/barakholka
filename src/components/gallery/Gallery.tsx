@@ -33,7 +33,7 @@ const Gallery = (props: GalleryProps) => {
                 <AiOutlineArrowLeft
                   size={50}
                   color="white"
-                  className="opacity-80"
+                  className="opacity-80 drop-shadow-md"
                 />
               </button>
             )}
@@ -49,7 +49,7 @@ const Gallery = (props: GalleryProps) => {
               >
                 <AiOutlineArrowRight
                   color="white"
-                  className="opacity-80"
+                  className="opacity-80 drop-shadow-md"
                   size={50}
                 />
               </button>
