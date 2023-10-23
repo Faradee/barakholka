@@ -19,6 +19,7 @@ const PostCard = async (props: Post) => {
       where: {
         postId: id,
       },
+      take: 5,
     })
   ).map((thumbnail) => {
     return thumbnail.thumbnail;
