@@ -23,7 +23,7 @@ const GalleryItem = (props: GalleryItemProps) => {
         priority
         className={`w-1/2 ${pointer ? "cursor-pointer" : "cursor-auto"} ${
           contain ? "object-contain" : "object-cover"
-        } ${blurred ? "blur-md" : ""}`}
+        } ${blurred ? "backdrop-filter-none" : "backdrop-blur-lg"}`}
       />
     )
   );
