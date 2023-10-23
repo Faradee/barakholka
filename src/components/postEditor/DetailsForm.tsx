@@ -6,7 +6,7 @@ import EstateForm from "./EstateForm";
 
 const DetailsForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const postType = useAppSelector((state) => state.postReducer.type);
+  const postType = useAppSelector((state) => state.post.type);
   const handleChange: React.Dispatch<React.SetStateAction<any>> = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {

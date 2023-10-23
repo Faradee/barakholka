@@ -11,7 +11,7 @@ type UploadableWrapperProps = {
 const UploadableWrapper = (props: UploadableWrapperProps) => {
   const { children, addFile } = props;
   const [localDim, setLocalDim] = useState<boolean>(false);
-  const dragAllow = useAppSelector((state) => state.dragReducer.dragAllow);
+  const dragAllow = useAppSelector((state) => state.drag.dragAllow);
   const handleUpload = (e: React.DragEvent) => {
     const reader = new FileReader();
     if (e.dataTransfer.items) {

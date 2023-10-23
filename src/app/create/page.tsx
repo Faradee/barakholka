@@ -32,13 +32,11 @@ export type PostData = PostState & {
 const PostEditor = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const { uuid } = useAppSelector((state) => state.authReducer);
-  const postData = useAppSelector((state) => state.postReducer);
-  const error = useAppSelector((state) => state.errorReducer.error);
+  const { uuid } = useAppSelector((state) => state.auth);
+  const postData = useAppSelector((state) => state.post);
+  const error = useAppSelector((state) => state.error.error);
   const [filesSize, setFilesSize] = useState<number>(0);
-  const postThumbnails = useAppSelector(
-    (state) => state.thumbnailReducer.thumbnails,
-  );
+  const postThumbnails = useAppSelector((state) => state.thumbnail.thumbnails);
   const handleChange: React.Dispatch<React.SetStateAction<any>> = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       dispatch(

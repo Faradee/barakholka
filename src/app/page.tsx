@@ -5,13 +5,13 @@ import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
-export const revalidate = 5;
+export const revalidate = 10;
 type FetchedPost = Post;
 const getPosts = cache(async () => {
   const posts = (await prisma.post.findMany()) as FetchedPost[];
   return posts as Post[];
 });
-export async function generateMetadata(): Promise<Metadata> {
+export const generateMetadata = async (): Promise<Metadata> => {
   const posts = await getPosts();
   const titles: string[] = [];
   posts.forEach((post) => {
@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "Место для покупки машин, недвижимости и прочего",
     keywords: titles,
   };
-}
+};
 const Home = async () => {
   const posts = await getPosts();
   return (

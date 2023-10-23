@@ -1,16 +1,7 @@
 import { useSelector, TypedUseSelectorHook } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import dimReducer from "./slices/dimSlice";
-import authReducer from "./slices/authSlice";
-import postReducer from "./slices/postSlice";
-import dragReducer from "./slices/dragSlice";
-import thumbnailReducer from "./slices/thumbnailSlice";
-import errorReducer from "./slices/errorSlice";
-import loadingReducer from "./slices/loadingSlice";
-import storage from "redux-persist/lib/storage";
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -18,20 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-const rootReducer = combineReducers({
-  dimReducer,
-  authReducer,
-  postReducer,
-  thumbnailReducer,
-  dragReducer,
-  errorReducer,
-  loadingReducer,
-});
-const persistConfig = {
-  key: "root",
-  storage,
-};
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+import { persistedReducer } from "./reducers";
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

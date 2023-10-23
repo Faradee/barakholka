@@ -37,7 +37,7 @@ const AuthModal = () => {
   const [auth, setAuth] = useState<Auth>(initialAuth);
   const { email, password, name, confirmPass, isSignup, showPassword } = auth;
   const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
-  const isLoading = useAppSelector((state) => state.loadingReducer.loading);
+  const isLoading = useAppSelector((state) => state.loading.loading);
   const dispatch = useDispatch<AppDispatch>();
   const handleShowPassword = () => {
     setAuth({ ...initialAuth, showPassword: !showPassword });

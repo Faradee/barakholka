@@ -16,7 +16,7 @@ type EstateFormProps = {
 
 const EstateForm = (props: EstateFormProps) => {
   const dispatch = useDispatch();
-  const postData = useAppSelector((state) => state.postReducer);
+  const postData = useAppSelector((state) => state.post);
   const { handleChange } = props;
   const toggleBoolean = (e: React.MouseEvent<HTMLInputElement>) => {
     dispatch(

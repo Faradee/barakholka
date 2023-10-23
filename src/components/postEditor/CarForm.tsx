@@ -19,7 +19,7 @@ type CarFormProps = {
 };
 const CarForm = (props: CarFormProps) => {
   const dispatch = useDispatch();
-  const postData = useAppSelector((state) => state.postReducer);
+  const postData = useAppSelector((state) => state.post);
   const toggleBoolean = (e: React.MouseEvent<HTMLInputElement>) => {
     dispatch(
       setDetailsField({

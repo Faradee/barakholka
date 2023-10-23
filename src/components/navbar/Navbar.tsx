@@ -22,8 +22,8 @@ const Navbar = () => {
 
   const [isAuth, setAuth] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const userData = useAppSelector((state) => state.authReducer);
-  const isDimmed = useAppSelector((state) => state.dimReducer.isDimmed);
+  const userData = useAppSelector((state) => state.auth);
+  const isDimmed = useAppSelector((state) => state.dim.isDimmed);
 
   //on nav button press
   const handleIsNav = () => {

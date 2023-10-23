@@ -10,7 +10,7 @@ export const loadResource = async (callback: Promise<void>) => {
   store.dispatch(toggleLoading());
 };
 const Loading = () => {
-  const isLoading = useAppSelector((state) => state.loadingReducer.loading);
+  const isLoading = useAppSelector((state) => state.loading.loading);
   return (
     <>
       {isLoading && (
