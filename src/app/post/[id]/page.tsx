@@ -92,7 +92,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               </ul>
             )}
 
-            <div className="relative h-[70vh] w-full">
+            <div className="relative w-full">
               {post && (
                 <Suspense
                   fallback={<Skeleton className="block h-full w-full" />}
