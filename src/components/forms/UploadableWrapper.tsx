@@ -46,7 +46,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           setLocalDim(false);
           handleUpload(e);
         }}
-        className="fixed z-20 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70 lg:-ml-64"
+        className="fixed z-20 -mt-5 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70 lg:-ml-64"
         style={localDim ? { display: "flex" } : {}}
       >
         <Uploadable />

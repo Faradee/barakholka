@@ -16,6 +16,8 @@
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "@uploadcare/rest-client": "^6.7.0",
+    "@uploadcare/upload-client": "^6.7.0",
     "argon2": "^0.31.1",
     "autoprefixer": "^10.4.15",
     "eslint": "8.49.0",

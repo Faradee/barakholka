@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
+import logo from "/public/rea-logo.png";
 import { redirect, useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
@@ -96,9 +97,10 @@ const Navbar = () => {
         >
           <Image
             className="pr-4"
-            src="/rea-logo.png"
+            src={logo}
             sizes="100px"
             alt="Logo"
+            placeholder="blur"
             fill
           />
         </Link>
@@ -147,7 +149,7 @@ const Navbar = () => {
       </nav>
       {isAuth && <AuthModal />}
       <DimOverlay />
-      <span className="mb-5 block h-20 w-full overflow-hidden" />
+      <span className="block h-20 w-full overflow-hidden" />
     </>
   );
 };
