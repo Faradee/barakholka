@@ -107,6 +107,7 @@ const PostEditor = () => {
             thumbnailList={postThumbnails}
             handleUpload={handleUpload}
             deleteable
+            uploadable
           />
         </div>
         <div className="w-full lg:w-auto">

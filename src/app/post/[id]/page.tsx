@@ -104,9 +104,10 @@ const page = async ({ params }: { params: { id: string } }) => {
           </div>
           <div className="m-5">
             <span className=" text-4xl font-bold">Комментарий продавца</span>
-            <div className="mb-5 min-h-[300px] w-full border-2 border-black p-5">
-              {post.description ? post.description : "Отсутствует"}
-            </div>
+            <textarea
+              defaultValue={post.description ? post.description : "Отсутствует"}
+              className="mb-5 min-h-[300px] w-full border-2 border-black p-5"
+            />
           </div>
         </div>
       )}
