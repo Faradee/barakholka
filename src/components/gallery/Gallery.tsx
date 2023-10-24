@@ -16,45 +16,45 @@ const Gallery = (props: GalleryProps) => {
   return (
     <div className="flex w-full flex-col p-2">
       <div
-        className="relative mb-5 flex h-full flex-col justify-center"
+        className="relative mb-5 flex h-full flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (
           children
         ) : (
           <>
-            {selectIndex !== 0 && (
-              <button
-                className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
-                onClick={() => {
-                  setSelectIndex(selectIndex - 1);
-                }}
-              >
-                <AiOutlineArrowLeft
-                  size={50}
-                  color="white"
-                  className="opacity-80 drop-shadow-md"
-                />
-              </button>
-            )}
             <div className="relative min-h-[400px] w-full lg:max-w-[50vw]">
+              {selectIndex !== 0 && (
+                <button
+                  className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
+                  onClick={() => {
+                    setSelectIndex(selectIndex - 1);
+                  }}
+                >
+                  <AiOutlineArrowLeft
+                    size={50}
+                    color="white"
+                    className="opacity-80 drop-shadow-md"
+                  />
+                </button>
+              )}
               <GalleryItem image={thumbnailList[selectIndex]} blurred />
               <GalleryItem image={thumbnailList[selectIndex]} contain />
+              {selectIndex !== thumbnailList.length - 1 && (
+                <button
+                  className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
+                  onClick={() => {
+                    setSelectIndex(selectIndex + 1);
+                  }}
+                >
+                  <AiOutlineArrowRight
+                    color="white"
+                    className="opacity-80 drop-shadow-md"
+                    size={50}
+                  />
+                </button>
+              )}
             </div>
-            {selectIndex !== thumbnailList.length - 1 && (
-              <button
-                className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
-                onClick={() => {
-                  setSelectIndex(selectIndex + 1);
-                }}
-              >
-                <AiOutlineArrowRight
-                  color="white"
-                  className="opacity-80 drop-shadow-md"
-                  size={50}
-                />
-              </button>
-            )}
           </>
         )}
       </div>
