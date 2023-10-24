@@ -10,7 +10,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
     reader.onload = () => addImage(reader.result as string);
   };
   return (
-    <>
+    <label className="font-normal">
       <Uploadable textless />
       <span className="text-center">
         <p>Перетащите картинку в окно</p> <p>или</p>{" "}
@@ -23,7 +23,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
           e.currentTarget.files && handleUpload(e.currentTarget.files[0]);
         }}
       />
-    </>
+    </label>
   );
 };
 
