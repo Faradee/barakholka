@@ -35,7 +35,6 @@ const Navbar = () => {
       : (document.body.style.overflow = "hidden");
   };
   const handleSignOut = () => {
-    localStorage.clear();
     signUserOut();
     dispatch(signOut());
     redirect("/");

@@ -54,12 +54,6 @@ const AuthModal = () => {
     } as UserData;
     const fetchedUser = await signUser(userData);
     if (fetchedUser) {
-      for (let prop in fetchedUser) {
-        localStorage.setItem(
-          prop,
-          fetchedUser[prop as keyof typeof fetchedUser],
-        );
-      }
       dispatch(signIn(fetchedUser));
       dispatch(setDim(false));
     } else setCredentialsWarning(true);
@@ -74,12 +68,6 @@ const AuthModal = () => {
       const createdUser = await createUser(userData);
       dispatch(setDim(false));
       if (createdUser) {
-        for (let prop in createdUser) {
-          localStorage.setItem(
-            prop,
-            createdUser[prop as keyof typeof createdUser],
-          );
-        }
         dispatch(signIn(createdUser));
         return;
       }
