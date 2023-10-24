@@ -32,7 +32,7 @@ const Home = async () => {
           {posts.map((post) => (
             <li
               key={post.id}
-              className="ml-5 min-h-[350px] w-3/4 min-w-[200px] md:w-1/2 lg:w-1/4"
+              className="ml-5 min-h-[350px] w-3/4 min-w-[200px] md:w-1/2 lg:w-[calc(25%-1.25rem)]"
             >
               <Link href={`/post/${post.id}`}>
                 <Suspense
