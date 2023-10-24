@@ -36,7 +36,9 @@ const FormField = (props: FormFieldProps) => {
   ) => {
     if (
       navigator.userAgent.includes("Firefox") &&
-      !/(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight)/.test(e.key) &&
+      !/(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight|Control|Shift|Alt)/.test(
+        e.key,
+      ) &&
       e.key !== "Backspace"
     ) {
       e.preventDefault();

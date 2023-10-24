@@ -44,6 +44,13 @@ const EstateForm = (props: EstateFormProps) => {
           onChange={handleChange}
         />
       </div>
+      <FormField
+        type="number"
+        name="floor"
+        placeholder="Число этажей"
+        useState={[details.floor, handleChange]}
+        onChange={handleChange}
+      />
       <div className="flex w-full justify-start">
         <LabelFormField
           type="boolean"
