@@ -13,7 +13,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
     <label className="font-normal">
       <Uploadable textless />
       <span className="text-center">
-        <p>Перетащите картинку в окно</p> <p>или</p>{" "}
+        <p>Перетащите изображение в окно</p> <p>или загрузите с помощью</p>
       </span>
       <input
         type="file"
