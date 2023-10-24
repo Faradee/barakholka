@@ -8,6 +8,7 @@ type GalleryListProps = {
   setSelectIndex: React.Dispatch<React.SetStateAction<number>>;
   deleteable?: boolean;
 };
+//TODO add draggable images that change state
 const GalleryList = (props: GalleryListProps) => {
   const { thumbnailList, selectIndex, setSelectIndex, deleteable } = props;
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const GalleryList = (props: GalleryListProps) => {
         >
           {deleteable && (
             <div
-              className="onhover absolute right-0 top-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
+              className="on-parent-hover absolute right-0 top-0 z-10 m-1 cursor-pointer transition-all duration-300 hover:backdrop-blur-sm"
               onClick={() => handleDelete(index)}
             >
               <AiOutlineClose size={20} color="red" />

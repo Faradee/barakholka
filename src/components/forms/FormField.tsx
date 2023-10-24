@@ -69,7 +69,7 @@ const FormField = (props: FormFieldProps) => {
 
       {type === "textarea" ? (
         <textarea
-          className="h-full w-full outline-none"
+          className="h-full w-full whitespace-pre-line outline-none"
           value={state as string}
           name={name}
           rows={rows}

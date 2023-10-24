@@ -13,9 +13,8 @@ import UploadableWrapper from "@/components/forms/UploadableWrapper";
 import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/actions";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
-import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
 import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 export type PostState = {
@@ -48,21 +47,32 @@ const PostEditor = () => {
     },
     [dispatch],
   );
-  const addImage = useCallback(
-    (file: string) => {
-      const size = new Blob([file]).size;
-      if (filesSize + size < 1024 * 1024 * 5) dispatch(addThumbnail(file));
-      else dispatch(setError("SizeError"));
-    },
-    [dispatch, filesSize],
-  );
-
+  const handleUpload = (fileList: FileList) => {
+    if (fileList) {
+      for (let i = 0; i < fileList.length; i++) {
+        const reader = new FileReader();
+        const file = fileList[i];
+        if (file.type.match("^image/(png|jpeg|webp|jpg)")) {
+          const image = file as Blob;
+          if (filesSize + image.size < 1024 * 1024 * 5) {
+            setFilesSize(filesSize + image.size);
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+              const file = reader.result as string;
+              dispatch(addThumbnail(file));
+            };
+          } else dispatch(setError("SizeError"));
+        } else {
+          dispatch(setError("TypeError"));
+          break;
+        }
+      }
+    }
+  };
   const handleSubmit = async () => {
     if (postData.title && postData.price)
       await createPost({ thumbnails: postThumbnails, ...postData });
-    dispatch(resetPostData());
-    dispatch(resetThumbnails());
-    redirect("/");
+    router.replace("/");
   };
 
   useEffect(() => {
@@ -72,28 +82,32 @@ const PostEditor = () => {
       dispatch(resetThumbnails());
     };
   }, [dispatch, uuid]);
+
   useEffect(() => {
-    let size: number = 0;
+    let tempSize: number = 0;
     postThumbnails.forEach((thumbnail) => {
-      size += new Blob([thumbnail]).size;
+      tempSize += new Blob([thumbnail]).size;
     });
-    if (size < 1024 * 1024 * 5) dispatch(setError(null));
-    setFilesSize(size);
+    if (tempSize < 1024 * 1024 * 5) dispatch(setError(null));
+    setFilesSize(tempSize);
   }, [postThumbnails, dispatch]);
+
   useEffect(() => {
-    if (!uuid) redirect("/");
+    if (!uuid) router.replace("/");
   }, [uuid, router]);
   return (
-    <UploadableWrapper addFile={addImage}>
+    <UploadableWrapper handleUpload={handleUpload}>
       {error && <ErrorHeader />}
       <div
         className=" flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
         <div className="w-full">
-          <Gallery thumbnailList={postThumbnails} deleteable>
-            <UploadPlaceholder addImage={addImage} />
-          </Gallery>
+          <Gallery
+            thumbnailList={postThumbnails}
+            handleUpload={handleUpload}
+            deleteable
+          />
         </div>
         <div className="w-full lg:w-auto">
           <div className="h-full px-10">

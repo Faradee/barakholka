@@ -36,7 +36,7 @@ input[type="number"] {
   clip-path: circle(40%);
 }
 @media (min-width: 1024px) {
-  .onhover {
+  .on-parent-hover {
     display: none;
   }
 }
@@ -54,7 +54,7 @@ input[type="number"] {
   pointer-events: none;
   animation: loading 2s linear infinite;
 }
-*:hover > .onhover {
+*:hover > .on-parent-hover {
   display: block;
 }
 svg {

@@ -21,7 +21,7 @@ export default function RootLayout({
         <ReduxProvider>
           <Navbar />
           <NextTopLoader color="#f72d2d" showSpinner={false} />
-          <div className="relative mt-5 md:px-16 lg:px-32 xl:px-64">
+          <div className="relative mt-5 md:px-16 lg:px-32 xl:px-48">
             {children}
           </div>
         </ReduxProvider>

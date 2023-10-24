@@ -3,15 +3,17 @@ import { useState, memo } from "react";
 import GalleryItem from "./GalleryItem";
 import GalleryList from "./GalleryList";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import AddGallery from "./AddGallery";
+import UploadPlaceholder from "../postEditor/UploadPlaceholder";
 type GalleryProps = {
   thumbnailList: string[];
-  children?: React.ReactNode;
   deleteable?: boolean;
+  handleUpload: (fileList: FileList) => void;
 };
 
 //TODO: add plus sign to upload image in the top right
 const Gallery = (props: GalleryProps) => {
-  const { thumbnailList, children, deleteable = false } = props;
+  const { thumbnailList, handleUpload, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
   return (
     <div className="flex w-full flex-col p-2">
@@ -20,7 +22,7 @@ const Gallery = (props: GalleryProps) => {
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (
-          children
+          <UploadPlaceholder handleUpload={handleUpload} />
         ) : (
           <div className="relative min-h-[400px] w-full lg:max-w-[50vw]">
             {selectIndex !== 0 && (
@@ -55,6 +57,9 @@ const Gallery = (props: GalleryProps) => {
                 />
               </button>
             )}
+            <div className="on-parent-hover">
+              <AddGallery handleUpload={handleUpload} />
+            </div>
           </div>
         )}
       </div>

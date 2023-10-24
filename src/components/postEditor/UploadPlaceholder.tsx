@@ -1,14 +1,10 @@
 import Uploadable from "../forms/Uploadable";
 type UploadPlaceholderProps = {
-  addImage: (file: string) => void;
+  handleUpload: (fileList: FileList) => void;
 };
 const UploadPlaceholder = (props: UploadPlaceholderProps) => {
-  const { addImage } = props;
-  const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => addImage(reader.result as string);
-  };
+  const { handleUpload } = props;
+
   return (
     <label className="font-normal">
       <Uploadable textless />
@@ -20,7 +16,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
         name="thumbnail"
         className="items-center text-center"
         onChange={(e) => {
-          e.currentTarget.files && handleUpload(e.currentTarget.files[0]);
+          e.currentTarget.files && handleUpload(e.currentTarget.files);
         }}
       />
     </label>

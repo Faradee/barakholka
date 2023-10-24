@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
 import logo from "/public/rea-logo.png";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
@@ -17,12 +17,13 @@ type Button = {
   title: string;
   url: string;
 };
-// ADD SEARCH PARAM AUTH STATE
+//TODO ADD SEARCH
+//TODO USER AVATAR WITH DROPDOWN MENU THAT HAS LOGIN/LOGOUT AND SETTINGS LINKS
 const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
-
   const [isAuth, setAuth] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const userData = useAppSelector((state) => state.auth);
   const isDimmed = useAppSelector((state) => state.dim.isDimmed);
 
@@ -37,7 +38,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     signUserOut();
     dispatch(signOut());
-    redirect("/");
+    router.replace("/");
   };
   //on auth button press
   const toggleAuthModal = useCallback(() => {
@@ -73,7 +74,7 @@ const Navbar = () => {
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
             href="/"
           >
-            <Image className="pr-4" src={logo} sizes="100vw" alt="Logo" fill />
+            <Image className="pr-4" src={logo} sizes="100vw" alt="Logo" />
           </Link>
         </div>
 
