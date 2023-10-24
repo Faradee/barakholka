@@ -17,6 +17,7 @@ import { redirect, useRouter } from "next/navigation";
 import { setError } from "../redux/slices/errorSlice";
 import UploadPlaceholder from "@/components/postEditor/UploadPlaceholder";
 import { loadResource } from "@/components/Loading";
+import ErrorHeader from "@/components/ErrorHeader";
 export type PostState = {
   posterId: string;
   title: string;
@@ -51,7 +52,7 @@ const PostEditor = () => {
     (file: string) => {
       const size = new Blob([file]).size;
       if (filesSize + size < 1024 * 1024 * 5) dispatch(addThumbnail(file));
-      else dispatch(setError("SizeOverflow"));
+      else dispatch(setError("SizeError"));
     },
     [dispatch, filesSize],
   );
@@ -84,11 +85,7 @@ const PostEditor = () => {
   }, [uuid, router]);
   return (
     <UploadableWrapper addFile={addImage}>
-      {error === "SizeOverflow" && (
-        <div className="flex w-full justify-center text-red-600">
-          <span>Суммарный размер файлов не должен превышать 5MB!</span>
-        </div>
-      )}
+      {error && <ErrorHeader />}
       <div
         className=" flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
