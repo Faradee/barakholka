@@ -18,7 +18,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
       <input
         type="file"
         name="thumbnail"
-        className="items-center"
+        className="items-center text-center"
         onChange={(e) => {
           e.currentTarget.files && handleUpload(e.currentTarget.files[0]);
         }}

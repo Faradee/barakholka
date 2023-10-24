@@ -14,9 +14,9 @@ const Gallery = (props: GalleryProps) => {
   const { thumbnailList, children, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
   return (
-    <div className="flex w-full min-w-min flex-col p-2">
+    <div className="flex w-full flex-col p-2">
       <div
-        className="relative mb-5 flex h-full justify-center"
+        className="relative mb-5 flex h-full flex-col justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
         {thumbnailList.length === 0 ? (

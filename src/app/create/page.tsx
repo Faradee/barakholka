@@ -90,7 +90,7 @@ const PostEditor = () => {
         </div>
       )}
       <div
-        className="min-h-fullscreen flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
+        className=" flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
         <div className="w-full">
