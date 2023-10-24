@@ -73,14 +73,7 @@ const Navbar = () => {
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
             href="/"
           >
-            <Image
-              className="pr-4"
-              src={logo}
-              sizes="100px"
-              alt="Logo"
-              placeholder="blur"
-              fill
-            />
+            <Image className="pr-4" src={logo} sizes="100px" alt="Logo" fill />
           </Link>
         </div>
 
