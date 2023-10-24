@@ -3,13 +3,11 @@ type HamburgerProps = {
   onClick: React.MouseEventHandler<HTMLDivElement>;
 };
 
-const HamburgerIcon = (props: HamburgerProps) => {
-  const { active } = props;
-
+const HamburgerIcon = ({ active, onClick }: HamburgerProps) => {
   return (
     <div
-      className="cursor-pointer p-2 hover:bg-slate-200 "
-      onClick={props.onClick}
+      className="mr-5 cursor-pointer p-2 hover:bg-slate-200 "
+      onClick={onClick}
     >
       <span
         className={`block ${

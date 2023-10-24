@@ -2,16 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.nav-button {
-  @apply w-full rounded-md py-2  text-center font-semibold outline-none hover:bg-slate-200 active:bg-slate-300 lg:ml-5 lg:w-auto lg:min-w-max lg:px-5;
-}
-
 .border-bottom {
   @apply border-b-2 border-slate-300;
-}
-
-.active-sidebar {
-  left: 0;
 }
 
 .form-field-container:focus-within {

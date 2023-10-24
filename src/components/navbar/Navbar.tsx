@@ -1,18 +1,18 @@
 "use client";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { signIn, signOut } from "@/app/redux/slices/authSlice";
+import { signOut } from "@/app/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
 import logo from "/public/rea-logo.png";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
 import { signUserOut } from "@/actions";
-
+import styles from "./styles.module.css";
 type Button = {
   title: string;
   url: string;
@@ -46,20 +46,6 @@ const Navbar = () => {
     setAuth(true);
     document.body.style.overflow = "hidden";
   }, [dispatch]);
-
-  const handleResize = () => {
-    if (isDimmed && isNav && window.innerWidth > 1000) {
-      document.body.style.overflow = "auto";
-      setNav(false);
-      dispatch(setDim(false));
-    }
-  };
-
-  const cachedHandleResize = useCallback(handleResize, [
-    isDimmed,
-    isNav,
-    dispatch,
-  ]);
   const buttons = [
     // { title: "Недвижимость", url: "estate" },
     // { title: "Авто", url: "car" },
@@ -73,55 +59,48 @@ const Navbar = () => {
       document.body.style.overflow = "auto";
     } else document.body.style.overflow = "hidden";
   }, [isDimmed]);
-  useEffect(() => {
-    window.addEventListener("resize", cachedHandleResize);
-    return () => {
-      window.removeEventListener("resize", cachedHandleResize);
-    };
-  }, [cachedHandleResize]);
   return (
     <>
       <nav
         className={`fixed ${
           isNav ? "z-30" : "z-20"
         } flex h-20 w-full items-center justify-between overflow-hidden bg-white px-5
-       py-4 lg:z-10 lg:justify-center lg:px-64 lg:shadow-md `}
+       py-4 lg:shadow-md `}
       >
-        <div className="flex justify-start lg:hidden">
+        <div className="flex justify-start">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
+          <Link
+            className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
+            href="/"
+          >
+            <Image
+              className="pr-4"
+              src={logo}
+              sizes="100px"
+              alt="Logo"
+              placeholder="blur"
+              fill
+            />
+          </Link>
         </div>
-        <Link
-          className="relative h-[35px] w-[150px] flex-grow-0 justify-center"
-          href="/"
-        >
-          <Image
-            className="pr-4"
-            src={logo}
-            sizes="100px"
-            alt="Logo"
-            placeholder="blur"
-            fill
-          />
-        </Link>
 
         <ul
           className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
         top-20 flex h-full w-64 flex-grow flex-col
         items-center border-t-2 border-slate-300 bg-white transition-all duration-200 
-        ease-out  lg:relative lg:left-0 lg:top-0 lg:h-auto lg:w-auto
-        lg:flex-row lg:justify-start lg:border-t-0 lg:transition-none 
+        ease-out
       `}
         >
           {buttons.map((button) => {
             return (
               <li
-                className="flex w-full justify-center lg:w-auto"
+                className="flex w-full justify-center"
                 onClick={() => dispatch(setDim(false))}
                 key={button.url}
               >
                 <Link
                   href={`/${button.url.toLowerCase()}`}
-                  className="nav-button"
+                  className={styles.navButton}
                   style={
                     userData.uuid
                       ? { pointerEvents: "auto" }
@@ -136,11 +115,17 @@ const Navbar = () => {
         </ul>
         <div className="items-center justify-center lg:justify-end">
           {userData.name === "" ? (
-            <button onClick={toggleAuthModal} className="nav-button p-5">
+            <button
+              onClick={toggleAuthModal}
+              className={`${styles.navButton} p-5`}
+            >
               Вход
             </button>
           ) : (
-            <button onClick={handleSignOut} className="nav-button p-5">
+            <button
+              onClick={handleSignOut}
+              className={`${styles.navButton} p-5`}
+            >
               Выйти
             </button>
           )}
