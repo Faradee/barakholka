@@ -1,6 +1,6 @@
 "use client";
 import { setPostField } from "@/app/redux/slices/postSlice";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CarState } from "./CarForm";
 import { EstateState } from "./EstateForm";
