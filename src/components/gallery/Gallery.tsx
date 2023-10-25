@@ -34,7 +34,7 @@ const Gallery = (props: GalleryProps) => {
           <div className="relative min-h-[400px] w-full lg:max-w-[50vw]">
             {selectIndex !== 0 && (
               <button
-                name="arrowLeft"
+                title="arrowLeft"
                 className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setSelectIndex(selectIndex - 1);
@@ -51,7 +51,7 @@ const Gallery = (props: GalleryProps) => {
             <GalleryItem image={thumbnailList[selectIndex]} contain />
             {selectIndex !== thumbnailList.length - 1 && (
               <button
-                name="arrowRight"
+                title="arrowRight"
                 className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
                 onClick={() => {
                   setSelectIndex(selectIndex + 1);

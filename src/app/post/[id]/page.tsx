@@ -103,10 +103,14 @@ const page = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
           <div className="m-5">
-            <span className=" text-4xl font-bold">Комментарий продавца</span>
+            <label htmlFor="description" className=" text-4xl font-bold">
+              Комментарий продавца
+            </label>
             <textarea
+              name="description"
               defaultValue={post.description ? post.description : "Отсутствует"}
-              className="mb-5 min-h-[300px] w-full border-2 border-black p-5"
+              className="mb-5 min-h-[300px] w-full border-2 border-black p-5 focus:outline-none"
+              readOnly
             />
           </div>
         </div>
