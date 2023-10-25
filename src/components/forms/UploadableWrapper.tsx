@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Uploadable from "./Uploadable";
-import { useAppSelector } from "@/app/redux/store";
+import { useAppSelector } from "@/redux/store";
 
 type UploadableWrapperProps = {
   children: React.ReactNode;

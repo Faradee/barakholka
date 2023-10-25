@@ -1,5 +1,5 @@
-import { useAppSelector } from "@/app/redux/store";
-import { setDim } from "@/app/redux/slices/dimSlice";
+import { useAppSelector } from "@/redux/store";
+import { setDim } from "@/redux/slices/dimSlice";
 import { useDispatch } from "react-redux";
 const DimOverlay = () => {
   const isDimmed = useAppSelector((state) => state.dim.isDimmed);

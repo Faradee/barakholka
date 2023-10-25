@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/app/redux/store";
+import { useAppSelector } from "@/redux/store";
 import React from "react";
 
 const ErrorHeader = () => {

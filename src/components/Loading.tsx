@@ -1,9 +1,9 @@
 "use client";
-import { useAppSelector } from "@/app/redux/store";
+import { useAppSelector } from "@/redux/store";
 import Image from "next/image";
 import loadingIcon from "../../public/1544764567.svg";
-import { store } from "@/app/redux/store";
-import { toggleLoading } from "@/app/redux/slices/loadingSlice";
+import { store } from "@/redux/store";
+import { toggleLoading } from "@/redux/slices/loadingSlice";
 export const loadResource = async (callback: Promise<void>) => {
   store.dispatch(toggleLoading());
   await callback;

@@ -1,6 +1,6 @@
 import { AiOutlineClose } from "react-icons/ai";
 import GalleryItem from "./GalleryItem";
-import { removeThumbnail } from "@/app/redux/slices/thumbnailSlice";
+import { removeThumbnail } from "@/redux/slices/thumbnailSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 type GalleryListProps = {

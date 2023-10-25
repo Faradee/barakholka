@@ -1,5 +1,5 @@
-import { setDetailsField } from "@/app/redux/slices/postSlice";
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { setDetailsField } from "@/redux/slices/postSlice";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import CarForm from "./CarForm";
 import EstateForm from "./EstateForm";

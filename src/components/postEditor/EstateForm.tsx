@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@/app/redux/store";
+import { useAppSelector } from "@/redux/store";
 import FormField from "../forms/FormField";
 import LabelFormField from "../forms/LabelFormField";
-import { setDetailsField } from "@/app/redux/slices/postSlice";
+import { setDetailsField } from "@/redux/slices/postSlice";
 export type EstateState = {
   space: string;
   rooms: string;

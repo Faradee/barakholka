@@ -5,16 +5,19 @@ import FormField from "@/components/forms/FormField";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { setPostField, resetPostData } from "@/app/redux/slices/postSlice";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { setPostField, resetPostData } from "@/redux/slices/postSlice";
 import DetailsForm from "@/components/postEditor/DetailsForm";
 import Gallery from "@/components/gallery/Gallery";
 import UploadableWrapper from "@/components/forms/UploadableWrapper";
-import { addThumbnail, resetThumbnails } from "../redux/slices/thumbnailSlice";
+import {
+  addThumbnail,
+  resetThumbnails,
+} from "../../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
 import { createPost } from "@/actions";
 import { useRouter } from "next/navigation";
-import { setError } from "../redux/slices/errorSlice";
+import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 export type PostState = {

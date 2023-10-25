@@ -32,7 +32,12 @@ const PostCard = async (props: Post) => {
         {thumbnails.length !== 0 ? (
           <Thumbnail thumbnails={thumbnails} />
         ) : (
-          <Image src={thumbnailPlaceholder} fill alt="thumbnail placeholder" />
+          <Image
+            src={thumbnailPlaceholder}
+            fill
+            sizes="100%"
+            alt="thumbnail placeholder"
+          />
         )}
       </div>
       <div className="w-full">

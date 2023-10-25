@@ -1,6 +1,6 @@
 "use client";
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { signOut } from "@/app/redux/slices/authSlice";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { signOut } from "@/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,10 +9,11 @@ import AuthModal from "./AuthModal";
 import logo from "/public/rea-logo.webp";
 import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
-import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";
+import { setDim, toggleDim } from "@/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
 import { signUserOut } from "@/actions";
 import styles from "./styles.module.css";
+import Usermenu from "./Usermenu";
 type Button = {
   title: string;
   url: string;
@@ -65,7 +66,7 @@ const Navbar = () => {
       <nav
         className={`fixed ${
           isNav ? "z-30" : "z-20"
-        } flex h-20 w-full items-center justify-between overflow-hidden bg-white px-5
+        } flex h-20 w-full items-center justify-between bg-white px-5
        py-4 lg:shadow-md `}
       >
         <div className="flex justify-start">
@@ -116,12 +117,13 @@ const Navbar = () => {
               Вход
             </button>
           ) : (
-            <button
-              onClick={handleSignOut}
-              className={`${styles.navButton} p-5`}
-            >
-              Выйти
-            </button>
+            <Usermenu />
+            // <button
+            //   onClick={handleSignOut}
+            //   className={`${styles.navButton} p-5`}
+            // >
+            //   Выйти
+            // </button>
           )}
         </div>
       </nav>

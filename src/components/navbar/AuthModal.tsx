@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { BsFillEnvelopeFill } from "react-icons/bs";
-import { signIn } from "@/app/redux/slices/authSlice";
+import { signIn } from "@/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import {
   AiOutlineClose,
@@ -10,10 +10,10 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
 } from "react-icons/ai";
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { UserData, createUser, signUser } from "@/actions";
 import FormField from "../forms/FormField";
-import { setDim } from "@/app/redux/slices/dimSlice";
+import { setDim } from "@/redux/slices/dimSlice";
 import Button from "../forms/Button";
 import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";

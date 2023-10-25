@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { memo } from "react";
 import { useDispatch } from "react-redux";
-import { setDrag } from "@/app/redux/slices/dragSlice";
+import { setDrag } from "@/redux/slices/dragSlice";
 type GalleryItemProps = {
   image: string;
   contain?: boolean;
