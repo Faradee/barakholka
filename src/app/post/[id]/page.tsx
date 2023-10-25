@@ -108,7 +108,9 @@ const page = async ({ params }: { params: { id: string } }) => {
             <textarea
               id="description"
               defaultValue={post.description ? post.description : "Отсутствует"}
-              className="mb-5 min-h-[300px] w-full border-2 border-black p-5 focus:outline-none"
+              className={`mb-5 min-h-[300px] w-full border-2 border-black p-5 ${
+                post.description && "text-gray-400"
+              } focus:outline-none`}
               readOnly
             />
           </div>
