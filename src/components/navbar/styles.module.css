@@ -6,7 +6,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 9999px;
+  user-select: none;
 }
 .list > li:hover {
-  background-color: gray;
+  background-color: rgb(206, 206, 206);
 }
