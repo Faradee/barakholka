@@ -15,8 +15,8 @@ const GalleryList = (props: GalleryListProps) => {
   const dispatch = useDispatch();
   const first10 = thumbnailList.slice(0, 10);
   const handleDelete = (index: number) => {
+    if (index === thumbnailList.length - 1) setSelectIndex(selectIndex - 1);
     dispatch(removeThumbnail(index));
-    setSelectIndex(index - 1);
   };
 
   return (
@@ -28,7 +28,6 @@ const GalleryList = (props: GalleryListProps) => {
             (index === selectIndex || (index === 9 && selectIndex >= 9)) &&
             "shadow-lg outline outline-2"
           } relative h-[100px] w-[calc(20%-0.25rem)] shadow-red-400 outline-red-400`}
-          onClick={() => setSelectIndex(index)}
         >
           {deleteable && (
             <div
@@ -45,7 +44,9 @@ const GalleryList = (props: GalleryListProps) => {
               </span>
             </div>
           )}
-          <GalleryItem image={image} pointer />
+          <div onClick={() => setSelectIndex(index)}>
+            <GalleryItem image={image} pointer />
+          </div>
         </div>
       ))}
     </div>

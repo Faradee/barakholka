@@ -18,9 +18,6 @@ type GalleryProps = {
 const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
-  useEffect(() => {
-    if (selectIndex >= thumbnailList.length) setSelectIndex(selectIndex - 1);
-  }, [thumbnailList, selectIndex]);
 
   return (
     <div className="flex w-full flex-col p-2">
