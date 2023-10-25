@@ -18,6 +18,7 @@ const UploadPlaceholder = (props: UploadPlaceholderProps) => {
         onChange={(e) => {
           e.currentTarget.files && handleUpload(e.currentTarget.files);
         }}
+        multiple
       />
     </label>
   );

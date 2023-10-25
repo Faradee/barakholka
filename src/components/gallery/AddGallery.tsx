@@ -12,6 +12,7 @@ const AddGallery = ({ handleUpload }: AddGalleryProps) => {
         onChange={(e) =>
           e.currentTarget.files && handleUpload(e.currentTarget.files)
         }
+        multiple
       />
       <AiOutlinePlus color="white" size={64} />
     </label>
