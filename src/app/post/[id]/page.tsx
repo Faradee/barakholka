@@ -107,7 +107,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               Комментарий продавца
             </label>
             <textarea
-              name="description"
+              id="description"
               defaultValue={post.description ? post.description : "Отсутствует"}
               className="mb-5 min-h-[300px] w-full border-2 border-black p-5 focus:outline-none"
               readOnly
