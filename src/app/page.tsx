@@ -5,7 +5,6 @@ import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
-export const revalidate = 5;
 export const dynamic = "force-static";
 type FetchedPost = Post;
 const getPosts = cache(async () => {

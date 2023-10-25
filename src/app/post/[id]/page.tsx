@@ -8,7 +8,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
-export const revalidate = 1800;
 export const dynamic = "force-static";
 const getPostData = cache(async (id: number) => {
   const post = await prisma.post.findFirst({

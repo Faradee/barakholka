@@ -14,7 +14,6 @@ type GalleryProps = {
   uploadable?: boolean;
 };
 
-//TODO: add plus sign to upload image in the top right
 const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
