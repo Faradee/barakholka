@@ -7,6 +7,7 @@ import Image from "next/image";
 import AddGallery from "./AddGallery";
 import UploadPlaceholder from "../postEditor/UploadPlaceholder";
 import thumbnailPlaceholder from "/public/thumbnailPlaceholderr.svg.png";
+import { useEffect } from "react";
 type GalleryProps = {
   thumbnailList: string[];
   deleteable?: boolean;
@@ -17,6 +18,10 @@ type GalleryProps = {
 const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
+  useEffect(() => {
+    if (selectIndex >= thumbnailList.length) setSelectIndex(selectIndex - 1);
+  }, [thumbnailList, selectIndex]);
+
   return (
     <div className="flex w-full flex-col p-2">
       <div
@@ -32,7 +37,7 @@ const Gallery = (props: GalleryProps) => {
             )
           ) : (
             <>
-              {selectIndex !== 0 && (
+              {selectIndex > 0 && (
                 <button
                   title="arrowLeft"
                   className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
@@ -49,7 +54,7 @@ const Gallery = (props: GalleryProps) => {
               )}
               <GalleryItem image={thumbnailList[selectIndex]} blurred />
               <GalleryItem image={thumbnailList[selectIndex]} contain />
-              {selectIndex !== thumbnailList.length - 1 && (
+              {selectIndex < thumbnailList.length - 1 && (
                 <button
                   title="arrowRight"
                   className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"

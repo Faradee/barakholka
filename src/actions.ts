@@ -5,7 +5,7 @@ import { EstateState } from "./components/postEditor/EstateForm";
 import { cookies } from "next/headers";
 import prisma from "./db";
 import argon2 from "argon2";
-
+import { revalidatePath } from "next/cache";
 import jwt from "jsonwebtoken";
 export type UserData = {
   email: string;
@@ -13,10 +13,8 @@ export type UserData = {
   name: string;
 };
 //TODO ADD MIDDLEWARE FOR JWT VERIFICATION
-export const middleware = async (
-  token: string,
-  func: (...args: any[]) => any,
-) => {};
+
+const middleware = async (token: string, func: (...args: any[]) => any) => {};
 
 export async function createUser(userData: UserData) {
   const foundUser = await prisma.user.findFirst({
@@ -71,25 +69,6 @@ export async function signUserOut() {
       cookies().delete(cookie.name);
     });
 }
-// export async function initUser() {
-//   const cookieStore = cookies();
-//   if (
-//     cookieStore.has("name") &&
-//     cookieStore.has("uuid") &&
-//     cookieStore.has("email")
-//   )
-//     return {
-//       name: cookieStore.get("name")!.value,
-//       uuid: cookieStore.get("uuid")!.value,
-//       email: cookieStore.get("email")!.value,
-//     };
-//   else
-//     return {
-//       name: "",
-//       uuid: "",
-//       email: "",
-//     };
-// }
 export async function createPost(postData: PostData) {
   if (postData) {
     try {
@@ -120,6 +99,7 @@ export async function createPost(postData: PostData) {
         await prisma.estate.create({
           data: { postId: id, ...(postData.details as EstateState) },
         });
+      revalidatePath("/");
     } catch (error) {
       console.log(error);
     }

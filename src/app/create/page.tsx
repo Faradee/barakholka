@@ -47,28 +47,31 @@ const PostEditor = () => {
     },
     [dispatch],
   );
-  const handleUpload = (fileList: FileList) => {
-    if (fileList) {
-      for (let i = 0; i < fileList.length; i++) {
-        const reader = new FileReader();
-        const file = fileList[i];
-        if (file.type.match("^image/(png|jpeg|webp|jpg)")) {
-          const image = file as Blob;
-          if (filesSize + image.size < 1024 * 1024 * 5) {
-            setFilesSize(filesSize + image.size);
-            reader.readAsDataURL(image);
-            reader.onload = () => {
-              const file = reader.result as string;
-              dispatch(addThumbnail(file));
-            };
-          } else dispatch(setError("SizeError"));
-        } else {
-          dispatch(setError("TypeError"));
-          break;
+  const handleUpload = useCallback(
+    (fileList: FileList) => {
+      if (fileList) {
+        for (let i = 0; i < fileList.length; i++) {
+          const reader = new FileReader();
+          const file = fileList[i];
+          if (file.type.match("^image/(png|jpeg|webp|jpg)")) {
+            const image = file as Blob;
+            if (filesSize + image.size < 1024 * 1024 * 5) {
+              setFilesSize(filesSize + image.size);
+              reader.readAsDataURL(image);
+              reader.onload = () => {
+                const file = reader.result as string;
+                dispatch(addThumbnail(file));
+              };
+            } else dispatch(setError("SizeError"));
+          } else {
+            dispatch(setError("TypeError"));
+            break;
+          }
         }
       }
-    }
-  };
+    },
+    [dispatch, filesSize],
+  );
   const handleSubmit = async () => {
     if (postData.title && postData.price)
       await createPost({ thumbnails: postThumbnails, ...postData });

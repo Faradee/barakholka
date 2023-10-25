@@ -2,6 +2,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import GalleryItem from "./GalleryItem";
 import { removeThumbnail } from "@/app/redux/slices/thumbnailSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 type GalleryListProps = {
   thumbnailList: string[];
   selectIndex: number;
@@ -15,6 +16,7 @@ const GalleryList = (props: GalleryListProps) => {
   const first10 = thumbnailList.slice(0, 10);
   const handleDelete = (index: number) => {
     dispatch(removeThumbnail(index));
+    setSelectIndex(index - 1);
   };
 
   return (
