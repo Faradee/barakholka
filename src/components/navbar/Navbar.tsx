@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
-import logo from "/public/rea-logo.png";
+import logo from "/public/rea-logo.webp";
 import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/app/redux/slices/dimSlice";

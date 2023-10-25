@@ -16,6 +16,7 @@ import FormField from "../forms/FormField";
 import { setDim } from "@/app/redux/slices/dimSlice";
 import Button from "../forms/Button";
 import { loadResource } from "../Loading";
+import logo from "/public/rea-logo.webp";
 type Auth = {
   email: string;
   password: string;
@@ -91,14 +92,10 @@ const AuthModal = () => {
       {isLoading && (
         <div className="absolute z-10 -mt-4 h-full w-full rounded-3xl bg-white opacity-50"></div>
       )}
+      <div className="w-[175px]">
+        <Image className="" src={logo} sizes="100vw" alt="Logo" />
+      </div>
 
-      <Image
-        className=""
-        src="/rea-logo.png"
-        width="150"
-        height="300"
-        alt="Logo"
-      />
       {!isLoading && (
         <div
           onClick={() => dispatch(setDim(false))}

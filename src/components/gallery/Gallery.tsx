@@ -6,8 +6,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import Image from "next/image";
 import AddGallery from "./AddGallery";
 import UploadPlaceholder from "../postEditor/UploadPlaceholder";
-import thumbnailPlaceholder from "/public/thumbnailPlaceholderr.svg.png";
-import { useEffect } from "react";
+import thumbnailPlaceholder from "/public/thumbnailPlaceholder.webp";
 type GalleryProps = {
   thumbnailList: string[];
   deleteable?: boolean;
@@ -30,7 +29,12 @@ const Gallery = (props: GalleryProps) => {
             uploadable && handleUpload ? (
               <UploadPlaceholder handleUpload={handleUpload} />
             ) : (
-              <Image src={thumbnailPlaceholder} alt="thumbnail placeholder" />
+              <Image
+                src={thumbnailPlaceholder}
+                width={500}
+                height={500}
+                alt="thumbnail placeholder"
+              />
             )
           ) : (
             <>

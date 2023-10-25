@@ -1,6 +1,8 @@
 "use server";
 import Thumbnail from "./Thumbnail";
 import prisma from "@/db";
+import thumbnailPlaceholder from "/public/thumbnailPlaceholder.webp";
+import Image from "next/image";
 export type Post = {
   id: number;
   posterId: string;
@@ -26,8 +28,12 @@ const PostCard = async (props: Post) => {
   });
   return (
     <>
-      <div className="h-64 w-full">
-        <Thumbnail thumbnails={thumbnails} />
+      <div className="relative h-64 w-full">
+        {thumbnails.length !== 0 ? (
+          <Thumbnail thumbnails={thumbnails} />
+        ) : (
+          <Image src={thumbnailPlaceholder} fill alt="thumbnail placeholder" />
+        )}
       </div>
       <div className="w-full">
         <span>{props.title}</span>
