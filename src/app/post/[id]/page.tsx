@@ -91,7 +91,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               </ul>
             )}
 
-            <div className="relative w-full">
+            <div className="relative h-full w-full">
               {post && (
                 <Suspense
                   fallback={<Skeleton className="block h-full w-full" />}
@@ -109,7 +109,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               id="description"
               defaultValue={post.description ? post.description : "Отсутствует"}
               className={`mb-5 min-h-[300px] w-full border-2 border-black p-5 ${
-                post.description && "text-gray-400"
+                !post.description && "text-gray-400"
               } focus:outline-none`}
               readOnly
             />

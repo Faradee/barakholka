@@ -12,7 +12,7 @@ const HamburgerIcon = ({ active, onClick }: HamburgerProps) => {
       <span
         className={`block ${
           active ? "translate-y-[6px] -rotate-45" : "rotate-0"
-        } mb-1 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
+        } mb-1 mt-0.5 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
       ></span>
       <span
         className={`block ${
@@ -22,7 +22,7 @@ const HamburgerIcon = ({ active, onClick }: HamburgerProps) => {
       <span
         className={`block ${
           active ? "translate-y-[-6px] rotate-45" : "rotate-0"
-        } mb-1 h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
+        } h-[2px] w-[20px] bg-slate-800 transition-all duration-300 ease-out`}
       ></span>
     </div>
   );
