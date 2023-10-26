@@ -14,9 +14,18 @@ export type UserData = {
 };
 //TODO ADD MIDDLEWARE FOR JWT VERIFICATION
 
-const middleware = async (token: string, func: (...args: any[]) => any) => {};
+const middleware = async (next: (...args: any[]) => any) => {
+  const secret = process.env.SECRET!;
+  if (cookies().has("token"))
+    jwt.verify(cookies().get("token")!.value, secret, (err, decoded) => {
+      if (err) {
+        signUserOut();
+        return "error";
+      } else next();
+    });
+};
 
-export async function createUser(userData: UserData) {
+export const createUser = async (userData: UserData) => {
   const foundUser = await prisma.user.findFirst({
     where: {
       email: userData.email,
@@ -42,9 +51,9 @@ export async function createUser(userData: UserData) {
       console.log(err);
     }
   else console.log("user already exists");
-}
+};
 
-export async function signUser(userData: UserData) {
+export const signUser = async (userData: UserData) => {
   const foundUser = await prisma.user.findFirst({
     where: {
       email: userData.email,
@@ -61,15 +70,15 @@ export async function signUser(userData: UserData) {
     cookies().set("token", token, { sameSite: "strict" });
     return returnUser;
   } else return null;
-}
-export async function signUserOut() {
+};
+export const signUserOut = () => {
   cookies()
     .getAll()
     .forEach((cookie) => {
       cookies().delete(cookie.name);
     });
-}
-export async function createPost(postData: PostData) {
+};
+export const createPost = async (postData: PostData) => {
   if (postData) {
     try {
       const { id } = await prisma.post.create({
@@ -104,4 +113,4 @@ export async function createPost(postData: PostData) {
       console.log(error);
     }
   }
-}
+};
