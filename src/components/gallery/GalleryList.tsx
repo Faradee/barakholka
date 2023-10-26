@@ -20,14 +20,15 @@ const GalleryList = (props: GalleryListProps) => {
   };
 
   return (
-    <div className="flex flex-row flex-wrap gap-1">
+    <ul className="flex flex-row flex-wrap gap-1">
       {first10.map((image: string, index: number) => (
-        <div
+        <li
           key={index}
           className={`flex items-center justify-center ${
             (index === selectIndex || (index === 9 && selectIndex >= 9)) &&
             "shadow-lg outline outline-2"
           } relative h-[100px] w-[calc(20%-0.25rem)] shadow-red-400 outline-red-400`}
+          onClick={() => setSelectIndex(index)}
         >
           {deleteable && (
             <div
@@ -44,12 +45,10 @@ const GalleryList = (props: GalleryListProps) => {
               </span>
             </div>
           )}
-          <div onClick={() => setSelectIndex(index)}>
-            <GalleryItem image={image} pointer />
-          </div>
-        </div>
+          <GalleryItem image={image} pointer />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
