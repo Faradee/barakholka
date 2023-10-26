@@ -9,7 +9,7 @@
   user-select: none;
 }
 .list > li:hover {
-  background-color: rgb(206, 206, 206);
+  background-color: rgb(209, 209, 209);
 }
 .list > li:active {
   background-color: rgb(189, 189, 189);

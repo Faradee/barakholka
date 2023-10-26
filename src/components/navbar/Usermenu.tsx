@@ -32,20 +32,37 @@ const Usermenu = () => {
         />
       </div>
       {isMenu && (
-        <ul
-          tabIndex={1}
-          className={`absolute top-[90%] z-20 min-w-[200px] -translate-x-[calc(50%+3rem)] bg-slate-200 ${styles.list}`}
+        <div
+          className={`absolute top-[90%] z-20 min-w-[300px] bg-slate-100 p-2 shadow-md lg:-translate-x-[calc(90%)] `}
         >
-          <li
-            onClick={() => setIsMenu(false)}
-            className={`${styles.navButton}`}
-          >
-            <Link href={"/user/settings"}>Настройки аккаунта</Link>
-          </li>
-          <li className={`${styles.navButton}`} onClick={handleSignOut}>
-            Выйти
-          </li>
-        </ul>
+          <div className="mb-2 flex">
+            <div className="relative mr-2 h-[3rem] w-[3rem] rounded-full bg-slate-400">
+              <Image
+                onClick={() => setIsMenu(true)}
+                src={defaultUserImage}
+                sizes="100%"
+                fill
+                alt="user avatar"
+              />
+            </div>
+            <div className="flex flex-col">
+              {" "}
+              <span>{userData.name}</span>
+              <span>{userData.email}</span>
+            </div>
+          </div>
+          <ul className={`${styles.list}`} tabIndex={1}>
+            <li
+              onClick={() => setIsMenu(false)}
+              className={`${styles.navButton}`}
+            >
+              <Link href={"/user/settings"}>Настройки аккаунта</Link>
+            </li>
+            <li className={`${styles.navButton}`} onClick={handleSignOut}>
+              Выйти
+            </li>
+          </ul>
+        </div>
       )}
     </div>
   );
