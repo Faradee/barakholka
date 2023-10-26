@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.border-bottom {
-  @apply border-b-2 border-slate-300;
-}
-
 .form-field-container:focus-within {
   border: 5px solid black;
 }
-
+.userOption {
+  @apply w-full py-2 outline-none hover:bg-slate-200 active:bg-slate-300;
+}
 .textfield {
   @apply mb-2 flex w-full items-center gap-2 rounded-lg border-2 border-slate-600 p-2 ring-black;
 }

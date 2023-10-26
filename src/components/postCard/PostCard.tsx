@@ -42,7 +42,7 @@ const PostCard = async (props: Post) => {
       </div>
       <div className="w-full">
         <span>{props.title}</span>
-        <div className="border-bottom w-full py-0.5 text-xl font-bold">
+        <div className="border-slate-300m w-full border-b-2 py-0.5 text-xl font-bold">
           {parseInt(props.price).toLocaleString().replaceAll(",", " ")} ₽
         </div>
         <span className="font-light text-slate-600">

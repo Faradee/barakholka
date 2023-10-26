@@ -118,12 +118,6 @@ const Navbar = () => {
             </button>
           ) : (
             <Usermenu />
-            // <button
-            //   onClick={handleSignOut}
-            //   className={`${styles.navButton} p-5`}
-            // >
-            //   Выйти
-            // </button>
           )}
         </div>
       </nav>
