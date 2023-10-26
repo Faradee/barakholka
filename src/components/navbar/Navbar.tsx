@@ -11,7 +11,6 @@ import { setDim, toggleDim } from "@/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
 import styles from "./styles.module.css";
 import Usermenu from "./Usermenu";
-import { BsFillFileEarmarkPostFill } from "react-icons/bs";
 import { IconType } from "react-icons";
 type Button = {
   title: string;
@@ -49,7 +48,6 @@ const Navbar = () => {
     {
       title: "Создать объявление",
       url: "create",
-      icon: BsFillFileEarmarkPostFill,
     },
   ] as Button[];
   useEffect(() => {
@@ -93,20 +91,14 @@ const Navbar = () => {
               >
                 <Link
                   href={`/${button.url.toLowerCase()}`}
-                  className={`${styles.navButton} flex items-center gap-x-2 px-2`}
+                  className={`${styles.navButton} flex justify-center gap-x-2 px-2`}
                   style={
                     userData.uuid
                       ? { pointerEvents: "auto" }
                       : { pointerEvents: "none", color: "gray" }
                   }
                 >
-                  {button.icon !== undefined && (
-                    <div className="flex w-8 justify-center">
-                      <button.icon size={20} />
-                    </div>
-                  )}
-
-                  <span className="w-full text-start">{button.title}</span>
+                  {button.title}
                 </Link>
               </li>
             );
