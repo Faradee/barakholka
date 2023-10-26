@@ -1,22 +1,22 @@
 "use client";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { signOut } from "@/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import AuthModal from "./AuthModal";
 import logo from "/public/rea-logo.webp";
-import { useRouter } from "next/navigation";
 import HamburgerIcon from "./HamburgerIcon";
 import { setDim, toggleDim } from "@/redux/slices/dimSlice";
 import DimOverlay from "../DimOverlay";
-import { signUserOut } from "@/actions";
 import styles from "./styles.module.css";
 import Usermenu from "./Usermenu";
+import { BsFillFileEarmarkPostFill } from "react-icons/bs";
+import { IconType } from "react-icons";
 type Button = {
   title: string;
   url: string;
+  icon?: IconType;
 };
 //TODO ADD SEARCH
 //TODO USER AVATAR WITH DROPDOWN MENU THAT HAS LOGIN/LOGOUT AND SETTINGS LINKS
@@ -24,7 +24,6 @@ const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
   const userData = useAppSelector((state) => state.auth);
   const isDimmed = useAppSelector((state) => state.dim.isDimmed);
 
@@ -35,11 +34,6 @@ const Navbar = () => {
     isDimmed
       ? (document.body.style.overflow = "auto")
       : (document.body.style.overflow = "hidden");
-  };
-  const handleSignOut = () => {
-    signUserOut();
-    dispatch(signOut());
-    router.replace("/");
   };
   //on auth button press
   const toggleAuthModal = useCallback(() => {
@@ -52,7 +46,11 @@ const Navbar = () => {
     // { title: "Недвижимость", url: "estate" },
     // { title: "Авто", url: "car" },
     // { title: "Другое", url: "misc" },
-    { title: "Создать объявление", url: "create" },
+    {
+      title: "Создать объявление",
+      url: "create",
+      icon: BsFillFileEarmarkPostFill,
+    },
   ] as Button[];
   useEffect(() => {
     if (!isDimmed) {
@@ -95,14 +93,20 @@ const Navbar = () => {
               >
                 <Link
                   href={`/${button.url.toLowerCase()}`}
-                  className={styles.navButton}
+                  className={`${styles.navButton} flex items-center gap-x-2 px-2`}
                   style={
                     userData.uuid
                       ? { pointerEvents: "auto" }
                       : { pointerEvents: "none", color: "gray" }
                   }
                 >
-                  {button.title}
+                  {button.icon !== undefined && (
+                    <div className="flex w-8 justify-center">
+                      <button.icon size={20} />
+                    </div>
+                  )}
+
+                  <span className="w-full text-start">{button.title}</span>
                 </Link>
               </li>
             );
