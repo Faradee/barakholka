@@ -1,9 +1,9 @@
 "use server";
-import { PostData } from "./app/create/page";
-import { CarState } from "./components/postEditor/CarForm";
-import { EstateState } from "./components/postEditor/EstateForm";
+import { PostData } from "../app/create/page";
+import { CarState } from "../components/postEditor/CarForm";
+import { EstateState } from "../components/postEditor/EstateForm";
 import { cookies } from "next/headers";
-import prisma from "./db";
+import prisma from "../db";
 import argon2 from "argon2";
 import { revalidatePath } from "next/cache";
 import jwt from "jsonwebtoken";

@@ -15,7 +15,7 @@ import {
   resetThumbnails,
 } from "../../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
-import { createPost } from "@/actions";
+import { createPost } from "@/actions/actions";
 import { useRouter } from "next/navigation";
 import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
