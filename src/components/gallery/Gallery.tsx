@@ -79,12 +79,14 @@ const Gallery = (props: GalleryProps) => {
           )}
         </div>
       </div>
-      <GalleryList
-        thumbnailList={thumbnailList}
-        setSelectIndex={setSelectIndex}
-        selectIndex={selectIndex}
-        deleteable={deleteable}
-      />
+      {thumbnailList.length > 1 && (
+        <GalleryList
+          thumbnailList={thumbnailList}
+          setSelectIndex={setSelectIndex}
+          selectIndex={selectIndex}
+          deleteable={deleteable}
+        />
+      )}
     </div>
   );
 };
