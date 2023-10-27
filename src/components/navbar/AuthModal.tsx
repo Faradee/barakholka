@@ -11,7 +11,7 @@ import {
   AiFillEyeInvisible,
 } from "react-icons/ai";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { UserData, createUser, signUser } from "@/actions/actions";
+import { UserData, createUser, signUser } from "@/actions/userActions";
 import FormField from "../forms/FormField";
 import { setDim } from "@/redux/slices/dimSlice";
 import Button from "../forms/Button";

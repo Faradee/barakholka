@@ -5,6 +5,7 @@ type UserState = {
   email: string;
   uuid: string;
 };
+type UserInfo = Omit<UserState, "uuid">;
 const initialState = {
   name: "",
   email: "",
@@ -23,10 +24,8 @@ export const auth = createSlice({
         ...action.payload,
       };
     },
-    setUserData: (state, action: PayloadAction<UserState>) => {
-      return {
-        ...action.payload,
-      };
+    setUserData: (state, action: PayloadAction<UserInfo>) => {
+      return { uuid: state.uuid, ...action.payload };
     },
   },
 });
