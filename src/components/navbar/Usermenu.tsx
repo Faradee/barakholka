@@ -33,10 +33,10 @@ const Usermenu = () => {
       </div>
       {isMenu && (
         <div
-          className={`absolute top-[90%] z-20 min-w-[300px] bg-slate-100 p-2 shadow-md lg:-translate-x-[calc(90%)] `}
+          className={`container absolute top-[90%] z-20 mx-auto w-[300px] -translate-x-[calc(80%)] bg-slate-100 p-2 shadow-md `}
         >
           <div className="mb-2 flex">
-            <div className="relative mr-2 h-[3rem] w-[3rem] rounded-full bg-slate-400">
+            <div className="relative mr-2 min-h-[3rem] min-w-[3rem] rounded-full bg-slate-400">
               <Image
                 onClick={() => setIsMenu(true)}
                 src={defaultUserImage}
@@ -52,11 +52,10 @@ const Usermenu = () => {
             </div>
           </div>
           <ul className={`${styles.list}`} tabIndex={1}>
-            <li
-              onClick={() => setIsMenu(false)}
-              className={`${styles.navButton}`}
-            >
-              <Link href={"/user/settings"}>Настройки аккаунта</Link>
+            <li onClick={() => setIsMenu(false)}>
+              <Link className={`${styles.navButton}`} href={"/user/settings"}>
+                Настройки аккаунта
+              </Link>
             </li>
             <li className={`${styles.navButton}`} onClick={handleSignOut}>
               Выйти

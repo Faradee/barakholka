@@ -21,10 +21,10 @@ const Gallery = (props: GalleryProps) => {
   return (
     <div className="flex w-full flex-col p-2">
       <div
-        className="relative mb-5 flex h-full flex-col items-center justify-center"
+        className="relative mb-5 flex h-full w-full flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
       >
-        <div className="relative flex min-h-[400px] w-full justify-center lg:max-w-[50vw]">
+        <div className="relative flex min-h-[400px] w-full justify-center">
           {thumbnailList.length === 0 ? (
             uploadable && handleUpload ? (
               <UploadPlaceholder handleUpload={handleUpload} />

@@ -27,11 +27,11 @@ const Home = async () => {
   return (
     <>
       {
-        <ul className="flex flex-wrap justify-center lg:mx-10 lg:justify-start">
+        <ul className="relative grid w-full auto-cols-fr grid-flow-dense grid-cols-1 place-items-center gap-x-5 gap-y-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {posts.map((post) => (
             <li
               key={post.id}
-              className="ml-5 min-h-[350px] w-3/4 min-w-[200px] md:w-1/2 lg:w-[calc(25%-1.25rem)]"
+              className="relative min-h-[350px] w-3/4 min-w-[200px] md:w-full"
             >
               <Link href={`/post/${post.id}`}>
                 <Suspense

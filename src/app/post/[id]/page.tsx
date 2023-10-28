@@ -72,8 +72,8 @@ const page = async ({ params }: { params: { id: string } }) => {
       {post && (
         <div>
           <div className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
-            <span className="mr-16 lg:w-[70%]">{post.title} </span>
-            <span className="flex justify-end lg:w-[30%]">
+            <span className="w-[70%]">{post.title} </span>
+            <span className="flex w-[30%] justify-end ">
               {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
             </span>
           </div>
