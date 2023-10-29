@@ -27,7 +27,7 @@ const Home = async () => {
   return (
     <>
       {
-        <ul className="relative grid w-full auto-cols-fr grid-flow-dense grid-cols-1 place-items-center gap-x-5 gap-y-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <ul className="relative grid w-full auto-cols-fr grid-flow-dense grid-cols-1 place-items-center gap-x-5 gap-y-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:gap-x-10">
           {posts.map((post) => (
             <li
               key={post.id}

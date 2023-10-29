@@ -11,69 +11,76 @@ import {
   AiFillEyeInvisible,
 } from "react-icons/ai";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { UserData, createUser, signUser } from "@/actions/userActions";
+import { createUser, signUser } from "@/actions/userActions";
 import FormField from "../forms/FormField";
 import { setDim } from "@/redux/slices/dimSlice";
 import Button from "../forms/Button";
 import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
+import { signInSchema, signUpSchema, userSchema } from "@/actions/schemas";
+import zod from "zod";
 type Auth = {
   email: string;
   password: string;
   name: string;
-  confirmPass: string;
+  confirmPassword: string;
   isSignup: boolean;
   showPassword: boolean;
 };
-
 const AuthModal = () => {
   const initialAuth = {
     email: "",
     password: "",
     name: "",
-    confirmPass: "",
+    confirmPassword: "",
     isSignup: false,
     showPassword: false,
   };
   const [auth, setAuth] = useState<Auth>(initialAuth);
-  const { email, password, name, confirmPass, isSignup, showPassword } = auth;
-  const [credentialsWarning, setCredentialsWarning] = useState<boolean>(false);
+  const { email, password, name, confirmPassword, isSignup, showPassword } =
+    auth;
+  const [error, setError] = useState<string>("");
   const isLoading = useAppSelector((state) => state.loading.loading);
   const dispatch = useDispatch<AppDispatch>();
   const handleShowPassword = () => {
     setAuth({ ...initialAuth, showPassword: !showPassword });
   };
   const handleToggle = () => {
-    setCredentialsWarning(false);
     setAuth({ ...initialAuth, isSignup: !isSignup });
   };
   const handleSignIn = async () => {
     const userData = {
-      name: name,
-      email: email,
+      name: email,
       password: password,
-    } as UserData;
-    const fetchedUser = await signUser(userData);
-    if (fetchedUser) {
-      dispatch(signIn(fetchedUser));
-      dispatch(setDim(false));
-    } else setCredentialsWarning(true);
+    } as zod.infer<typeof signInSchema>;
+    const validate = signInSchema.safeParse(userData);
+    if (validate.success) {
+      const fetchedUser = await signUser(userData);
+      const validate = userSchema.safeParse(fetchedUser);
+      if (validate.success) {
+        dispatch(signIn(validate.data));
+        dispatch(setDim(false));
+      } else setError(fetchedUser as string);
+    } else setError(validate.error.issues[0].message);
   };
+  // setError(validate.error.message);
   const handleSignUp = async () => {
-    if (name && email && password && confirmPass && confirmPass === password) {
-      const userData = {
-        name: name,
-        email: email,
-        password: password,
-      } as UserData;
-      const createdUser = await createUser(userData);
-      dispatch(setDim(false));
-      if (createdUser) {
-        dispatch(signIn(createdUser));
+    const userData = {
+      name,
+      email,
+      password,
+      confirmPassword,
+    } as zod.infer<typeof signUpSchema>;
+    const validate = signUpSchema.safeParse(userData);
+    if (validate.success) {
+      const createdUser = await createUser(validate.data);
+      const validated = userSchema.safeParse(createdUser);
+      if (validated.success) {
+        dispatch(setDim(false));
+        dispatch(signIn(createdUser as zod.infer<typeof userSchema>));
         return;
-      }
-    }
-    setCredentialsWarning(true);
+      } else setError(createdUser as string);
+    } else setError(validate.error.issues[0].message);
   };
   const setAuthProp: React.Dispatch<React.SetStateAction<any>> = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -85,7 +92,7 @@ const AuthModal = () => {
     setAuthProp: React.Dispatch<React.SetStateAction<any>>,
   ) => {
     setAuthProp(e);
-    setCredentialsWarning(false);
+    setError("");
   };
   return (
     <div className="fixed left-1/2 top-1/2 z-30 flex w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
@@ -146,18 +153,16 @@ const AuthModal = () => {
         </FormField>
         {isSignup && (
           <FormField
-            useState={[confirmPass, setAuthProp]}
+            useState={[confirmPassword, setAuthProp]}
             placeholder="Подтвердите пароль"
             type={showPassword ? "text" : "password"}
             onChange={handleChange}
-            name="confirmPass"
+            name="confirmPassword"
           />
         )}
-        {credentialsWarning && (
+        {error && (
           <span className="flex justify-center text-center text-red-500">
-            {isSignup
-              ? "Проверьте данные и попробуйте еще раз"
-              : "Неправильный пароль или почта"}
+            {error}
           </span>
         )}
         <Button
