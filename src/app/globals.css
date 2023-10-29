@@ -90,3 +90,7 @@ svg {
 .accordeon-step:hover > .accordeon-bar {
   background-color: rgb(200, 0, 0);
 }
+
+.consoleForm > input {
+  text-overflow: ellipsis;
+}

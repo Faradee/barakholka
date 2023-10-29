@@ -38,19 +38,11 @@ const AccountSettings = () => {
     return () => setIsEdit(false);
   }, []);
   return (
-    <div className="mx-2 mb-2 lg:ml-4">
+    <>
       <div className="relative flex flex-col gap-2 p-5 shadow-md ">
         {error && (
           <span className="block w-full text-center text-red-500">{error}</span>
         )}
-        <button
-          onClick={() => {
-            setIsEdit(true);
-          }}
-          className={`${isEdit ? "hidden" : "visible"} absolute right-2 top-2`}
-        >
-          <AiFillEdit size={20} />
-        </button>
         <div className="flex select-none gap-2">
           <div className="flex flex-col gap-4">
             <span className="p-1">Полное имя:</span>
@@ -59,9 +51,9 @@ const AccountSettings = () => {
             <span className="p-1">Новый пароль:</span>
             <span className="p-1">Подтвердите пароль:</span>
           </div>
-          <form className="flex select-none flex-col gap-4">
+          <form className=" flex w-full select-none flex-col gap-4">
             <input
-              className={`mr-5 min-w-[30rem] flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+              className={`mr-5 w-[80%] flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
               onChange={(e) => {
@@ -73,7 +65,7 @@ const AccountSettings = () => {
               readOnly={!isEdit}
             />
             <input
-              className={`mr-5 min-w-[30rem] p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
               onChange={(e) => {
@@ -85,7 +77,7 @@ const AccountSettings = () => {
               readOnly={!isEdit}
             />
             <input
-              className={`mr-5 min-w-[30rem] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
               onChange={(e) => {
@@ -101,7 +93,7 @@ const AccountSettings = () => {
               readOnly={!isEdit}
             />
             <input
-              className={`mr-5 min-w-[30rem] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
               onChange={(e) => {
@@ -114,7 +106,7 @@ const AccountSettings = () => {
               readOnly={!isEdit}
             />
             <input
-              className={`mr-5 min-w-[30rem] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
               onChange={(e) => {
@@ -132,29 +124,43 @@ const AccountSettings = () => {
           </form>
         </div>
       </div>
-      <div className={`${isEdit ? "visible" : "hidden"} my-5 flex `}>
-        <div className="flex flex-grow justify-start">
+
+      <div className="my-5 flex">
+        {isEdit ? (
+          <>
+            <div className="flex flex-grow justify-start">
+              <button
+                onClick={() => {
+                  setTempUser(userData);
+                  setIsEdit(false);
+                }}
+                className=" rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
+              >
+                Отменить
+              </button>
+            </div>
+            <div className="flex flex-grow justify-end">
+              <button
+                onClick={() => handleSubmit(tempUser)}
+                className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
+              >
+                {" "}
+                Сохранить
+              </button>
+            </div>
+          </>
+        ) : (
           <button
-            onClick={() => {
-              setTempUser(userData);
-              setIsEdit(false);
-            }}
             className=" rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
+            onClick={() => {
+              setIsEdit(true);
+            }}
           >
-            Отменить
+            Изменить
           </button>
-        </div>
-        <div className="flex flex-grow justify-end">
-          <button
-            onClick={() => handleSubmit(tempUser)}
-            className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
-          >
-            {" "}
-            Сохранить
-          </button>
-        </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
