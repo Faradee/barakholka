@@ -19,7 +19,7 @@ const Gallery = (props: GalleryProps) => {
   const [selectIndex, setSelectIndex] = useState<number>(0);
 
   return (
-    <div className="flex w-full flex-col p-2">
+    <div className="flex h-full w-full flex-col p-2">
       <div
         className="relative mb-5 flex h-full w-full flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
@@ -79,14 +79,12 @@ const Gallery = (props: GalleryProps) => {
           )}
         </div>
       </div>
-      {thumbnailList.length > 1 && (
-        <GalleryList
-          thumbnailList={thumbnailList}
-          setSelectIndex={setSelectIndex}
-          selectIndex={selectIndex}
-          deleteable={deleteable}
-        />
-      )}
+      <GalleryList
+        thumbnailList={thumbnailList}
+        setSelectIndex={setSelectIndex}
+        selectIndex={selectIndex}
+        deleteable={deleteable}
+      />
     </div>
   );
 };

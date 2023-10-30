@@ -14,7 +14,7 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
   const dragAllow = useAppSelector((state) => state.drag.dragAllow);
 
   return (
-    <div onDrop={(e) => e.preventDefault()}>
+    <div className="h-auto w-full" onDrop={(e) => e.preventDefault()}>
       <div
         onDragEnter={(e) => {
           e.preventDefault();
@@ -33,12 +33,13 @@ const UploadableWrapper = (props: UploadableWrapperProps) => {
           setLocalDim(false);
           handleUpload(e.dataTransfer.files);
         }}
-        className="fixed z-20 -mt-5 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70 lg:-ml-64"
+        className="absolute z-20 hidden h-full w-full select-none items-center justify-center overflow-hidden bg-black text-white opacity-70"
         style={localDim ? { display: "flex" } : {}}
       >
         <Uploadable />
       </div>
       <div
+        className="h-full w-full"
         onDragEnter={(e) => {
           e.preventDefault();
           if (dragAllow) setLocalDim(true);

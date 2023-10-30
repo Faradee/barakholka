@@ -31,7 +31,7 @@ export type PostState = {
 export type PostData = PostState & {
   thumbnails: string[];
 };
-
+//TODO: ADD ZOD VALIDATION
 const PostEditor = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -102,20 +102,23 @@ const PostEditor = () => {
     if (!uuid) router.replace("/");
   }, [uuid, router]);
   return (
-    <UploadableWrapper handleUpload={handleUpload}>
+    <>
       {error && <ErrorHeader />}
       <div
-        className=" flex h-full w-full flex-wrap items-stretch justify-center lg:flex-nowrap "
+        className="relative flex h-full w-full flex-wrap  justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
         <div className="w-full">
-          <Gallery
-            thumbnailList={postThumbnails}
-            handleUpload={handleUpload}
-            deleteable
-            uploadable
-          />
+          <UploadableWrapper handleUpload={handleUpload}>
+            <Gallery
+              thumbnailList={postThumbnails}
+              handleUpload={handleUpload}
+              deleteable
+              uploadable
+            />
+          </UploadableWrapper>
         </div>
+
         <div className="w-full lg:w-auto">
           <div className="h-full px-10">
             <TypeToggle />
@@ -151,7 +154,7 @@ const PostEditor = () => {
           </div>
         </div>
       </div>
-    </UploadableWrapper>
+    </>
   );
 };
 

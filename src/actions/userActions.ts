@@ -13,14 +13,23 @@ import {
 } from "./schemas";
 export type UserDataInfo = zod.infer<typeof userSchema>;
 
-const verifyToken = (uuid: string) => {
+const verifyToken = async (uuid: string) => {
   const secret = process.env.SECRET!;
+
   if (cookies().has("token")) {
     const decoded = jwt.verify(
       cookies().get("token")!.value,
       secret,
     ) as zod.infer<typeof userSchema>;
-    if (decoded && decoded.uuid === uuid) return true;
+    if (decoded && decoded.uuid === uuid) {
+      const foundUser = prisma.user.findFirst({
+        where: {
+          uuid: uuid,
+        },
+      });
+
+      if (foundUser !== null) return true;
+    }
   }
   return false;
 };
@@ -31,7 +40,6 @@ const setPassword = async (passData: zod.infer<typeof setPasswordSchema>) => {
       uuid: passData.uuid,
     },
   });
-  console.log(db);
   if (db && (await argon2.verify(db.password, passData.originalPassword))) {
     await prisma.user.update({
       where: {
@@ -49,7 +57,7 @@ const setPassword = async (passData: zod.infer<typeof setPasswordSchema>) => {
 export const updateUser = async (
   userData: zod.infer<typeof updateUserSchema>,
 ) => {
-  if (verifyToken(userData.uuid)) {
+  if (await verifyToken(userData.uuid)) {
     const validate = userData.originalPassword
       ? updateUserSchema.safeParse(userData)
       : userSchema.safeParse(userData);
@@ -90,7 +98,6 @@ export const fetchUser = async (uuid: string) => {
       return returnUser;
     }
   }
-  signUserOut();
   return false;
 };
 export const createUser = async (userData: zod.infer<typeof signUpSchema>) => {
@@ -136,7 +143,6 @@ export const createUser = async (userData: zod.infer<typeof signUpSchema>) => {
 export const signUser = async (userData: zod.infer<typeof signInSchema>) => {
   const validate = signInSchema.safeParse(userData);
   if (validate.success) {
-    console.log(validate.data);
     const foundUser = await prisma.user.findFirst({
       where: {
         OR: [{ email: userData.name }, { name: userData.name }],
@@ -164,4 +170,41 @@ export const signUserOut = () => {
     .forEach((cookie) => {
       cookies().delete(cookie.name);
     });
+};
+export const getAvatar = async (uuid: string) => {
+  if (await verifyToken(uuid)) {
+    const avatar = await prisma.avatar.findFirst({
+      where: {
+        userId: uuid,
+      },
+      select: {
+        image: true,
+      },
+    });
+    if (avatar) return avatar.image;
+  }
+  return false;
+};
+export const setAvatar = async ({
+  image,
+  uuid,
+}: {
+  image: string;
+  uuid: string;
+}) => {
+  if (await verifyToken(uuid)) {
+    await prisma.avatar.upsert({
+      where: {
+        userId: uuid,
+      },
+      update: {
+        image: image,
+      },
+      create: {
+        userId: uuid,
+        image: image,
+      },
+    });
+    return true;
+  } else return false;
 };

@@ -56,3 +56,8 @@ model User {
   createdAt DateTime @default(now())
   password  String
 }
+
+model Avatar {
+  userId String @id
+  image  String
+}

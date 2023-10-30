@@ -13,7 +13,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
           </li>
         </ul>
       </aside>
-      <div className="mx-2 mb-2 w-full  lg:ml-4">{children}</div>
+      <div className="relative mx-2 mb-2 w-full lg:ml-4">{children}</div>
     </div>
   );
 };
