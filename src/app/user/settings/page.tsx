@@ -4,7 +4,7 @@ import { setUserData } from "@/redux/slices/authSlice";
 import { useAppSelector } from "@/redux/store";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserSchema, userSchema } from "@/actions/schemas";
+import { updateUserSchema, userDataSchema } from "@/actions/schemas";
 import zod from "zod";
 import DataForm from "@/components/forms/DataForm";
 //TODO: FIX LABEL FIELD ALIGNMENT
@@ -27,7 +27,7 @@ const AccountSettings = () => {
     setError("");
     const validate = user.originalPassword
       ? updateUserSchema.safeParse(user)
-      : userSchema.safeParse(user);
+      : userDataSchema.safeParse(user);
     if (validate.success) {
       const res = await updateUser(user);
       if (res === true) {

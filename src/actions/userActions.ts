@@ -5,20 +5,18 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import zod from "zod";
 import {
-  userSchema,
+  userDataSchema,
   setPasswordSchema,
   updateUserSchema,
   signInSchema,
   signUpSchema,
 } from "./schemas";
-export type UserDataInfo = zod.infer<typeof userSchema>;
 
 const verifyToken = async () => {
   const secret = process.env.SECRET!;
 
   if (cookies().has("token")) {
     const uuid = jwt.verify(cookies().get("token")!.value, secret) as string;
-    console.log(uuid);
     if (uuid) {
       const foundUser = prisma.user.findFirst({
         where: {
@@ -58,7 +56,7 @@ export const updateUser = async (
   if (uuid) {
     const validate = userData.originalPassword
       ? updateUserSchema.safeParse(userData)
-      : userSchema.safeParse(userData);
+      : userDataSchema.safeParse(userData);
     if (validate.success) {
       const { originalPassword, confirmPassword, password, ...newData } =
         userData;
@@ -71,15 +69,29 @@ export const updateUser = async (
         });
         if (!res) return "Ошибка при изменении пароля, проверьте данные";
       }
-      await prisma.user.update({
+      const findMail = await prisma.user.findFirst({
         where: {
-          uuid: uuid,
+          email: userData.email,
+          NOT: {
+            uuid: uuid,
+          },
         },
-        data: {
-          ...newData,
+        select: {
+          email: true,
         },
       });
-      return true;
+      console.log(findMail);
+      if (!findMail) {
+        await prisma.user.update({
+          where: {
+            uuid: uuid,
+          },
+          data: {
+            ...newData,
+          },
+        });
+        return true;
+      } else return "Уже существует аккаунт привязанный к этой почте";
     } else return validate.error.issues[0].message;
   }
   return "Ошибка авторизации, попробуйте перезайти в аккаунт";

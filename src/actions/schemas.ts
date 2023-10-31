@@ -7,6 +7,7 @@ export const userSchema = zod.object({
     .string()
     .max(128, { message: "Имя не должно превышать 128 символов" }),
 });
+export const userDataSchema = userSchema.omit({ uuid: true });
 const confirmPasswordSchema = zod.object({
   password: zod
     .string()
@@ -40,7 +41,6 @@ export const updateUserSchema = userSchema
   .extend({
     originalPassword: zod.string(),
   })
-
   .refine((data) => data.password === data.confirmPassword, {
     message: "Пароли не совпадают",
   });
