@@ -52,6 +52,7 @@ const AccountSettings = () => {
           <form className=" flex w-full select-none flex-col gap-4">
             <DataForm<typeof tempUser>
               state={tempUser}
+              readOnly={!isEdit}
               handleChange={handleChange}
               label={[
                 "Имя: ",
