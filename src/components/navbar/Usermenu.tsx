@@ -27,17 +27,18 @@ const Usermenu = () => {
   };
   useEffect(() => {
     const setUser = async () => {
-      const newUser = await fetchUser(uuid);
+      const newUser = await fetchUser();
+      console.log(newUser);
       if (newUser) {
         dispatch(signIn(newUser));
-        const avatar = await getAvatar(uuid);
+        const avatar = await getAvatar();
         if (avatar) {
           dispatch(setAvatar(avatar));
-        }
+        } else dispatch(signOut());
       } else dispatch(signOut());
     };
     setUser();
-  }, [uuid, dispatch]);
+  }, [dispatch]);
   return (
     <div onBlur={(e) => handleBlur(e)} tabIndex={0}>
       <div className="relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
@@ -55,13 +56,17 @@ const Usermenu = () => {
         >
           <div className="mb-2 flex">
             <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
-              <Image
-                onClick={() => setIsMenu(true)}
-                src={avatar ? avatar : defaultUserImage}
-                sizes="100%"
-                fill
-                alt="user avatar"
-              />
+              {avatar !== undefined && (
+                <Suspense>
+                  <Image
+                    onClick={() => setIsMenu(true)}
+                    src={avatar ? avatar : defaultUserImage}
+                    sizes="100%"
+                    fill
+                    alt="user avatar"
+                  />
+                </Suspense>
+              )}
             </div>
             <div className="flex flex-col">
               {userData && (

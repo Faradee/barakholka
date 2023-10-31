@@ -3,10 +3,11 @@ import { updateUser } from "@/actions/userActions";
 import { setUserData } from "@/redux/slices/authSlice";
 import { useAppSelector } from "@/redux/store";
 import React, { useState, useEffect } from "react";
-import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { updateUserSchema, userSchema } from "@/actions/schemas";
 import zod from "zod";
+import DataForm from "@/components/forms/DataForm";
+//TODO: FIX LABEL FIELD ALIGNMENT
 const AccountSettings = () => {
   const userData = {
     ...useAppSelector((state) => state.auth),
@@ -19,6 +20,9 @@ const AccountSettings = () => {
     useState<zod.infer<typeof updateUserSchema>>(userData);
   const [error, setError] = useState<string>("");
   const dispatch = useDispatch();
+  const handleChange = (key: keyof typeof userData) => (stateValue: string) => {
+    setTempUser({ ...tempUser, [key]: stateValue });
+  };
   const handleSubmit = async (user: zod.infer<typeof updateUserSchema>) => {
     setError("");
     const validate = user.originalPassword
@@ -44,83 +48,82 @@ const AccountSettings = () => {
           <span className="block w-full text-center text-red-500">{error}</span>
         )}
         <div className="flex select-none gap-2">
-          <div className="flex flex-col gap-4">
-            <span className="p-1">Полное имя:</span>
-            <span className="p-1">E-mail:</span>
-            <span className="p-1">Текущий пароль:</span>
-            <span className="p-1">Новый пароль:</span>
-            <span className="p-1">Подтвердите пароль:</span>
-          </div>
+          <div className="flex flex-col gap-4"></div>
           <form className=" flex w-full select-none flex-col gap-4">
-            <input
-              className={`mr-5 w-[80%] flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
-                !isEdit && "cursor-default bg-slate-200 text-gray-600"
-              }`}
-              onChange={(e) => {
-                setTempUser({ ...tempUser, name: e.currentTarget.value });
-              }}
+            <DataForm<typeof tempUser>
+              state={tempUser}
+              handleChange={handleChange}
+              label={["Имя", "Почта", ""]}
+            />
+            {/* <LabelFormField
               type="text"
+              label="Полное имя:"
               name="name"
-              value={tempUser.name}
+              useState={[tempUser.name, handleChange("name")]}
               readOnly={!isEdit}
-            />
-            <input
-              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
-              onChange={(e) => {
-                setTempUser({ ...tempUser, email: e.currentTarget.value });
-              }}
+            />
+            <LabelFormField
               type="email"
+              label="Email: "
               name="email"
-              value={tempUser.email}
+              useState={[tempUser.email, handleChange("email")]}
               readOnly={!isEdit}
-            />
-            <input
-              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
-              onChange={(e) => {
-                setTempUser({
-                  ...tempUser,
-                  originalPassword: e.currentTarget.value,
-                });
-              }}
+            />
+            <LabelFormField
               type="password"
+              label="Текущий пароль: "
               name="originalPassword"
               placeholder={!isEdit ? "****************" : ""}
-              value={tempUser.originalPassword}
+              useState={[
+                tempUser.originalPassword,
+                handleChange("originalPassword"),
+              ]}
               readOnly={!isEdit}
-            />
-            <input
-              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
-              onChange={(e) => {
-                setTempUser({ ...tempUser, password: e.currentTarget.value });
-              }}
-              type="password"
-              name="password"
-              placeholder={!isEdit ? "****************" : ""}
-              value={tempUser.password}
-              readOnly={!isEdit}
             />
-            <input
-              className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+            <LabelFormField
+              type="password"
+              label="Текущий пароль: "
+              name="originalPassword"
+              placeholder={!isEdit ? "****************" : ""}
+              useState={[
+                tempUser.originalPassword,
+                handleChange("originalPassword"),
+              ]}
+              readOnly={!isEdit}
+              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
-              onChange={(e) => {
-                setTempUser({
-                  ...tempUser,
-                  confirmPassword: e.currentTarget.value,
-                });
-              }}
-              type="password"
-              name="confirmPassword"
-              placeholder={!isEdit ? "****************" : ""}
-              value={tempUser.confirmPassword}
-              readOnly={!isEdit}
             />
+            <section className="flex">
+              <label htmlFor="confirmPassword" className="p-1">
+                Подтвердите пароль:
+              </label>
+              <input
+                className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
+                  !isEdit && "cursor-default bg-slate-200 text-gray-600"
+                }`}
+                onChange={(e) => {
+                  setTempUser({
+                    ...tempUser,
+                    confirmPassword: e.currentTarget.value,
+                  });
+                }}
+                type="password"
+                name="confirmPassword"
+                placeholder={!isEdit ? "****************" : ""}
+                value={tempUser.confirmPassword}
+                readOnly={!isEdit}
+              />
+            </section> */}
           </form>
         </div>
       </div>

@@ -13,27 +13,24 @@ import {
 } from "./schemas";
 export type UserDataInfo = zod.infer<typeof userSchema>;
 
-const verifyToken = async (uuid: string) => {
+const verifyToken = async () => {
   const secret = process.env.SECRET!;
 
   if (cookies().has("token")) {
-    const decoded = jwt.verify(
-      cookies().get("token")!.value,
-      secret,
-    ) as zod.infer<typeof userSchema>;
-    if (decoded && decoded.uuid === uuid) {
+    const uuid = jwt.verify(cookies().get("token")!.value, secret) as string;
+
+    if (uuid) {
       const foundUser = prisma.user.findFirst({
         where: {
           uuid: uuid,
         },
       });
-
-      if (foundUser !== null) return true;
+      if (foundUser !== null) return uuid;
     }
   }
   return false;
 };
-//Операция проходит после проверки токена
+
 const setPassword = async (passData: zod.infer<typeof setPasswordSchema>) => {
   const db = await prisma.user.findFirst({
     where: {
@@ -53,11 +50,12 @@ const setPassword = async (passData: zod.infer<typeof setPasswordSchema>) => {
   }
   return false;
 };
-//TODO: PORT ALL ACTIONS TO ZOD INCLUDING CLIENT SIDE FORMS
+
 export const updateUser = async (
   userData: zod.infer<typeof updateUserSchema>,
 ) => {
-  if (await verifyToken(userData.uuid)) {
+  const uuid = await verifyToken();
+  if (uuid) {
     const validate = userData.originalPassword
       ? updateUserSchema.safeParse(userData)
       : userSchema.safeParse(userData);
@@ -66,7 +64,7 @@ export const updateUser = async (
         userData;
       if (originalPassword && confirmPassword && password) {
         const res = await setPassword({
-          uuid: newData.uuid,
+          uuid,
           originalPassword,
           confirmPassword,
           password,
@@ -75,7 +73,7 @@ export const updateUser = async (
       }
       await prisma.user.update({
         where: {
-          uuid: userData.uuid,
+          uuid: uuid,
         },
         data: {
           ...newData,
@@ -86,8 +84,9 @@ export const updateUser = async (
   }
   return "Ошибка авторизации, попробуйте перезайти в аккаунт";
 };
-export const fetchUser = async (uuid: string) => {
-  if (zod.string().uuid().safeParse(uuid).success) {
+export const fetchUser = async () => {
+  const uuid = await verifyToken();
+  if (uuid && zod.string().uuid().safeParse(uuid).success) {
     const user = await prisma.user.findFirst({
       where: {
         uuid: uuid,
@@ -124,7 +123,7 @@ export const createUser = async (userData: zod.infer<typeof signUpSchema>) => {
           },
         });
         const secret = process.env.SECRET!;
-        const token = jwt.sign(createdUser, secret);
+        const token = jwt.sign(createdUser.uuid, secret);
         Object.keys(createdUser).forEach((key) => {
           cookies().set(key, createdUser[key as keyof typeof createdUser]);
         });
@@ -154,11 +153,7 @@ export const signUser = async (userData: zod.infer<typeof signInSchema>) => {
     ) {
       const { password, createdAt, ...returnUser } = foundUser;
       const secret = process.env.SECRET!;
-      const token = jwt.sign(returnUser, secret);
-      Object.keys(returnUser).forEach((key) => {
-        cookies().set(key, returnUser[key as keyof typeof returnUser]);
-      });
-
+      const token = jwt.sign(returnUser.uuid, secret);
       cookies().set("token", token, { sameSite: "strict" });
       return returnUser;
     } else return "Неправильный пароль. Попробуйте еще раз.";
@@ -171,8 +166,9 @@ export const signUserOut = () => {
       cookies().delete(cookie.name);
     });
 };
-export const getAvatar = async (uuid: string) => {
-  if (await verifyToken(uuid)) {
+export const getAvatar = async () => {
+  const uuid = await verifyToken();
+  if (uuid) {
     const avatar = await prisma.avatar.findFirst({
       where: {
         userId: uuid,
@@ -185,14 +181,9 @@ export const getAvatar = async (uuid: string) => {
   }
   return false;
 };
-export const setAvatar = async ({
-  image,
-  uuid,
-}: {
-  image: string;
-  uuid: string;
-}) => {
-  if (await verifyToken(uuid)) {
+export const setAvatar = async ({ image }: { image: string; uuid: string }) => {
+  const uuid = await verifyToken();
+  if (uuid) {
     await prisma.avatar.upsert({
       where: {
         userId: uuid,

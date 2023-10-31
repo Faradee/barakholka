@@ -14,6 +14,8 @@ export type FormFieldProps = {
   children?: React.ReactNode;
   noMargin?: boolean;
   required?: boolean;
+  className?: string;
+  readOnly?: boolean;
 };
 
 const FormField = (props: FormFieldProps) => {
@@ -28,6 +30,8 @@ const FormField = (props: FormFieldProps) => {
     name,
     required,
     noMargin,
+    className,
+    readOnly,
   } = props;
   const Icon = icon;
   //Решает нерабочее поведение input number в браузерах Firefox
@@ -46,7 +50,11 @@ const FormField = (props: FormFieldProps) => {
   };
   return (
     <label
-      className="textfield mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
+      className={
+        className
+          ? ""
+          : "textfield mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
+      }
       style={
         type === "boolean"
           ? {
@@ -69,7 +77,11 @@ const FormField = (props: FormFieldProps) => {
 
       {type === "textarea" ? (
         <textarea
-          className="h-full w-full whitespace-pre-line outline-none"
+          className={
+            className
+              ? className
+              : "h-full w-full whitespace-pre-line outline-none"
+          }
           value={state as string}
           name={name}
           rows={rows}
@@ -79,6 +91,7 @@ const FormField = (props: FormFieldProps) => {
             onChange ? onChange(e, setState) : setState(e.currentTarget.value);
           }}
           required={required}
+          readOnly={readOnly}
         />
       ) : type === "boolean" ? (
         <>
@@ -98,11 +111,12 @@ const FormField = (props: FormFieldProps) => {
         </>
       ) : type === "number" ? (
         <input
-          className="w-full outline-none"
+          className={className ? className : "w-full outline-none"}
           value={state as string}
           name={name}
           placeholder={placeholder}
           type={type}
+          readOnly={readOnly}
           onChange={(e) => {
             if (
               /^[1-9][0-9]*$/.test(e.currentTarget.value) ||
@@ -120,11 +134,12 @@ const FormField = (props: FormFieldProps) => {
         />
       ) : (
         <input
-          className="w-full outline-none"
+          className={className ? className : "w-full outline-none"}
           value={state as string}
           name={name}
           placeholder={placeholder}
           type={type}
+          readOnly={readOnly}
           onChange={(e) => {
             e.preventDefault();
             onChange ? onChange(e, setState) : setState(e.currentTarget.value);

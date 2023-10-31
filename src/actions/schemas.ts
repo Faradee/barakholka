@@ -35,10 +35,12 @@ export const signInSchema = zod.object({
     .min(4, { message: "Пароль должен состоять минимум из 4 символов" }),
 });
 export const updateUserSchema = userSchema
+  .omit({ uuid: true })
   .merge(confirmPasswordSchema)
   .extend({
-    originalPassword: zod.string().optional(),
+    originalPassword: zod.string(),
   })
+
   .refine((data) => data.password === data.confirmPassword, {
     message: "Пароли не совпадают",
   });

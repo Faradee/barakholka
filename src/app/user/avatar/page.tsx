@@ -22,13 +22,16 @@ const Avatar = () => {
       const file = fileList[0];
       if (!file.type.match("^image/(png|jpeg|webp|jpg)"))
         setError("Расширение файла не поддерживается");
-      if (file.size > 1024 * 1024)
+      else if (file.size > 1024 * 1024)
         setError("Размер изображения не должен превышать 1MB");
       else {
         const img = new Image();
         img.src = URL.createObjectURL(file);
         await img.decode();
-        setImage(img);
+        if (img.width >= 50 && img.height >= 50) setImage(img);
+        else {
+          setError("Изображение должно быть минимум размера 50x50");
+        }
       }
     }
   };
