@@ -8,7 +8,7 @@ import dragReducer from "./slices/dragSlice";
 import thumbnailReducer from "./slices/thumbnailSlice";
 import errorReducer from "./slices/errorSlice";
 import loadingReducer from "./slices/loadingSlice";
-
+import avatarReducer from "./slices/avatarSlice";
 export const rootReducer = combineReducers({
   dim: dimReducer,
   post: postReducer,
@@ -17,6 +17,7 @@ export const rootReducer = combineReducers({
   error: errorReducer,
   loading: loadingReducer,
   auth: authReducer,
+  avatar: avatarReducer,
 });
 const persistConfig = {
   key: "root",

@@ -10,13 +10,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchUser, getAvatar } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
+import { setAvatar } from "@/redux/slices/avatarSlice";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
+  const avatar = useAppSelector((state) => state.avatar.avatar);
   const { uuid } = userData;
   const dispatch = useDispatch();
   const router = useRouter();
   const [isMenu, setIsMenu] = useState<boolean>(false);
-  const [avatar, setAvatar] = useState<string>("");
   const handleSignOut = () => {
     dispatch(signOut());
     router.replace("/");
@@ -31,7 +32,7 @@ const Usermenu = () => {
         dispatch(signIn(newUser));
         const avatar = await getAvatar(uuid);
         if (avatar) {
-          setAvatar(avatar);
+          dispatch(setAvatar(avatar));
         }
       } else dispatch(signOut());
     };

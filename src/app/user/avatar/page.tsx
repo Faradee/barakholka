@@ -6,8 +6,11 @@ import { useAppSelector } from "@/redux/store";
 import { setAvatar } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useDispatch } from "react-redux";
+import { setAvatar as replaceAvatar } from "@/redux/slices/avatarSlice";
 const Cropper = lazy(() => import("@/components/forms/Cropper"));
 const Avatar = () => {
+  const dispatch = useDispatch();
   const uuid = useAppSelector((state) => state.auth.uuid);
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
@@ -32,7 +35,10 @@ const Avatar = () => {
   const handleAvatarUpload = async () => {
     const res = await setAvatar({ uuid, image: avatarURL });
     if (!res) console.log("set avatar failed");
-    else handleCancel();
+    else {
+      dispatch(replaceAvatar(avatarURL));
+      handleCancel();
+    }
   };
   const handleCancel = () => {
     setImage(undefined);
