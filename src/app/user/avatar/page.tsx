@@ -43,9 +43,7 @@ const Avatar = () => {
       <div className="min-h-[400px] w-auto min-w-[100px] p-5 shadow-md">
         {error && <p className="text-red-500">{error}</p>}
         {image && (
-          <Suspense
-            fallback={<Skeleton style={{ width: 200, minHeight: 200 }} />}
-          >
+          <Suspense fallback={<Skeleton className="h-[200px] w-[200px]" />}>
             <Cropper setImageURL={setAvatarURL} image={image} />
           </Suspense>
         )}

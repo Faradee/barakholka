@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
+//TODO: ADD LAZY LOADING OF GALLERY PROP ON 0 THUMBNAILS AND MOVE PLACEHOLDER FORM OUT OF IT
 export type PostState = {
   posterId: string;
   title: string;
