@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { updateUserSchema, userDataSchema } from "@/actions/schemas";
 import zod from "zod";
 import DataForm from "@/components/forms/DataForm";
-//TODO: FIX LABEL FIELD ALIGNMENT
 const AccountSettings = () => {
   const { uuid, ...userData } = {
     ...useAppSelector((state) => state.auth),

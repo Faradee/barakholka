@@ -1,5 +1,4 @@
 import zod from "zod";
-//TODO: CANT SIGN UP REFACTOR THESE
 export const userSchema = zod.object({
   uuid: zod.string().uuid(),
   email: zod.string().email({ message: "Неправильно указана почта" }),
