@@ -3,14 +3,16 @@ type ButtonProps = {
   onClick: (...args: any[]) => void;
   title: string;
   color?: string;
+  submit?: boolean;
 };
-const Button = (props: ButtonProps) => {
-  const { onClick, title, color } = props;
-
+const Button = ({ onClick, title, color, submit }: ButtonProps) => {
   return (
     <button
-      type="button"
-      onClick={onClick}
+      type={submit ? "submit" : "button"}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
       className={`h-12 w-full rounded-md font-semibold text-white ${
         color ? color : "bg-red-600 hover:bg-red-700 active:bg-red-800"
       }`}

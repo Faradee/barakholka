@@ -20,6 +20,7 @@ import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/schemas";
 import zod from "zod";
 //TODO: MAKE BUTTONS SUBMIT
+//TODO: MAKE SEPARATE MODAL CONTAINER COMPONENT
 type Auth = {
   email: string;
   password: string;
@@ -167,6 +168,7 @@ const AuthModal = () => {
           </span>
         )}
         <Button
+          submit
           onClick={
             isSignup
               ? () => loadResource(handleSignUp())

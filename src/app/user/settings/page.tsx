@@ -41,14 +41,13 @@ const AccountSettings = () => {
     return () => setIsEdit(false);
   }, []);
   return (
-    <>
+    <form>
       <div className="relative flex w-full flex-col gap-2 p-5 shadow-md">
         {error && (
           <span className="block w-full text-center text-red-500">{error}</span>
         )}
         <div className="flex select-none gap-2">
-          <div className="flex flex-col gap-4"></div>
-          <form className=" flex w-full select-none flex-col gap-4">
+          <div className=" flex w-full select-none flex-col gap-4">
             <DataForm<typeof tempUser>
               state={tempUser}
               readOnly={!isEdit}
@@ -64,32 +63,41 @@ const AccountSettings = () => {
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
             />
-          </form>
+          </div>
         </div>
       </div>
 
       <div className="my-5 flex">
         {isEdit ? (
           <>
-            <div className="flex flex-grow justify-start">
-              <button
-                onClick={() => {
-                  setTempUser(userData);
-                  setIsEdit(false);
-                }}
-                className=" rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
-              >
-                Отменить
-              </button>
-            </div>
-            <div className="flex flex-grow justify-end">
-              <button
-                onClick={() => handleSubmit(tempUser)}
-                className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
-              >
-                {" "}
-                Сохранить
-              </button>
+            <div className="flex w-full flex-row-reverse">
+              <div className="flex flex-grow justify-end">
+                <button
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit(tempUser);
+                  }}
+                  className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
+                >
+                  {" "}
+                  Сохранить
+                </button>
+              </div>
+              <div className="flex flex-grow justify-start">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTempUser(userData);
+                    setError("");
+                    setIsEdit(false);
+                  }}
+                  className=" rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
+                >
+                  Отменить
+                </button>
+              </div>
             </div>
           </>
         ) : (
@@ -103,7 +111,7 @@ const AccountSettings = () => {
           </button>
         )}
       </div>
-    </>
+    </form>
   );
 };
 
