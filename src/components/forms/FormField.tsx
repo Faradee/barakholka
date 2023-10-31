@@ -56,7 +56,7 @@ const FormField = (props: FormFieldProps) => {
           : "textfield mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
       }
       style={
-        type === "boolean"
+        !className && type === "boolean"
           ? {
               width: "50px",
               height: "25px",

@@ -18,7 +18,6 @@ type Button = {
   icon?: IconType;
 };
 //TODO ADD SEARCH
-//TODO USER AVATAR WITH DROPDOWN MENU THAT HAS LOGIN/LOGOUT AND SETTINGS LINKS
 const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);

@@ -9,7 +9,7 @@ import zod from "zod";
 import DataForm from "@/components/forms/DataForm";
 //TODO: FIX LABEL FIELD ALIGNMENT
 const AccountSettings = () => {
-  const userData = {
+  const { uuid, ...userData } = {
     ...useAppSelector((state) => state.auth),
     password: "",
     confirmPassword: "",
@@ -43,7 +43,7 @@ const AccountSettings = () => {
   }, []);
   return (
     <>
-      <div className="relative flex flex-col gap-2 p-5 shadow-md ">
+      <div className="relative flex w-full flex-col gap-2 p-5 shadow-md">
         {error && (
           <span className="block w-full text-center text-red-500">{error}</span>
         )}
@@ -53,77 +53,17 @@ const AccountSettings = () => {
             <DataForm<typeof tempUser>
               state={tempUser}
               handleChange={handleChange}
-              label={["Имя", "Почта", ""]}
-            />
-            {/* <LabelFormField
-              type="text"
-              label="Полное имя:"
-              name="name"
-              useState={[tempUser.name, handleChange("name")]}
-              readOnly={!isEdit}
-              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
-                !isEdit && "cursor-default bg-slate-200 text-gray-600"
-              }`}
-            />
-            <LabelFormField
-              type="email"
-              label="Email: "
-              name="email"
-              useState={[tempUser.email, handleChange("email")]}
-              readOnly={!isEdit}
-              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
-                !isEdit && "cursor-default bg-slate-200 text-gray-600"
-              }`}
-            />
-            <LabelFormField
-              type="password"
-              label="Текущий пароль: "
-              name="originalPassword"
-              placeholder={!isEdit ? "****************" : ""}
-              useState={[
-                tempUser.originalPassword,
-                handleChange("originalPassword"),
+              label={[
+                "Имя: ",
+                "Почта: ",
+                "Текущий пароль: ",
+                "Новый пароль: ",
+                "Подтвердите пароль: ",
               ]}
-              readOnly={!isEdit}
-              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+              className={`ml-2 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
             />
-            <LabelFormField
-              type="password"
-              label="Текущий пароль: "
-              name="originalPassword"
-              placeholder={!isEdit ? "****************" : ""}
-              useState={[
-                tempUser.originalPassword,
-                handleChange("originalPassword"),
-              ]}
-              readOnly={!isEdit}
-              className={`mx-5 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
-                !isEdit && "cursor-default bg-slate-200 text-gray-600"
-              }`}
-            />
-            <section className="flex">
-              <label htmlFor="confirmPassword" className="p-1">
-                Подтвердите пароль:
-              </label>
-              <input
-                className={`mr-5 w-[80%] p-1 outline outline-1 outline-gray-500 placeholder:font-bold focus:outline-2 ${
-                  !isEdit && "cursor-default bg-slate-200 text-gray-600"
-                }`}
-                onChange={(e) => {
-                  setTempUser({
-                    ...tempUser,
-                    confirmPassword: e.currentTarget.value,
-                  });
-                }}
-                type="password"
-                name="confirmPassword"
-                placeholder={!isEdit ? "****************" : ""}
-                value={tempUser.confirmPassword}
-                readOnly={!isEdit}
-              />
-            </section> */}
           </form>
         </div>
       </div>

@@ -19,6 +19,7 @@ import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/schemas";
 import zod from "zod";
+//TODO: MAKE BUTTONS SUBMIT
 type Auth = {
   email: string;
   password: string;

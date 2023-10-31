@@ -15,6 +15,7 @@ const DataForm = <T,>({
   className,
 }: DataFormProps<T>): JSX.Element => {
   const getFormType = (key: keyof typeof state) => {
+    console.log(key);
     if (typeof state[key] === "boolean") return "boolean";
     if (typeof state[key] === "number") return "number";
     switch (key) {
@@ -50,7 +51,7 @@ const DataForm = <T,>({
               useState={[state[key], handleChange(key)]}
               name={key.toString()}
               className={className}
-              label={index < label.length - 1 ? label[index] : ""}
+              label={index < label.length ? label[index] : ""}
             />
           );
       })}
