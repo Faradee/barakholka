@@ -18,7 +18,7 @@ const verifyToken = async () => {
 
   if (cookies().has("token")) {
     const uuid = jwt.verify(cookies().get("token")!.value, secret) as string;
-
+    console.log(uuid);
     if (uuid) {
       const foundUser = prisma.user.findFirst({
         where: {

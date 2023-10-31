@@ -3,7 +3,7 @@ import { useAppSelector } from "@/redux/store";
 import Image from "next/image";
 import defaultUserImage from "/public/Default_pfp.png";
 import styles from "./styles.module.css";
-import { useState, Suspense, useEffect } from "react";
+import { useState, Suspense, useEffect, memo } from "react";
 import { signIn, signOut } from "@/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,6 @@ import { setAvatar } from "@/redux/slices/avatarSlice";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
   const avatar = useAppSelector((state) => state.avatar.avatar);
-  const { uuid } = userData;
   const dispatch = useDispatch();
   const router = useRouter();
   const [isMenu, setIsMenu] = useState<boolean>(false);
@@ -34,7 +33,7 @@ const Usermenu = () => {
         const avatar = await getAvatar();
         if (avatar) {
           dispatch(setAvatar(avatar));
-        } else dispatch(signOut());
+        }
       } else dispatch(signOut());
     };
     setUser();
@@ -97,4 +96,4 @@ const Usermenu = () => {
   );
 };
 
-export default Usermenu;
+export default memo(Usermenu);
