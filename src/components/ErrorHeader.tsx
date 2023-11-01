@@ -10,7 +10,7 @@ const ErrorHeader = () => {
       case "TypeError":
         return "Файл должен быть разрешения .webp, .img или .png";
       default:
-        return "";
+        return error;
     }
   };
   return (

@@ -1,19 +1,19 @@
 import zod from "zod";
 export const estateSchema = zod.object({
-  space: zod.string().max(64),
-  rooms: zod.string().max(64),
-  floor: zod.string().max(64),
+  space: zod.string().min(1).max(16),
+  rooms: zod.string().min(1).max(16),
+  floor: zod.string().min(1).max(16),
   furniture: zod.boolean(),
   renovation: zod.boolean(),
 });
 export const carSchema = zod.object({
-  kilometrage: zod.string().max(64),
-  year: zod.string().max(64),
-  horsepower: zod.string().max(64),
-  transmission: zod.string().max(64),
-  brand: zod.string().max(64),
-  model: zod.string().max(64),
-  color: zod.string().max(64),
+  kilometrage: zod.string().min(1).max(16),
+  year: zod.string().min(4).max(16),
+  horsepower: zod.string().min(1).max(16),
+  transmission: zod.string().min(1).max(32),
+  brand: zod.string().min(1).max(32),
+  model: zod.string().min(1).max(32),
+  color: zod.string().min(1).max(32),
   damaged: zod.boolean(),
   trade: zod.boolean(),
 });

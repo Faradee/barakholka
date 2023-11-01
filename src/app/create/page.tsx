@@ -33,8 +33,6 @@ export type PostState = {
 export type PostData = PostState & {
   thumbnails: string[];
 };
-//TODO: ADD ZOD VALIDATION MESSAGES
-//TODO: MAKE IT USE DATAFORM COMPONENT FOR FORM
 const PostEditor = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -84,7 +82,7 @@ const PostEditor = () => {
     if (validate.success) {
       await createPost(data);
       router.replace("/");
-    } else console.log(validate.error.issues);
+    }
   };
 
   useEffect(() => {
@@ -135,6 +133,7 @@ const PostEditor = () => {
                 name="title"
                 useState={[postData.title, handleChange]}
                 onChange={handleChange}
+                required
               />
               <FormField
                 type="number"
@@ -142,6 +141,7 @@ const PostEditor = () => {
                 name="price"
                 useState={[postData.price, handleChange]}
                 onChange={handleChange}
+                required
               />
               <DetailsForm />
               <FormField

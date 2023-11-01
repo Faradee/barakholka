@@ -9,7 +9,6 @@ type GalleryListProps = {
   setSelectIndex: React.Dispatch<React.SetStateAction<number>>;
   deleteable?: boolean;
 };
-//TODO add draggable images that change state
 const GalleryList = (props: GalleryListProps) => {
   const { thumbnailList, selectIndex, setSelectIndex, deleteable } = props;
   const dispatch = useDispatch();
