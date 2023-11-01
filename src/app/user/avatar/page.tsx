@@ -49,7 +49,8 @@ const Avatar = () => {
   };
   return (
     <UploadableWrapper handleUpload={handleUpload}>
-      <div className="min-h-[400px] w-auto min-w-[100px] p-5 shadow-md">
+      <h1 className="text-2xl font-semibold">Смена аватара</h1>
+      <div className="min-h-[400px] w-auto min-w-[800px] p-5 shadow-md">
         {error && <p className="text-red-500">{error}</p>}
         {image && (
           <Suspense fallback={<Skeleton className="h-[200px] w-[200px]" />}>

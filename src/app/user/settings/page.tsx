@@ -47,6 +47,7 @@ const AccountSettings = () => {
   }, []);
   return (
     <form>
+      <h1 className="text-2xl font-semibold">Изменение данных аккаунта</h1>
       <div className="relative flex w-full flex-col gap-2 p-5 shadow-md">
         {error && (
           <span className="block w-full text-center text-red-500">{error}</span>
