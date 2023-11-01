@@ -36,11 +36,11 @@ const AccountSettings = () => {
           const { originalPassword, password, confirmPassword, ...newUser } =
             user;
           dispatch(setUserData(newUser));
+          setEdited(false);
+          setIsEdit(false);
         } else setError(res);
       } else setError(validate.error.issues[0].message);
     }
-    setEdited(false);
-    setIsEdit(false);
   };
   useEffect(() => {
     return () => setIsEdit(false);

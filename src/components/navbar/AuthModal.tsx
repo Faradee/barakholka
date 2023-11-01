@@ -19,7 +19,6 @@ import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/userSchemas";
 import zod from "zod";
-//TODO: MAKE BUTTONS SUBMIT
 //TODO: MAKE SEPARATE MODAL CONTAINER COMPONENT
 type Auth = {
   email: string;

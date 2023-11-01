@@ -42,9 +42,6 @@ const Navbar = () => {
     document.body.style.overflow = "hidden";
   }, [dispatch]);
   const buttons = [
-    // { title: "Недвижимость", url: "estate" },
-    // { title: "Авто", url: "car" },
-    // { title: "Другое", url: "misc" },
     {
       title: "Создать объявление",
       url: "create",
