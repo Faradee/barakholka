@@ -78,9 +78,10 @@ const PostEditor = () => {
     [dispatch, filesSize],
   );
   const handleSubmit = async () => {
-    const validate = postSchema.safeParse(postData);
+    const data = { thumbnails: postThumbnails, ...postData };
+    const validate = postSchema.safeParse(data);
     if (validate.success) {
-      await createPost({ thumbnails: postThumbnails, ...postData });
+      await createPost(data);
       router.replace("/");
     } else console.log(validate.error.issues);
   };

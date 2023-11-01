@@ -34,5 +34,5 @@ export const postSchema = zod.object({
     .max(1024, "Описание объявления не должно превышать 1024 символов"),
   price: zod.string().max(128),
   details: estateSchema.or(carSchema).optional(),
-  thumbnail: zod.array(zod.string()),
+  thumbnails: zod.array(zod.string()),
 });
