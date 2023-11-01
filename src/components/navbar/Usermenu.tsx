@@ -40,14 +40,16 @@ const Usermenu = () => {
   return (
     <div onBlur={(e) => handleBlur(e)} tabIndex={0}>
       <div className="relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
-        <Image
-          onClick={() => setIsMenu(true)}
-          src={avatar ? avatar : defaultUserImage}
-          sizes="100%"
-          width={48}
-          height={48}
-          alt="user avatar"
-        />
+        <Suspense fallback={<Skeleton />}>
+          <Image
+            onClick={() => setIsMenu(true)}
+            src={avatar ? avatar : defaultUserImage}
+            sizes="100%"
+            width={48}
+            height={48}
+            alt="user avatar"
+          />
+        </Suspense>
       </div>
       {isMenu && (
         <div
@@ -56,7 +58,7 @@ const Usermenu = () => {
           <div className="mb-2 flex">
             <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
               {avatar !== undefined && (
-                <Suspense>
+                <Suspense fallback={<Skeleton />}>
                   <Image
                     onClick={() => setIsMenu(true)}
                     src={avatar ? avatar : defaultUserImage}
