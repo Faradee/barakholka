@@ -16,14 +16,18 @@ const verifyToken = async () => {
   const secret = process.env.SECRET!;
 
   if (cookies().has("token")) {
-    const uuid = jwt.verify(cookies().get("token")!.value, secret) as string;
-    if (uuid) {
-      const foundUser = prisma.user.findFirst({
-        where: {
-          uuid: uuid,
-        },
-      });
-      if (foundUser !== null) return uuid;
+    try {
+      const uuid = jwt.verify(cookies().get("token")!.value, secret) as string;
+      if (uuid) {
+        const foundUser = prisma.user.findFirst({
+          where: {
+            uuid: uuid,
+          },
+        });
+        if (foundUser !== null) return uuid;
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
   return false;
