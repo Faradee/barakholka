@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
+import { postSchema } from "@/actions/postSchemas";
 //TODO: ADD LOADING ANIMATION AND STATE
 export type PostState = {
   posterId: string;
@@ -77,9 +78,11 @@ const PostEditor = () => {
     [dispatch, filesSize],
   );
   const handleSubmit = async () => {
-    if (postData.title && postData.price)
+    const validate = postSchema.safeParse(postData);
+    if (validate.success) {
       await createPost({ thumbnails: postThumbnails, ...postData });
-    router.replace("/");
+      router.replace("/");
+    } else console.log(validate.error.issues);
   };
 
   useEffect(() => {

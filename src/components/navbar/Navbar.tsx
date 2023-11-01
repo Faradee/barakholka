@@ -18,6 +18,7 @@ type Button = {
   icon?: IconType;
 };
 //TODO ADD SEARCH
+//TODO ADD NAVBAR HIDING WHEN CLICKING OUTSIDE
 const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);

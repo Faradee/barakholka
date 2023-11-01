@@ -17,7 +17,7 @@ import { setDim } from "@/redux/slices/dimSlice";
 import Button from "../forms/Button";
 import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
-import { signInSchema, signUpSchema, userSchema } from "@/actions/schemas";
+import { signInSchema, signUpSchema, userSchema } from "@/actions/userSchemas";
 import zod from "zod";
 //TODO: MAKE BUTTONS SUBMIT
 //TODO: MAKE SEPARATE MODAL CONTAINER COMPONENT

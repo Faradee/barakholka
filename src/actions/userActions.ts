@@ -10,7 +10,7 @@ import {
   updateUserSchema,
   signInSchema,
   signUpSchema,
-} from "./schemas";
+} from "./userSchemas";
 
 const verifyToken = async () => {
   const secret = process.env.SECRET!;
@@ -80,7 +80,6 @@ export const updateUser = async (
           email: true,
         },
       });
-      console.log(findMail);
       if (!findMail) {
         await prisma.user.update({
           where: {

@@ -4,7 +4,7 @@ import { setUserData } from "@/redux/slices/authSlice";
 import { useAppSelector } from "@/redux/store";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserSchema, userDataSchema } from "@/actions/schemas";
+import { updateUserSchema, userDataSchema } from "@/actions/userSchemas";
 import zod from "zod";
 import DataForm from "@/components/forms/DataForm";
 const AccountSettings = () => {
@@ -15,27 +15,32 @@ const AccountSettings = () => {
     originalPassword: "",
   };
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [edited, setEdited] = useState<boolean>(false);
   const [tempUser, setTempUser] =
     useState<zod.infer<typeof updateUserSchema>>(userData);
   const [error, setError] = useState<string>("");
   const dispatch = useDispatch();
   const handleChange = (key: keyof typeof userData) => (stateValue: string) => {
+    setEdited(true);
     setTempUser({ ...tempUser, [key]: stateValue });
   };
   const handleSubmit = async (user: zod.infer<typeof updateUserSchema>) => {
     setError("");
-    const validate = user.originalPassword
-      ? updateUserSchema.safeParse(user)
-      : userDataSchema.safeParse(user);
-    if (validate.success) {
-      const res = await updateUser(user);
-      if (res === true) {
-        const { originalPassword, password, confirmPassword, ...newUser } =
-          user;
-        dispatch(setUserData(newUser));
-        setIsEdit(false);
-      } else setError(res);
-    } else setError(validate.error.issues[0].message);
+    if (edited) {
+      const validate = user.originalPassword
+        ? updateUserSchema.safeParse(user)
+        : userDataSchema.safeParse(user);
+      if (validate.success) {
+        const res = await updateUser(user);
+        if (res === true) {
+          const { originalPassword, password, confirmPassword, ...newUser } =
+            user;
+          dispatch(setUserData(newUser));
+        } else setError(res);
+      } else setError(validate.error.issues[0].message);
+    }
+    setEdited(false);
+    setIsEdit(false);
   };
   useEffect(() => {
     return () => setIsEdit(false);
