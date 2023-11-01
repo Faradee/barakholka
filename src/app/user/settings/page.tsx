@@ -67,6 +67,7 @@ const AccountSettings = () => {
               className={`ml-2 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                 !isEdit && "cursor-default bg-slate-200 text-gray-600"
               }`}
+              labelClassName="lg:text-right lg:w-48"
             />
           </div>
         </div>

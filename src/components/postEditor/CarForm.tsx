@@ -85,7 +85,7 @@ const CarForm = (props: CarFormProps) => {
         useState={[details.transmission, handleChange]}
         onChange={handleChange}
       />
-      <section className="flex w-full items-center gap-x-0.5">
+      <section className="flex w-full flex-col items-center gap-x-0.5 gap-y-1 md:flex-row  lg:gap-y-0">
         <LabelFormField
           type="boolean"
           name="damaged"

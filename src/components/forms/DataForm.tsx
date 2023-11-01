@@ -7,14 +7,15 @@ type DataFormProps<T> = {
   label?: string[];
   className?: string;
   readOnly?: boolean;
+  labelClassName?: string;
 };
-// <{ [P in keyof T]: string | boolean }[keyof T]>
 const DataForm = <T,>({
   state,
   handleChange,
   label,
   className,
   readOnly,
+  labelClassName,
 }: DataFormProps<T>): JSX.Element => {
   const getFormType = (key: keyof typeof state) => {
     if (typeof state[key] === "boolean") return "boolean";
@@ -55,6 +56,7 @@ const DataForm = <T,>({
               className={className}
               readOnly={readOnly}
               label={index < label.length ? label[index] : ""}
+              labelClassName={labelClassName}
             />
           );
       })}
