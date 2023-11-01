@@ -17,7 +17,6 @@ type GalleryProps = {
 const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
-
   return (
     <div className="flex h-full w-full flex-col p-2">
       <div
@@ -37,7 +36,7 @@ const Gallery = (props: GalleryProps) => {
               />
             )
           ) : (
-            <>
+            <div className="relative min-h-[500px] w-full">
               {selectIndex > 0 && (
                 <button
                   title="arrowLeft"
@@ -75,7 +74,7 @@ const Gallery = (props: GalleryProps) => {
                   <AddGallery handleUpload={handleUpload} />
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>

@@ -27,7 +27,6 @@ const Usermenu = () => {
   useEffect(() => {
     const setUser = async () => {
       const newUser = await fetchUser();
-      console.log(newUser);
       if (newUser) {
         dispatch(signIn(newUser));
         const avatar = await getAvatar();

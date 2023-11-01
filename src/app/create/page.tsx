@@ -33,7 +33,7 @@ export type PostState = {
 export type PostData = PostState & {
   thumbnails: string[];
 };
-//TODO: ADD ZOD VALIDATION
+//TODO: ADD ZOD VALIDATION MESSAGES
 const PostEditor = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -112,7 +112,7 @@ const PostEditor = () => {
         className="relative flex h-full w-full flex-wrap  justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
-        <div className="w-full">
+        <div className="relative w-full">
           <UploadableWrapper handleUpload={handleUpload}>
             <Gallery
               thumbnailList={postThumbnails}

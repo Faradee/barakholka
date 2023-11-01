@@ -17,7 +17,6 @@ const DataForm = <T,>({
   readOnly,
 }: DataFormProps<T>): JSX.Element => {
   const getFormType = (key: keyof typeof state) => {
-    console.log(key);
     if (typeof state[key] === "boolean") return "boolean";
     if (typeof state[key] === "number") return "number";
     switch (key) {
