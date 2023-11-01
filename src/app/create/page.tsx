@@ -34,6 +34,7 @@ export type PostData = PostState & {
   thumbnails: string[];
 };
 //TODO: ADD ZOD VALIDATION MESSAGES
+//TODO: MAKE IT USE DATAFORM COMPONENT FOR FORM
 const PostEditor = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();

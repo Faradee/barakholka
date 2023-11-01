@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html {
+  scrollbar-gutter: stable;
+}
 .form-field-container:focus-within {
   border: 5px solid black;
 }

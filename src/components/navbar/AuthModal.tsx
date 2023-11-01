@@ -19,6 +19,7 @@ import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/userSchemas";
 import zod from "zod";
+import ModalContainer from "../forms/ModalContainer";
 //TODO: MAKE SEPARATE MODAL CONTAINER COMPONENT
 type Auth = {
   email: string;
@@ -96,99 +97,101 @@ const AuthModal = () => {
     setError("");
   };
   return (
-    <div className="fixed left-1/2 top-1/2 z-30 flex w-3/4 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-start gap-y-2 rounded-3xl bg-white px-4 py-4 lg:w-1/4 lg:px-12">
-      {isLoading && (
-        <div className="absolute z-10 -mt-4 h-full w-full rounded-3xl bg-white opacity-50"></div>
-      )}
-      <div className="w-[175px]">
-        <Image className="" src={logo} sizes="100vw" alt="Logo" />
-      </div>
-
-      {!isLoading && (
-        <div
-          onClick={() => dispatch(setDim(false))}
-          className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
-        >
-          <AiOutlineClose size={40} color="white" />
+    <ModalContainer>
+      <>
+        {isLoading && (
+          <div className="absolute z-10 -mt-4 h-full w-full rounded-3xl bg-white opacity-50"></div>
+        )}
+        <div className="w-[175px]">
+          <Image className="" src={logo} sizes="100vw" alt="Logo" />
         </div>
-      )}
 
-      <h1 className="text-2xl font-semibold">
-        {isSignup ? "Создание аккаунта" : "Вход"}
-      </h1>
-      <form id="auth">
-        {isSignup && (
-          <FormField
-            useState={[name, setAuthProp]}
-            type="text"
-            placeholder="Полное имя"
-            onChange={handleChange}
-            name="name"
-          />
+        {!isLoading && (
+          <div
+            onClick={() => dispatch(setDim(false))}
+            className="absolute -right-12 top-0 flex h-10 w-10 cursor-pointer items-center justify-center opacity-75 hover:opacity-100"
+          >
+            <AiOutlineClose size={40} color="white" />
+          </div>
         )}
-        <FormField
-          placeholder="Email адрес"
-          type="email"
-          onChange={handleChange}
-          icon={BsFillEnvelopeFill}
-          name="email"
-          useState={[email, setAuthProp]}
-        />
-        <FormField
-          type={showPassword ? "text" : "password"}
-          placeholder="Пароль"
-          useState={[password, setAuthProp]}
-          onChange={handleChange}
-          name="password"
-          icon={AiFillLock}
-        >
-          {!isSignup && (
-            <div className="cursor-pointer" onClick={handleShowPassword}>
-              {showPassword ? (
-                <AiFillEye size={24} />
-              ) : (
-                <AiFillEyeInvisible size={24} />
-              )}
-            </div>
+
+        <h1 className="text-2xl font-semibold">
+          {isSignup ? "Создание аккаунта" : "Вход"}
+        </h1>
+        <form id="auth">
+          {isSignup && (
+            <FormField
+              useState={[name, setAuthProp]}
+              type="text"
+              placeholder="Полное имя"
+              onChange={handleChange}
+              name="name"
+            />
           )}
-        </FormField>
-        {isSignup && (
           <FormField
-            useState={[confirmPassword, setAuthProp]}
-            placeholder="Подтвердите пароль"
-            type={showPassword ? "text" : "password"}
+            placeholder="Email адрес"
+            type="email"
             onChange={handleChange}
-            name="confirmPassword"
+            icon={BsFillEnvelopeFill}
+            name="email"
+            useState={[email, setAuthProp]}
           />
-        )}
-        {error && (
-          <span className="flex justify-center text-center text-red-500">
-            {error}
+          <FormField
+            type={showPassword ? "text" : "password"}
+            placeholder="Пароль"
+            useState={[password, setAuthProp]}
+            onChange={handleChange}
+            name="password"
+            icon={AiFillLock}
+          >
+            {!isSignup && (
+              <div className="cursor-pointer" onClick={handleShowPassword}>
+                {showPassword ? (
+                  <AiFillEye size={24} />
+                ) : (
+                  <AiFillEyeInvisible size={24} />
+                )}
+              </div>
+            )}
+          </FormField>
+          {isSignup && (
+            <FormField
+              useState={[confirmPassword, setAuthProp]}
+              placeholder="Подтвердите пароль"
+              type={showPassword ? "text" : "password"}
+              onChange={handleChange}
+              name="confirmPassword"
+            />
+          )}
+          {error && (
+            <span className="flex justify-center text-center text-red-500">
+              {error}
+            </span>
+          )}
+          <Button
+            submit
+            onClick={
+              isSignup
+                ? () => loadResource(handleSignUp())
+                : () => loadResource(handleSignIn())
+            }
+            title={isSignup ? "Создать аккаунт" : "Войти"}
+          />
+        </form>
+        <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
+          <span className="mx-2">Или</span>
+        </div>
+        <div className="text-center">
+          {isSignup ? "Есть аккаунт? " : "Не зарегистрированы? "}
+          <span
+            onClick={handleToggle}
+            className="cursor-pointer text-center font-semibold text-blue-600 hover:underline"
+          >
+            {isSignup ? "Войдите" : "Создайте аккаунт"}
           </span>
-        )}
-        <Button
-          submit
-          onClick={
-            isSignup
-              ? () => loadResource(handleSignUp())
-              : () => loadResource(handleSignIn())
-          }
-          title={isSignup ? "Создать аккаунт" : "Войти"}
-        />
-      </form>
-      <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
-        <span className="mx-2">Или</span>
-      </div>
-      <div className="text-center">
-        {isSignup ? "Есть аккаунт? " : "Не зарегистрированы? "}
-        <span
-          onClick={handleToggle}
-          className="cursor-pointer text-center font-semibold text-blue-600 hover:underline"
-        >
-          {isSignup ? "Войдите" : "Создайте аккаунт"}
-        </span>
-      </div>
-    </div>
+        </div>
+      </>
+    </ModalContainer>
   );
 };
 
