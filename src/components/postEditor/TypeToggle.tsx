@@ -69,8 +69,8 @@ const TypeToggle = () => {
     );
   }, [typeIndex]);
   return (
-    <div className="left-1/2 flex w-full justify-center">
-      <div className="relative mb-2 flex h-[7.5rem] w-1/2 before:bg-slate-300 lg:h-auto lg:w-[27rem]">
+    <div className="flex w-full justify-center lg:left-1/2">
+      <div className="relative mb-2 flex h-[7.5rem] w-3/4 before:bg-slate-300 lg:h-auto lg:w-[27rem]">
         <div
           className={`pointer-events-auto relative flex w-full flex-col before:absolute before:-z-10 before:h-1/3 lg:before:h-full ${style} before:w-full before:bg-slate-400 before:transition-all before:duration-300 lg:flex-row lg:before:w-1/3`}
         >
@@ -78,7 +78,7 @@ const TypeToggle = () => {
             type="button"
             id="car"
             onClick={() => handleTypeToggle(0)}
-            className="h-10 w-full border-b-2 border-black lg:w-1/3 "
+            className="h-full w-full border-b-2 border-black lg:w-1/3 "
           >
             Машина
           </button>
@@ -86,7 +86,7 @@ const TypeToggle = () => {
             type="button"
             id="estate"
             onClick={() => handleTypeToggle(1)}
-            className="h-10 w-full border-b-2 border-black lg:w-1/3 "
+            className="h-full w-full border-b-2 border-black lg:w-1/3 "
           >
             Недвижимость
           </button>
@@ -94,7 +94,7 @@ const TypeToggle = () => {
             type="button"
             id="misc"
             onClick={() => handleTypeToggle(2)}
-            className="h-10 w-full border-b-2 border-black lg:w-1/3 "
+            className="h-full w-full border-b-2 border-black lg:w-1/3 "
           >
             Другое
           </button>

@@ -124,7 +124,7 @@ const PostEditor = () => {
         </div>
 
         <div className="w-full lg:w-auto">
-          <div className="h-full px-10">
+          <div className="h-full px-2 lg:px-10">
             <TypeToggle />
             <div className="flex w-full flex-col items-center">
               <FormField

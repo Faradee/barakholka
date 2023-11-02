@@ -18,7 +18,7 @@ const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
   return (
-    <div className="flex h-full w-full flex-col p-2">
+    <div className="flex h-full min-h-[80vh] w-full flex-col p-2">
       <div
         className="relative mb-5 flex h-full w-full flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
@@ -36,7 +36,7 @@ const Gallery = (props: GalleryProps) => {
               />
             )
           ) : (
-            <div className="relative min-h-[500px] w-full">
+            <div className="relative min-h-[500px] w-full select-none">
               {selectIndex > 0 && (
                 <button
                   title="Предыдущее фото"
