@@ -40,7 +40,7 @@ const Usermenu = () => {
   }, [dispatch]);
   return (
     <div onBlur={(e) => handleBlur(e)} tabIndex={0}>
-      <div className="relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
+      <div className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
         <Suspense fallback={<Skeleton />}>
           <Image
             onClick={() => setIsMenu(true)}
@@ -58,18 +58,16 @@ const Usermenu = () => {
         >
           <div className="mb-2 flex">
             <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
-              {avatar !== undefined && (
-                <Suspense fallback={<Skeleton />}>
-                  <Image
-                    onClick={() => setIsMenu(true)}
-                    src={avatar ? avatar : defaultUserImage}
-                    sizes="100%"
-                    width={48}
-                    height={48}
-                    alt="user avatar"
-                  />
-                </Suspense>
-              )}
+              <Suspense fallback={<Skeleton />}>
+                <Image
+                  onClick={() => setIsMenu(true)}
+                  src={avatar ? avatar : defaultUserImage}
+                  sizes="100%"
+                  width={48}
+                  height={48}
+                  alt="user avatar"
+                />
+              </Suspense>
             </div>
             <div className="flex flex-col">
               {userData && (
