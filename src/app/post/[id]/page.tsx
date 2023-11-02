@@ -9,6 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
 import Favorite from "@/components/post/Favorite";
+import PostActions from "@/components/post/PostActions";
 export const dynamic = "force-static";
 const getPostData = cache(async (id: number) => {
   const post = await prisma.post.findFirst({
@@ -76,6 +77,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             <span className="flex w-1/2">{post.title} </span>
             <span className="flex w-1/2 justify-end">
               <Favorite postId={post.id} />
+              <PostActions />
             </span>
           </div>
           <div className=" mb-10 flex flex-col  lg:flex-row">

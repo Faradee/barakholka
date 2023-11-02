@@ -43,24 +43,23 @@ export const createPost = async (postData: PostData) => {
 };
 export const findFavorite = async (postId: number) => {
   const uuid = await verifyToken();
-  if (uuid) {
-    const favorites = await prisma.favorites.findMany({
-      where: {
-        postId: postId,
-      },
-    });
 
-    if (favorites)
-      return {
-        favoritedByUser:
-          favorites.filter((favorite) => {
-            if (favorite.userId === uuid) return favorite;
-          }).length !== 0
-            ? true
-            : false,
-        favoriteCount: favorites.length,
-      };
-  }
+  const favorites = await prisma.favorites.findMany({
+    where: {
+      postId: postId,
+    },
+  });
+
+  if (favorites)
+    return {
+      favoritedByUser:
+        favorites.filter((favorite) => {
+          if (favorite.userId === uuid) return favorite;
+        }).length !== 0
+          ? true
+          : false,
+      favoriteCount: favorites.length,
+    };
   return false;
 };
 export const setFavorite = async (postId: number) => {

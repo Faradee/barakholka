@@ -8,7 +8,7 @@ import { signIn, signOut } from "@/redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { fetchUser, getAvatar } from "@/actions/userActions";
+import { fetchUser, getAvatar, signUserOut } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
 import { setAvatar } from "@/redux/slices/avatarSlice";
 const Usermenu = () => {
@@ -19,6 +19,7 @@ const Usermenu = () => {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const handleSignOut = () => {
     dispatch(signOut());
+    signUserOut();
     router.replace("/");
   };
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
