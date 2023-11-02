@@ -11,6 +11,7 @@ import Link from "next/link";
 import { fetchUser, getAvatar, signUserOut } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
 import { setAvatar } from "@/redux/slices/avatarSlice";
+import DropDownContainer from "../containers/DropDownContainer";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
   const avatar = useAppSelector((state) => state.avatar.avatar);
@@ -53,46 +54,46 @@ const Usermenu = () => {
         </Suspense>
       </div>
       {isMenu && (
-        <div
-          className={`container absolute top-[90%] z-20 mx-auto w-[300px] -translate-x-[calc(80%)] bg-slate-100 p-2 shadow-md `}
-        >
-          <div className="mb-2 flex">
-            <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
-              <Suspense fallback={<Skeleton />}>
-                <Image
-                  onClick={() => setIsMenu(true)}
-                  src={avatar ? avatar : defaultUserImage}
-                  sizes="100%"
-                  width={48}
-                  height={48}
-                  alt="user avatar"
-                />
-              </Suspense>
+        <DropDownContainer>
+          <>
+            <div className="mb-2 flex">
+              <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
+                <Suspense fallback={<Skeleton />}>
+                  <Image
+                    onClick={() => setIsMenu(true)}
+                    src={avatar ? avatar : defaultUserImage}
+                    sizes="100%"
+                    width={48}
+                    height={48}
+                    alt="user avatar"
+                  />
+                </Suspense>
+              </div>
+              <div className="flex flex-col">
+                {userData && (
+                  <>
+                    <Suspense fallback={<Skeleton />}>
+                      <span>{userData.name}</span>
+                    </Suspense>
+                    <Suspense fallback={<Skeleton />}>
+                      <span>{userData.email}</span>
+                    </Suspense>
+                  </>
+                )}
+              </div>
             </div>
-            <div className="flex flex-col">
-              {userData && (
-                <>
-                  <Suspense fallback={<Skeleton />}>
-                    <span>{userData.name}</span>
-                  </Suspense>
-                  <Suspense fallback={<Skeleton />}>
-                    <span>{userData.email}</span>
-                  </Suspense>
-                </>
-              )}
-            </div>
-          </div>
-          <ul className={`${styles.list}`} tabIndex={1}>
-            <li onClick={() => setIsMenu(false)}>
-              <Link className={`${styles.navButton}`} href={"/user/settings"}>
-                Настройки аккаунта
-              </Link>
-            </li>
-            <li className={`${styles.navButton}`} onClick={handleSignOut}>
-              Выйти
-            </li>
-          </ul>
-        </div>
+            <ul className={`${styles.list}`} tabIndex={1}>
+              <li onClick={() => setIsMenu(false)}>
+                <Link className={`${styles.navButton}`} href={"/user/settings"}>
+                  Настройки аккаунта
+                </Link>
+              </li>
+              <li className={`${styles.navButton}`} onClick={handleSignOut}>
+                Выйти
+              </li>
+            </ul>
+          </>
+        </DropDownContainer>
       )}
     </div>
   );

@@ -19,7 +19,7 @@ import { loadResource } from "../Loading";
 import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/userSchemas";
 import zod from "zod";
-import ModalContainer from "../forms/ModalContainer";
+import ModalContainer from "../containers/ModalContainer";
 type Auth = {
   email: string;
   password: string;
