@@ -83,7 +83,7 @@ svg {
   width: 50%;
   min-width: 100px;
 }
-.details-list > li > span:first-child {
+.details-list > li:not(:first-child) > span:first-child {
   color: gray;
 }
 .min-h-fullscreen {

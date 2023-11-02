@@ -8,6 +8,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
+import Favorite from "@/components/post/Favorite";
 export const dynamic = "force-static";
 const getPostData = cache(async (id: number) => {
   const post = await prisma.post.findFirst({
@@ -72,24 +73,27 @@ const page = async ({ params }: { params: { id: string } }) => {
       {post && (
         <div>
           <div className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
-            <span className="w-[70%]">{post.title} </span>
-            <span className="flex w-[30%] justify-end ">
-              {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
+            <span className="flex w-1/2">{post.title} </span>
+            <span className="flex w-1/2 justify-end">
+              <Favorite postId={post.id} />
             </span>
           </div>
           <div className=" mb-10 flex flex-col  lg:flex-row">
-            {post.type !== "misc" && (
-              <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
-                {post.type === "car" && carDetails ? (
-                  <CarDetails carDetails={carDetails} />
-                ) : (
-                  post.type === "estate" &&
-                  estateDetails && (
-                    <EstateDetails estateDetails={estateDetails} />
-                  )
-                )}
-              </ul>
-            )}
+            <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
+              <li>
+                <span className="text-xl">Цена:</span>
+                <span className="text-xl">
+                  {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
+                </span>
+              </li>
+
+              {post.type === "car" && carDetails ? (
+                <CarDetails carDetails={carDetails} />
+              ) : (
+                post.type === "estate" &&
+                estateDetails && <EstateDetails estateDetails={estateDetails} />
+              )}
+            </ul>
 
             <div className="relative h-full w-full">
               {post && (
@@ -101,6 +105,7 @@ const page = async ({ params }: { params: { id: string } }) => {
               )}
             </div>
           </div>
+
           <div className="m-5">
             <label htmlFor="description" className=" text-4xl font-bold">
               Комментарий продавца

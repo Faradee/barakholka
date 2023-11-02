@@ -12,7 +12,7 @@ import {
   signUpSchema,
 } from "./userSchemas";
 
-const verifyToken = async () => {
+export const verifyToken = async () => {
   const secret = process.env.SECRET!;
 
   if (cookies().has("token")) {
