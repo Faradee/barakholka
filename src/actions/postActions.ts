@@ -41,6 +41,24 @@ export const createPost = async (postData: PostData) => {
     }
   }
 };
+export const deletePost = async (postId: number) => {
+  const uuid = await verifyToken();
+  const post = await prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+  if (uuid && post && uuid === post.posterId) {
+    await prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+    revalidatePath("/");
+    return true;
+  }
+  return false;
+};
 export const findFavorite = async (postId: number) => {
   const uuid = await verifyToken();
 

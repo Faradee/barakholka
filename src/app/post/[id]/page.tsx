@@ -70,16 +70,16 @@ const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
   return (
-    <div className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
+    <main className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
         <div>
-          <div className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
-            <span className="flex w-1/2">{post.title} </span>
-            <span className="flex w-1/2 justify-end">
+          <header className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
+            <h1 className="flex w-1/2">{post.title} </h1>
+            <h1 className="flex w-1/2 justify-end">
               <Favorite postId={post.id} />
-              <PostActions />
-            </span>
-          </div>
+              <PostActions postId={post.id} />
+            </h1>
+          </header>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
               <li>
@@ -123,7 +123,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 
