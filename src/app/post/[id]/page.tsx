@@ -75,7 +75,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         <div>
           <header className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
             <h1 className="flex w-1/2">{post.title} </h1>
-            <h1 className="flex w-1/2 justify-end">
+            <h1 className="mb-1 flex w-1/2 justify-end">
               <Favorite postId={post.id} />
               <PostActions postId={post.id} />
             </h1>

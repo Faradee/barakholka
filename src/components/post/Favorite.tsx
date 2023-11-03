@@ -28,7 +28,7 @@ const Favorite = ({ postId }: { postId: number }) => {
     fetchFavorite();
   }, [postId, favorited]);
   return (
-    <form className="mb-1 border-2 border-gray-300 bg-gray-100 p-0.5 active:bg-gray-200">
+    <form className="h-full border-2 border-gray-300 bg-gray-100 p-0.5 active:bg-gray-200">
       <button
         title="Добавить в закладки"
         onClick={(e) => {

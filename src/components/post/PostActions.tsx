@@ -14,7 +14,7 @@ const PostActions = ({ postId }: { postId: number }) => {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const router = useRouter();
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) setDropDown(true);
+    if (!e.currentTarget.contains(e.relatedTarget)) setDropDown(false);
   };
   const handleDelete = async () => {
     const res = await deletePost(postId);
