@@ -21,6 +21,8 @@ model Post {
   favoritedBy Favorites[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  car         Car?
+  estate      Estate?
 }
 
 model Thumbnail {
@@ -40,7 +42,8 @@ model Favorites {
 }
 
 model Car {
-  postId       Int     @id
+  postId       Int     @id @unique
+  post         Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   kilometrage  String
   year         String
   horsepower   String
@@ -53,7 +56,8 @@ model Car {
 }
 
 model Estate {
-  postId     Int     @id
+  postId     Int     @id @unique
+  post       Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   space      String
   rooms      String
   floor      String

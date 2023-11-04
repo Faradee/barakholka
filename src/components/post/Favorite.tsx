@@ -6,8 +6,10 @@ import {
   setFavorite,
   unsetFavorite,
 } from "@/actions/postActions";
+import { useAppSelector } from "@/redux/store";
 const Favorite = ({ postId }: { postId: number }) => {
   const [favorited, setFavorited] = useState<boolean>(false);
+  const user = useAppSelector((state) => state.auth);
   const [favoriteCount, setFavoriteCount] = useState<number>(0);
   const updateFavorite = async () => {
     const res = favorited
@@ -26,7 +28,7 @@ const Favorite = ({ postId }: { postId: number }) => {
       }
     };
     fetchFavorite();
-  }, [postId, favorited]);
+  }, [postId, favorited, user]);
   return (
     <form className="h-full border-2 border-gray-300 bg-gray-100 p-0.5 active:bg-gray-200">
       <button

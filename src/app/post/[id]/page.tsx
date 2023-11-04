@@ -8,8 +8,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
-import Favorite from "@/components/post/Favorite";
-import PostActions from "@/components/post/PostActions";
+import PostInteractions from "@/components/post/PostInteractions";
+
 export const dynamic = "force-static";
 const getPostData = cache(async (id: number) => {
   const post = await prisma.post.findFirst({
@@ -50,7 +50,6 @@ export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | null> {
   const { id } = params;
-
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
   const details = carDetails ? carDetails : estateDetails;
   const props: string[] = [];
@@ -69,22 +68,20 @@ export async function generateMetadata({
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
+  const { createdAt, updatedAt, ...postData } = post!;
   return (
     <main className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
         <div>
           <header className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
             <h1 className="flex w-1/2">{post.title} </h1>
-            <h1 className="mb-1 flex w-1/2 justify-end">
-              <Favorite postId={post.id} />
-              <PostActions postId={post.id} />
-            </h1>
+            <PostInteractions id={post.id} posterId={post.posterId} />
           </header>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
-              <li>
-                <span className="text-xl">Цена:</span>
-                <span className="text-xl">
+              <li className="mb-5 text-xl">
+                <span>Цена:</span>
+                <span>
                   {parseInt(post.price).toLocaleString().replaceAll(",", " ")}₽
                 </span>
               </li>
@@ -98,13 +95,9 @@ const page = async ({ params }: { params: { id: string } }) => {
             </ul>
 
             <div className="relative h-full w-full">
-              {post && (
-                <Suspense
-                  fallback={<Skeleton className="block h-full w-full" />}
-                >
-                  <GalleryProvider id={post.id} />
-                </Suspense>
-              )}
+              <Suspense fallback={<Skeleton className="block h-full w-full" />}>
+                <GalleryProvider id={post.id} />
+              </Suspense>
             </div>
           </div>
 

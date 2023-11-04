@@ -4,10 +4,8 @@ import { AiOutlineCaretDown, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DropDownContainer from "../containers/DropDownContainer";
 import styles from "./styles.module.css";
-import Button from "../forms/Button";
 import { deletePost } from "@/actions/postActions";
 import { useRouter } from "next/navigation";
-//TODO: ADD CONFIRMATION FOR DELETING
 //ADD POST CHANGE
 const PostActions = ({ postId }: { postId: number }) => {
   const [dropdown, setDropDown] = useState<boolean>(false);

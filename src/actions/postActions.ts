@@ -1,6 +1,6 @@
 "use server";
 import prisma from "@/db";
-import { PostData } from "@/app/create/page";
+import { PostData } from "@/components/postEditor/PostEditor";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import { revalidatePath } from "next/cache";
@@ -59,6 +59,48 @@ export const deletePost = async (postId: number) => {
   }
   return false;
 };
+export const updatePost = async (postId: number, postData: PostData) => {
+  const uuid = await verifyToken();
+  const originalPost = await prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+
+  if (uuid && originalPost) {
+    const res = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        title: postData.title,
+        type: postData.type,
+        description: postData.description,
+        price: postData.price,
+      },
+    });
+    //Менять тип поста нельзя!!
+    if (postData.type === "car")
+      await prisma.car.update({
+        where: {
+          postId,
+        },
+        data: { ...(postData.details as CarState) },
+      });
+    else if (postData.type === "estate")
+      await prisma.estate.update({
+        where: {
+          postId,
+        },
+        data: { ...(postData.details as EstateState) },
+      });
+    if (res) {
+      revalidatePath(`/post/${postId}`);
+      return true;
+    }
+  }
+  return false;
+};
 export const findFavorite = async (postId: number) => {
   const uuid = await verifyToken();
 
@@ -73,9 +115,7 @@ export const findFavorite = async (postId: number) => {
       favoritedByUser:
         favorites.filter((favorite) => {
           if (favorite.userId === uuid) return favorite;
-        }).length !== 0
-          ? true
-          : false,
+        }).length !== 0,
       favoriteCount: favorites.length,
     };
   return false;
