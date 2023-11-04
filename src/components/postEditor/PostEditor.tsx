@@ -15,7 +15,7 @@ import {
   resetThumbnails,
 } from "../../redux/slices/thumbnailSlice";
 import Button from "@/components/forms/Button";
-import { createPost } from "@/actions/postActions";
+import { createPost, updatePost } from "@/actions/postActions";
 import { useRouter } from "next/navigation";
 import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
@@ -33,7 +33,7 @@ export type PostState = {
 export type PostData = PostState & {
   thumbnails: string[];
 };
-const PostEditor = () => {
+const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { uuid } = useAppSelector((state) => state.auth);
@@ -77,14 +77,14 @@ const PostEditor = () => {
     [dispatch, filesSize],
   );
   const handleSubmit = async () => {
-    const data = { thumbnails: postThumbnails, ...postData };
+    const data = { ...postData, thumbnails: postThumbnails };
     const validate = postSchema.safeParse(data);
     if (validate.success) {
-      await createPost(data);
+      if (editedPost) await updatePost(editedPost, data);
+      else await createPost(data);
       router.replace("/");
     }
   };
-
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
     return () => {
@@ -125,7 +125,11 @@ const PostEditor = () => {
 
         <div className="w-full lg:w-auto">
           <div className="h-full px-2 lg:px-10">
-            <TypeToggle />
+            <div
+              className={`${editedPost && "pointer-events-none opacity-50"}`}
+            >
+              <TypeToggle />
+            </div>
             <div className="flex w-full flex-col items-center">
               <FormField
                 type="text"
@@ -155,7 +159,7 @@ const PostEditor = () => {
             </div>
             <Button
               onClick={() => loadResource(handleSubmit())}
-              title="Создать объявление"
+              title={editedPost ? "Изменить объявление" : "Создать объявление"}
             />
           </div>
         </div>

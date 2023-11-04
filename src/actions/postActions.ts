@@ -1,10 +1,50 @@
 "use server";
 import prisma from "@/db";
-import { PostData } from "@/components/postEditor/PostEditor";
+import { PostData, PostState } from "@/components/postEditor/PostEditor";
 import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import { revalidatePath } from "next/cache";
 import { verifyToken } from "./userActions";
+export const getPostData = async (id: number) => {
+  const post = await prisma.post.findFirst({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      posterId: true,
+      title: true,
+      type: true,
+      description: true,
+      price: true,
+    },
+  });
+  if (post) {
+    const details = await (post.type === "car"
+      ? prisma.car.findFirst({
+          where: {
+            postId: id,
+          },
+        })
+      : post.type === "estate"
+      ? prisma.estate.findFirst({
+          where: {
+            postId: id,
+          },
+        })
+      : undefined);
+    if (post.type === "car")
+      return {
+        post: post as PostState & { id: number },
+        carDetails: details as CarState,
+      };
+    else
+      return {
+        post: post as PostState & { id: number },
+        estateDetails: details as EstateState,
+      };
+  } else return { post: undefined, details: undefined };
+};
 export const createPost = async (postData: PostData) => {
   if (postData) {
     try {
@@ -15,18 +55,15 @@ export const createPost = async (postData: PostData) => {
           type: postData.type,
           description: postData.description,
           price: postData.price,
+          thumbnails: {
+            create: [
+              ...postData.thumbnails.map((thumbnail) => {
+                return { thumbnail: thumbnail };
+              }),
+            ],
+          },
         },
       });
-      await Promise.all([
-        ...postData.thumbnails.map((thumbnail) => {
-          return prisma.thumbnail.create({
-            data: {
-              postId: id,
-              thumbnail: thumbnail,
-            },
-          });
-        }),
-      ]);
       if (postData.type === "car")
         await prisma.car.create({
           data: { postId: id, ...(postData.details as CarState) },
@@ -68,6 +105,7 @@ export const updatePost = async (postId: number, postData: PostData) => {
   });
 
   if (uuid && originalPost) {
+    console.log(postData);
     const res = await prisma.post.update({
       where: {
         id: postId,
@@ -77,6 +115,14 @@ export const updatePost = async (postId: number, postData: PostData) => {
         type: postData.type,
         description: postData.description,
         price: postData.price,
+        thumbnails: {
+          deleteMany: {},
+          create: [
+            ...postData.thumbnails.map((thumbnail) => {
+              return { thumbnail: thumbnail };
+            }),
+          ],
+        },
       },
     });
     //Менять тип поста нельзя!!

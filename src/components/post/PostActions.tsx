@@ -5,12 +5,13 @@ import { BsFillTrashFill } from "react-icons/bs";
 import DropDownContainer from "../containers/DropDownContainer";
 import styles from "./styles.module.css";
 import { deletePost } from "@/actions/postActions";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 //ADD POST CHANGE
 const PostActions = ({ postId }: { postId: number }) => {
   const [dropdown, setDropDown] = useState<boolean>(false);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const router = useRouter();
+  const pathname = usePathname();
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setDropDown(false);
   };
@@ -41,7 +42,13 @@ const PostActions = ({ postId }: { postId: number }) => {
               <span className="mr-5">
                 <AiFillEdit size={20} />
               </span>
-              <span>Изменить объявление</span>
+              <button
+                onClick={() => {
+                  router.push(pathname + "/edit");
+                }}
+              >
+                Изменить объявление
+              </button>
             </li>
             <li className={`${confirmDelete && styles.button}`}>
               {confirmDelete ? (

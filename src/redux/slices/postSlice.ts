@@ -7,7 +7,7 @@ type PostState = {
   type: "car" | "estate" | "misc";
   description: string;
   price: string;
-  details: CarState | EstateState;
+  details?: CarState | EstateState;
 };
 type InitialState = PostState;
 type PostData = {
@@ -40,6 +40,9 @@ export const post = createSlice({
   name: "post",
   initialState,
   reducers: {
+    SetPostData: (state: PostState, action: PayloadAction<PostState>) => {
+      return { ...action.payload };
+    },
     setPostField: (state: PostState, action: PayloadAction<PostData>) => {
       return { ...state, ...action.payload };
     },
@@ -63,5 +66,6 @@ export const {
   setDetailsField,
   resetPostData,
   resetDetailsData,
+  SetPostData,
 } = post.actions;
 export default post.reducer;

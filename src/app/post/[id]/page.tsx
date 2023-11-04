@@ -1,51 +1,19 @@
-import prisma from "@/db";
-import { CarState } from "@/components/postEditor/CarForm";
-import { EstateState } from "@/components/postEditor/EstateForm";
 import CarDetails from "@/components/post/CarDetails";
 import EstateDetails from "@/components/post/EstateDetails";
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
 import PostInteractions from "@/components/post/PostInteractions";
+import { getPostData } from "@/actions/postActions";
 
 export const dynamic = "force-static";
-const getPostData = cache(async (id: number) => {
-  const post = await prisma.post.findFirst({
-    where: {
-      id: id,
-    },
-  });
-  if (post) {
-    const details = await (post.type === "car"
-      ? prisma.car.findFirst({
-          where: {
-            postId: id,
-          },
-        })
-      : post.type === "estate"
-      ? prisma.estate.findFirst({
-          where: {
-            postId: id,
-          },
-        })
-      : undefined);
-    if (post.type === "car")
-      return {
-        post: post,
-        carDetails: details as CarState,
-      };
-    else
-      return {
-        post: post,
-        estateDetails: details as EstateState,
-      };
-  } else return { post: undefined, details: undefined };
-});
+
 type Props = {
   params: { id: string };
 };
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | null> {
@@ -65,10 +33,10 @@ export async function generateMetadata({
     };
   } else return null;
 }
+
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
-  const { createdAt, updatedAt, ...postData } = post!;
   return (
     <main className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
