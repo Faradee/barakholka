@@ -112,7 +112,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
         className="relative flex h-full w-full flex-wrap  justify-center lg:flex-nowrap "
         onDrop={(e) => e.preventDefault()}
       >
-        <div className="relative w-full">
+        <div className="relative mb-5 w-full">
           <UploadableWrapper handleUpload={handleUpload}>
             <Gallery
               thumbnailList={postThumbnails}

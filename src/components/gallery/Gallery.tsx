@@ -18,7 +18,7 @@ const Gallery = (props: GalleryProps) => {
   const { thumbnailList, handleUpload, uploadable, deleteable = false } = props;
   const [selectIndex, setSelectIndex] = useState<number>(0);
   return (
-    <div className="flex h-full min-h-[80vh] w-full flex-col p-2">
+    <div className="flex h-full w-full flex-col p-2 lg:min-h-[80vh]">
       <div
         className="relative mb-5 flex h-full w-full flex-col items-center justify-center"
         onDragStart={(e) => e.preventDefault()}
