@@ -18,7 +18,6 @@ type Button = {
   icon?: IconType;
 };
 //TODO ADD SEARCH
-//TODO: ADD FAVORITE POSTS TAB AND OWN POSTS WHERE YOU CAN DELETE POSTS
 const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);

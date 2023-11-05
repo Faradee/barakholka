@@ -22,6 +22,7 @@ import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 import { postSchema } from "@/actions/postSchemas";
 //TODO: ADD LOADING ANIMATION AND STATE
+//TODO: ADD FORM ERROR MESSAGES
 export type PostState = {
   posterId: string;
   title: string;
@@ -79,11 +80,12 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   const handleSubmit = async () => {
     const data = { ...postData, thumbnails: postThumbnails };
     const validate = postSchema.safeParse(data);
+
     if (validate.success) {
       if (editedPost) await updatePost(editedPost, data);
       else await createPost(data);
       router.replace("/");
-    }
+    } else console.log(validate.error.issues);
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
