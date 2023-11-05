@@ -40,10 +40,12 @@ const page = async ({ params }: { params: { id: string } }) => {
   return (
     <main className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
-        <div>
-          <header className=" mb-2 flex items-center border-b-4 border-black text-2xl font-bold lg:pl-20">
-            <h1 className="flex w-1/2">{post.title} </h1>
-            <PostInteractions id={post.id} posterId={post.posterId} />
+        <div className="container mx-auto">
+          <header className="  mb-2 flex w-full items-center border-b-4 border-black text-2xl font-bold">
+            <h1 className="ml-2 flex w-1/2">{post.title} </h1>
+            <h1 className="mb-1 mr-2 flex w-1/2 justify-end">
+              <PostInteractions id={post.id} posterId={post.posterId} />
+            </h1>
           </header>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">

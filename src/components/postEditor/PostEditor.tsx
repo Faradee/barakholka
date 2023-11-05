@@ -22,7 +22,6 @@ import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 import { postSchema } from "@/actions/postSchemas";
 //TODO: ADD LOADING ANIMATION AND STATE
-//TODO: ADD FORM ERROR MESSAGES
 export type PostState = {
   posterId: string;
   title: string;

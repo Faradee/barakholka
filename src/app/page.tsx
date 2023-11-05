@@ -23,7 +23,7 @@ const getPosts = cache(
         ...(userPosts && uuid ? { posterId: uuid } : {}),
       },
     })) as Post[];
-    return posts as Post[];
+    return posts;
   },
 );
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -60,7 +60,7 @@ const Home = async ({
                 <Suspense
                   fallback={
                     <>
-                      <Skeleton className="block h-[80%] w-full" />
+                      <Skeleton className="block h-64 w-full" />
                       <Skeleton className="block h-[10%] w-full" count={2} />
                     </>
                   }

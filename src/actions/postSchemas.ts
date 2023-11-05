@@ -7,13 +7,13 @@ export const estateSchema = zod.object({
   renovation: zod.boolean(),
 });
 export const carSchema = zod.object({
-  kilometrage: zod.string().min(1).max(16),
-  year: zod.string().min(4).max(16),
-  horsepower: zod.string().min(1).max(16),
-  transmission: zod.string().min(1).max(32),
-  brand: zod.string().min(1).max(32),
-  model: zod.string().min(1).max(32),
-  color: zod.string().min(1).max(32),
+  kilometrage: zod.string().min(1, ""),
+  year: zod.string().min(1, ""),
+  horsepower: zod.string().min(1, ""),
+  transmission: zod.string().min(1, ""),
+  brand: zod.string().min(1, ""),
+  model: zod.string().min(1, ""),
+  color: zod.string().min(1, ""),
   damaged: zod.boolean(),
   trade: zod.boolean(),
 });
@@ -23,7 +23,8 @@ export const postSchema = zod.object({
     .uuid("Ошибка авторизации, попробуйте перезайти в аккаунт"),
   title: zod
     .string()
-    .max(128, "Название объявление не должно прешывать 128 символов"),
+    .min(1, "")
+    .max(128, "Название объявление не должно превышать 128 символов"),
   type: zod.union([
     zod.literal("car"),
     zod.literal("estate"),
@@ -32,7 +33,7 @@ export const postSchema = zod.object({
   description: zod
     .string()
     .max(2000, "Описание объявления не должно превышать 2000 символов"),
-  price: zod.string().max(128),
+  price: zod.string().min(1, "").max(128, ""),
   details: estateSchema.or(carSchema).optional(),
   thumbnails: zod.array(zod.string()),
 });

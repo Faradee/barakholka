@@ -58,7 +58,7 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed ${
-          isNav ? "z-30" : "z-20"
+          isNav ? "z-40" : "z-20"
         } flex h-20 w-full items-center justify-between bg-white px-5
        py-4 lg:shadow-md `}
       >

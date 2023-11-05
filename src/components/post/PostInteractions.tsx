@@ -13,10 +13,10 @@ const PostInteractions = ({
 }) => {
   const user = useAppSelector((state) => state.auth);
   return (
-    <h1 className="mb-1 flex w-1/2 justify-end">
+    <div className="mx-2 mb-1 flex justify-end">
       <Favorite postId={id} />
       {user.uuid === posterId && <PostActions postId={id} />}
-    </h1>
+    </div>
   );
 };
 
