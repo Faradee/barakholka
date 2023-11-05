@@ -141,6 +141,7 @@ export const updatePost = async (postId: number, postData: PostData) => {
         data: { ...(postData.details as EstateState) },
       });
     if (res) {
+      revalidatePath(`/`);
       revalidatePath(`/post/${postId}`);
       return true;
     }

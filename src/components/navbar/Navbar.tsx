@@ -26,7 +26,6 @@ const Navbar = () => {
   const userData = useAppSelector((state) => state.auth);
   const isDimmed = useAppSelector((state) => state.dim.isDimmed);
 
-  //on nav button press
   const handleIsNav = () => {
     dispatch(toggleDim());
     setNav(!isNav);
@@ -34,7 +33,6 @@ const Navbar = () => {
       ? (document.body.style.overflow = "auto")
       : (document.body.style.overflow = "hidden");
   };
-  //on auth button press
   const toggleAuthModal = useCallback(() => {
     setNav(false);
     dispatch(setDim(true));
@@ -46,6 +44,8 @@ const Navbar = () => {
       title: "Создать объявление",
       url: "create",
     },
+    { title: "Избранное", url: "favorites" },
+    { title: "Мои объявления", url: "user/posts" },
   ] as Button[];
 
   useEffect(() => {

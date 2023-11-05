@@ -33,7 +33,7 @@ export async function generateMetadata({
     };
   } else return null;
 }
-
+//TODO: ADD POSTER DATA CONTAINER
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
