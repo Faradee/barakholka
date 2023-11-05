@@ -27,7 +27,7 @@ const PostCard = async (props: Post) => {
     return thumbnail.thumbnail;
   });
   return (
-    <>
+    <article>
       <div className="relative h-64 w-full">
         {thumbnails.length !== 0 ? (
           <Thumbnail thumbnails={thumbnails} />
@@ -49,7 +49,7 @@ const PostCard = async (props: Post) => {
           Выставлено: {props.createdAt.toLocaleDateString("ru-RU").toString()}
         </span>
       </div>
-    </>
+    </article>
   );
 };
 
