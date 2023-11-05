@@ -26,31 +26,29 @@ const PostActions = ({ postId }: { postId: number }) => {
   }, [dropdown]);
   return (
     <div onBlur={(e) => handleBlur(e)} className="relative">
-      <div className="mb-1 flex h-full items-center border-2 border-l-0 border-gray-300 bg-gray-100 active:bg-gray-200">
-        <button
-          className="h-full w-full"
-          title=""
-          onClick={() => setDropDown(!dropdown)}
-        >
-          <AiOutlineCaretDown />
-        </button>
-      </div>
+      <button
+        onClick={() => setDropDown(!dropdown)}
+        className="mb-1 flex h-full w-full items-center border-2 border-l-0 border-gray-300 bg-gray-100 active:bg-gray-200"
+      >
+        <AiOutlineCaretDown />
+      </button>
       {dropdown && (
         <DropDownContainer>
           <ul className={`${styles.list} text-lg font-normal`}>
             <li>
-              <span className="mr-5">
-                <AiFillEdit size={20} />
-              </span>
               <button
+                className="flex w-full items-center"
                 onClick={() => {
                   router.push(pathname + "/edit");
                 }}
               >
+                <span className="mr-5">
+                  <AiFillEdit size={20} />
+                </span>
                 Изменить объявление
               </button>
             </li>
-            <li className={`${confirmDelete && styles.button}`}>
+            <li className={`${confirmDelete}`}>
               {confirmDelete ? (
                 <>
                   <span className="mr-5 w-1/2">Вы уверены?</span>
@@ -70,14 +68,15 @@ const PostActions = ({ postId }: { postId: number }) => {
                   </span>
                 </>
               ) : (
-                <>
+                <button
+                  className="flex w-full items-center"
+                  onClick={() => setConfirmDelete(true)}
+                >
                   <span className="mr-5">
                     <BsFillTrashFill size={20} />
                   </span>
-                  <button onClick={() => setConfirmDelete(true)}>
-                    Удалить объявление
-                  </button>
-                </>
+                  Удалить объявление
+                </button>
               )}
             </li>
           </ul>

@@ -83,10 +83,11 @@ const Usermenu = () => {
               </div>
             </div>
             <ul className={`${styles.list}`} tabIndex={1}>
-              <li onClick={() => setIsMenu(false)}>
-                <Link className={`${styles.navButton}`} href={"/user/settings"}>
-                  Настройки аккаунта
-                </Link>
+              <li
+                className={`${styles.navButton}`}
+                onClick={() => setIsMenu(false)}
+              >
+                <Link href={"/user/settings"}>Настройки аккаунта</Link>
               </li>
               <li className={`${styles.navButton}`} onClick={handleSignOut}>
                 Выйти

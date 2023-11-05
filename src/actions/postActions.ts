@@ -147,6 +147,7 @@ export const updatePost = async (postId: number, postData: PostData) => {
   }
   return false;
 };
+//При изображении favorites используется клиентский компонент, ревалидация не нужна
 export const findFavorite = async (postId: number) => {
   const uuid = await verifyToken();
 
@@ -175,7 +176,6 @@ export const setFavorite = async (postId: number) => {
         userId: uuid,
       },
     });
-
     if (created) return true;
   }
   return false;
@@ -192,6 +192,7 @@ export const unsetFavorite = async (postId: number) => {
         },
       },
     });
+
     if (deleted) return true;
   }
   return false;
