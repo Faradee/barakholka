@@ -2,11 +2,15 @@ import { getPostData } from "@/actions/postActions";
 import { verifyToken } from "@/actions/userActions";
 import PostEditorProvider from "@/components/postEditor/PostEditorProvider";
 import prisma from "@/db";
+import { redirect } from "next/navigation";
 
 const PostEdit = async ({ params }: { params: { id: string } }) => {
   const id = parseInt(params.id);
   const uuid = await verifyToken();
   const { post, carDetails, estateDetails } = await getPostData(id);
+  if (post && post?.posterId !== uuid) {
+    redirect("/");
+  }
   const details =
     post && post.type === "car"
       ? carDetails
