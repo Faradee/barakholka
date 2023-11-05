@@ -13,7 +13,6 @@ const PostEditorProvider = ({
   postId: number;
 }) => {
   const dispatch = useDispatch();
-  console.log(postData);
   useEffect(() => {
     dispatch(SetPostData(postData));
     dispatch(setThumbnails(postData.thumbnails));

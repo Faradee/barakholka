@@ -5,12 +5,27 @@ import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
-export const dynamic = "force-static";
-type FetchedPost = Post;
-const getPosts = cache(async () => {
-  const posts = (await prisma.post.findMany()) as FetchedPost[];
-  return posts as Post[];
-});
+import { verifyToken } from "@/actions/userActions";
+const getPosts = cache(
+  async (favorited: boolean = false, userPosts: boolean = false) => {
+    const uuid = await verifyToken();
+    const posts = (await prisma.post.findMany({
+      where: {
+        ...(favorited && uuid
+          ? {
+              favoritedBy: {
+                some: {
+                  userId: uuid,
+                },
+              },
+            }
+          : {}),
+        ...(userPosts && uuid ? { posterId: uuid } : {}),
+      },
+    })) as Post[];
+    return posts as Post[];
+  },
+);
 export const generateMetadata = async (): Promise<Metadata> => {
   const posts = await getPosts();
   const titles: string[] = [];
@@ -23,8 +38,15 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 //TODO ADD PAGINATION
-const Home = async () => {
-  const posts = await getPosts();
+const Home = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const posts = await getPosts(
+    searchParams.favorites !== undefined,
+    searchParams.myposts !== undefined,
+  );
   return (
     <>
       {

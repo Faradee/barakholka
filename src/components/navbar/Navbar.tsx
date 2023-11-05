@@ -44,8 +44,8 @@ const Navbar = () => {
       title: "Создать объявление",
       url: "create",
     },
-    { title: "Избранное", url: "favorites" },
-    { title: "Мои объявления", url: "user/posts" },
+    { title: "Избранное", url: "?favorites" },
+    { title: "Мои объявления", url: "?myposts" },
   ] as Button[];
 
   useEffect(() => {

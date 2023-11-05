@@ -72,7 +72,6 @@ export const createPost = async (postData: PostData) => {
         await prisma.estate.create({
           data: { postId: id, ...(postData.details as EstateState) },
         });
-      revalidatePath("/");
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +90,6 @@ export const deletePost = async (postId: number) => {
         id: postId,
       },
     });
-    revalidatePath("/");
     return true;
   }
   return false;
@@ -105,7 +103,6 @@ export const updatePost = async (postId: number, postData: PostData) => {
   });
 
   if (uuid && originalPost) {
-    console.log(postData);
     const res = await prisma.post.update({
       where: {
         id: postId,
@@ -141,7 +138,6 @@ export const updatePost = async (postId: number, postData: PostData) => {
         data: { ...(postData.details as EstateState) },
       });
     if (res) {
-      revalidatePath(`/`);
       revalidatePath(`/post/${postId}`);
       return true;
     }

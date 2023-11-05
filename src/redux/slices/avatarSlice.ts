@@ -15,8 +15,11 @@ export const avatar = createSlice({
         avatar: action.payload,
       };
     },
+    resetAvatar: () => {
+      return { avatar: undefined };
+    },
   },
 });
 
-export const { setAvatar } = avatar.actions;
+export const { setAvatar, resetAvatar } = avatar.actions;
 export default avatar.reducer;

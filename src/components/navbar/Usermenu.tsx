@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchUser, getAvatar, signUserOut } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
-import { setAvatar } from "@/redux/slices/avatarSlice";
+import { resetAvatar, setAvatar } from "@/redux/slices/avatarSlice";
 import DropDownContainer from "../containers/DropDownContainer";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
@@ -20,6 +20,7 @@ const Usermenu = () => {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const handleSignOut = () => {
     dispatch(signOut());
+    dispatch(resetAvatar());
     signUserOut();
     router.replace("/");
   };
