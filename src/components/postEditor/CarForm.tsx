@@ -31,7 +31,7 @@ const CarForm = (props: CarFormProps) => {
   const details = postData.details as CarState;
   return (
     <>
-      <section className="flex w-full items-center gap-x-0.5">
+      <div className="flex w-full items-center gap-x-0.5">
         <FormField
           type="number"
           useState={[details.kilometrage, handleChange]}
@@ -46,7 +46,7 @@ const CarForm = (props: CarFormProps) => {
           useState={[details.year, handleChange]}
           onChange={handleChange}
         />
-      </section>
+      </div>
       <FormField
         type="number"
         name="horsepower"
@@ -55,7 +55,7 @@ const CarForm = (props: CarFormProps) => {
         onChange={handleChange}
       />
 
-      <section className="flex w-full items-center gap-x-0.5">
+      <div className="flex w-full items-center gap-x-0.5">
         <FormField
           type="text"
           name="brand"
@@ -70,7 +70,7 @@ const CarForm = (props: CarFormProps) => {
           useState={[details.model, handleChange]}
           onChange={handleChange}
         />
-      </section>
+      </div>
       <FormField
         type="text"
         name="color"
@@ -85,7 +85,7 @@ const CarForm = (props: CarFormProps) => {
         useState={[details.transmission, handleChange]}
         onChange={handleChange}
       />
-      <section className="flex w-full flex-col items-center gap-x-0.5 gap-y-1 md:flex-row  lg:gap-y-0">
+      <div className="flex w-full flex-col items-center gap-x-0.5 gap-y-1 md:flex-row  lg:gap-y-0">
         <LabelFormField
           type="boolean"
           name="damaged"
@@ -98,7 +98,7 @@ const CarForm = (props: CarFormProps) => {
           label="Возможен обмен"
           useState={[details.trade, toggleBoolean]}
         />
-      </section>
+      </div>
     </>
   );
 };

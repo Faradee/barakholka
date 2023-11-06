@@ -53,7 +53,7 @@ const FormField = (props: FormFieldProps) => {
       className={
         className
           ? ""
-          : "textfield mx-0.5 bg-white outline-black focus-within:border-black focus-within:outline focus-within:outline-2"
+          : "textfield w-full border bg-white focus-within:outline focus-within:outline-2 focus-within:outline-black"
       }
       style={
         !className && type === "boolean"
@@ -63,6 +63,7 @@ const FormField = (props: FormFieldProps) => {
               borderRadius: "9999px",
               padding: "0 2px",
               display: "flex",
+              marginLeft: "5px",
               backgroundColor:
                 state === true ? "rgb(34, 197, 94)" : "rgb(226 232 240)",
               transition: "background-color 0.3s",

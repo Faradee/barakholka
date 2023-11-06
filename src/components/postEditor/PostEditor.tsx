@@ -41,16 +41,15 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   const error = useAppSelector((state) => state.error.error);
   const [filesSize, setFilesSize] = useState<number>(0);
   const postThumbnails = useAppSelector((state) => state.thumbnail.thumbnails);
-  const handleChange: React.Dispatch<React.SetStateAction<any>> = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      dispatch(
-        setPostField({
-          [e.currentTarget.name]: e.currentTarget.value,
-        }),
-      );
-    },
-    [dispatch],
-  );
+  const handleChange: React.Dispatch<React.SetStateAction<any>> = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    dispatch(
+      setPostField({
+        [e.currentTarget.name]: e.currentTarget.value,
+      }),
+    );
+  };
   const handleUpload = useCallback(
     (fileList: FileList) => {
       if (fileList) {
@@ -103,9 +102,6 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
     setFilesSize(tempSize);
   }, [postThumbnails, dispatch]);
 
-  useEffect(() => {
-    if (!uuid) router.replace("/");
-  }, [uuid, router]);
   return (
     <>
       {error && <ErrorHeader />}
