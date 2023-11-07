@@ -41,15 +41,16 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   const error = useAppSelector((state) => state.error.error);
   const [filesSize, setFilesSize] = useState<number>(0);
   const postThumbnails = useAppSelector((state) => state.thumbnail.thumbnails);
-  const handleChange: React.Dispatch<React.SetStateAction<any>> = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    dispatch(
-      setPostField({
-        [e.currentTarget.name]: e.currentTarget.value,
-      }),
-    );
-  };
+  const handleChange: React.Dispatch<React.SetStateAction<any>> = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      dispatch(
+        setPostField({
+          [e.currentTarget.name]: e.currentTarget.value,
+        }),
+      );
+    },
+    [dispatch],
+  );
   const handleUpload = useCallback(
     (fileList: FileList) => {
       if (fileList) {
@@ -120,10 +121,12 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
           </UploadableWrapper>
         </div>
 
-        <div className="w-full lg:w-auto">
-          <div className="h-full px-2 lg:px-10">
+        <div className="">
+          <div className="px-2 lg:px-10">
             <div
-              className={`${editedPost && "pointer-events-none opacity-50"}`}
+              className={`${
+                editedPost ? "pointer-events-none opacity-50" : ""
+              }`}
             >
               <TypeToggle />
             </div>

@@ -14,7 +14,7 @@ const AddGallery = ({ handleUpload }: AddGalleryProps) => {
         }
         multiple
       />
-      <AiOutlinePlus color="white" size={64} />
+      <AiOutlinePlus color="black" size={64} />
     </label>
   );
 };

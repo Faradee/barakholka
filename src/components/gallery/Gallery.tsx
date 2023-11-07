@@ -2,7 +2,10 @@
 import { useState, memo } from "react";
 import GalleryItem from "./GalleryItem";
 import GalleryList from "./GalleryList";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import Image from "next/image";
 import AddGallery from "./AddGallery";
 import UploadPlaceholder from "../postEditor/UploadPlaceholder";
@@ -40,12 +43,12 @@ const Gallery = (props: GalleryProps) => {
               {selectIndex > 0 && (
                 <button
                   title="Предыдущее фото"
-                  className="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
+                  className="absolute left-0 top-1/2 z-10 ml-1 -translate-y-1/2 cursor-pointer"
                   onClick={() => {
                     setSelectIndex(selectIndex - 1);
                   }}
                 >
-                  <AiOutlineArrowLeft
+                  <BsFillArrowLeftCircleFill
                     size={50}
                     color="white"
                     className="opacity-80 drop-shadow-md"
@@ -57,12 +60,12 @@ const Gallery = (props: GalleryProps) => {
               {selectIndex < thumbnailList.length - 1 && (
                 <button
                   title="Следующее фото"
-                  className="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
+                  className="absolute right-0 top-1/2 z-10 mr-1 -translate-y-1/2 cursor-pointer"
                   onClick={() => {
                     setSelectIndex(selectIndex + 1);
                   }}
                 >
-                  <AiOutlineArrowRight
+                  <BsFillArrowRightCircleFill
                     color="white"
                     className="opacity-80 drop-shadow-md"
                     size={50}
