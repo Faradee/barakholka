@@ -1,7 +1,10 @@
 import { getPosts } from "@/actions/postActions";
 import { Metadata } from "next";
 import PostCardList from "@/components/postCard/PostCardList";
+import PaginationSwitch from "@/components/postCard/PaginationSwitch";
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 export const generateMetadata = async (): Promise<Metadata> => {
   const posts = await getPosts();
   const titles: string[] = [];
@@ -17,15 +20,18 @@ export const generateMetadata = async (): Promise<Metadata> => {
 const Home = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | undefined };
 }) => {
+  const page = parseInt(searchParams["page"] ? searchParams["page"] : "1");
   const posts = await getPosts(
+    page,
     searchParams.favorites !== undefined,
     searchParams.myposts !== undefined,
   );
   return (
     <>
-      <PostCardList posts={posts} />
+      <PostCardList posts={posts.slice(0, 8)} />
+      <PaginationSwitch lastPage={posts.length < 9} />
     </>
   );
 };

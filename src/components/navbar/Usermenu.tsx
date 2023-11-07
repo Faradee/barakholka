@@ -17,7 +17,7 @@ const Usermenu = () => {
   const avatar = useAppSelector((state) => state.avatar.avatar);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isMenu, setIsMenu] = useState<boolean>(true);
+  const [isMenu, setIsMenu] = useState<boolean>(false);
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(resetAvatar());

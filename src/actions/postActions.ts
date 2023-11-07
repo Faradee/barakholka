@@ -7,11 +7,14 @@ import { revalidatePath } from "next/cache";
 import { verifyToken } from "./userActions";
 import { Post } from "@/components/postCard/PostCard";
 export const getPosts = async (
+  page: number = 1,
   favorited: boolean = false,
   userPosts: boolean = false,
 ) => {
   const uuid = await verifyToken();
   const posts = (await prisma.post.findMany({
+    take: 9,
+    skip: 8 * (page - 1),
     where: {
       ...(favorited && uuid
         ? {
@@ -23,6 +26,9 @@ export const getPosts = async (
           }
         : {}),
       ...(userPosts && uuid ? { posterId: uuid } : {}),
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   })) as Post[];
   return posts;
