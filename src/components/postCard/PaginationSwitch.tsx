@@ -21,11 +21,7 @@ const PaginationSwitch = ({ lastPage }: { lastPage: boolean }) => {
   const handlePagination = useCallback(
     (pageNumber: number) => {
       const hasQuery = !searchParams.has("page") && searchParams.size !== 0;
-      router.replace(
-        pathname +
-          (hasQuery ? "&" : "?") +
-          createQueryString("page", pageNumber),
-      );
+      router.replace(pathname + "?" + createQueryString("page", pageNumber));
     },
     [router, searchParams, createQueryString, pathname],
   );
