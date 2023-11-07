@@ -5,6 +5,28 @@ import { CarState } from "@/components/postEditor/CarForm";
 import { EstateState } from "@/components/postEditor/EstateForm";
 import { revalidatePath } from "next/cache";
 import { verifyToken } from "./userActions";
+import { Post } from "@/components/postCard/PostCard";
+export const getPosts = async (
+  favorited: boolean = false,
+  userPosts: boolean = false,
+) => {
+  const uuid = await verifyToken();
+  const posts = (await prisma.post.findMany({
+    where: {
+      ...(favorited && uuid
+        ? {
+            favoritedBy: {
+              some: {
+                userId: uuid,
+              },
+            },
+          }
+        : {}),
+      ...(userPosts && uuid ? { posterId: uuid } : {}),
+    },
+  })) as Post[];
+  return posts;
+};
 export const getPostData = async (id: number) => {
   const post = await prisma.post.findFirst({
     where: {
