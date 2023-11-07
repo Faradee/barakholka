@@ -1,30 +1,7 @@
-import prisma from "@/db";
-import { Post } from "@/components/postCard/PostCard";
+import { getPosts } from "@/actions/postActions";
 import { Metadata } from "next";
-import { verifyToken } from "@/actions/userActions";
 import PostCardList from "@/components/postCard/PostCardList";
 export const dynamic = "force-dynamic";
-const getPosts = async (
-  favorited: boolean = false,
-  userPosts: boolean = false,
-) => {
-  const uuid = await verifyToken();
-  const posts = (await prisma.post.findMany({
-    where: {
-      ...(favorited && uuid
-        ? {
-            favoritedBy: {
-              some: {
-                userId: uuid,
-              },
-            },
-          }
-        : {}),
-      ...(userPosts && uuid ? { posterId: uuid } : {}),
-    },
-  })) as Post[];
-  return posts;
-};
 export const generateMetadata = async (): Promise<Metadata> => {
   const posts = await getPosts();
   const titles: string[] = [];
@@ -32,7 +9,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     titles.push(post.title);
   });
   return {
-    description: "Место для покупки машин, недвижимости и прочего",
+    description: "Место для покупки автомобилей, недвижимости и прочего",
     keywords: titles,
   };
 };
