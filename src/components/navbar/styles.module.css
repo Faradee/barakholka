@@ -7,10 +7,6 @@
   align-items: center;
   cursor: pointer;
   user-select: none;
-}
-.list > li:hover {
-  background-color: rgb(209, 209, 209);
-}
-.list > li:active {
-  background-color: rgb(189, 189, 189);
+  width: 100%;
+  height: 100%;
 }

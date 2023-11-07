@@ -17,7 +17,7 @@ const Usermenu = () => {
   const avatar = useAppSelector((state) => state.avatar.avatar);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isMenu, setIsMenu] = useState<boolean>(false);
+  const [isMenu, setIsMenu] = useState<boolean>(true);
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(resetAvatar());
@@ -84,14 +84,13 @@ const Usermenu = () => {
               </div>
             </div>
             <ul className={`${styles.list}`} tabIndex={1}>
-              <li
-                className={`${styles.navButton}`}
-                onClick={() => setIsMenu(false)}
-              >
-                <Link href={"/user/settings"}>Настройки аккаунта</Link>
+              <li onClick={() => setIsMenu(false)}>
+                <Link className={`${styles.navButton}`} href={"/user/settings"}>
+                  Настройки аккаунта
+                </Link>
               </li>
               <li className={`${styles.navButton}`} onClick={handleSignOut}>
-                Выйти
+                <span>Выйти</span>
               </li>
             </ul>
           </>
