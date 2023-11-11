@@ -68,7 +68,7 @@ const Navbar = () => {
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
             href="/"
           >
-            <Image src={logo} sizes="100vw" alt="Logo" />
+            <Image src={logo} alt="Logo" />
           </Link>
         </div>
 

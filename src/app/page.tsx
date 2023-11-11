@@ -16,7 +16,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
     keywords: titles,
   };
 };
-//TODO ADD PAGINATION
 const Home = async ({
   searchParams,
 }: {

@@ -102,7 +102,7 @@ const AuthModal = () => {
           <div className="absolute z-10 -mt-4 h-full w-full rounded-3xl bg-white opacity-50"></div>
         )}
         <div className="w-[175px]">
-          <Image className="" src={logo} sizes="100vw" alt="Logo" />
+          <Image className="" src={logo} alt="Logo" />
         </div>
 
         {!isLoading && (

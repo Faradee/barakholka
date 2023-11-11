@@ -89,7 +89,6 @@ const Cropper = ({
           ref={imgRef}
           width={0}
           height={0}
-          sizes="100vw"
           style={{
             maxHeight: 600,
             maxWidth: 800,

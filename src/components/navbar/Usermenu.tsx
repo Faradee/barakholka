@@ -47,7 +47,6 @@ const Usermenu = () => {
           <Image
             onClick={() => setIsMenu(true)}
             src={avatar ? avatar : defaultUserImage}
-            sizes="100%"
             width={48}
             height={48}
             alt="user avatar"
@@ -63,7 +62,6 @@ const Usermenu = () => {
                   <Image
                     onClick={() => setIsMenu(true)}
                     src={avatar ? avatar : defaultUserImage}
-                    sizes="100%"
                     width={48}
                     height={48}
                     alt="user avatar"
