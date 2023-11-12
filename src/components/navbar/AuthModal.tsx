@@ -15,7 +15,7 @@ import { createUser, signUser } from "@/actions/userActions";
 import FormField from "../forms/FormField";
 import { setDim } from "@/redux/slices/dimSlice";
 import Button from "../forms/Button";
-import { loadResource } from "../Loading";
+import LoaderWrapper, { loadResource } from "../loader/LoaderWrapper";
 import logo from "/public/rea-logo.webp";
 import { signInSchema, signUpSchema, userSchema } from "@/actions/userSchemas";
 import zod from "zod";
@@ -64,7 +64,6 @@ const AuthModal = () => {
       } else setError(fetchedUser as string);
     } else setError(validate.error.issues[0].message);
   };
-  // setError(validate.error.message);
   const handleSignUp = async () => {
     const userData = {
       name,
@@ -117,66 +116,68 @@ const AuthModal = () => {
         <h1 className="text-2xl font-semibold">
           {isSignup ? "Создание аккаунта" : "Вход"}
         </h1>
-        <form id="auth">
-          {isSignup && (
-            <FormField
-              useState={[name, setAuthProp]}
-              type="text"
-              placeholder="Полное имя"
-              onChange={handleChange}
-              name="name"
-            />
-          )}
-          <FormField
-            placeholder="Email адрес"
-            type="email"
-            onChange={handleChange}
-            icon={BsFillEnvelopeFill}
-            name="email"
-            useState={[email, setAuthProp]}
-          />
-          <FormField
-            type={showPassword ? "text" : "password"}
-            placeholder="Пароль"
-            useState={[password, setAuthProp]}
-            onChange={handleChange}
-            name="password"
-            icon={AiFillLock}
-          >
-            {!isSignup && (
-              <div className="cursor-pointer" onClick={handleShowPassword}>
-                {showPassword ? (
-                  <AiFillEye size={24} />
-                ) : (
-                  <AiFillEyeInvisible size={24} />
-                )}
-              </div>
+        <LoaderWrapper>
+          <form id="auth">
+            {isSignup && (
+              <FormField
+                useState={[name, setAuthProp]}
+                type="text"
+                placeholder="Полное имя"
+                onChange={handleChange}
+                name="name"
+              />
             )}
-          </FormField>
-          {isSignup && (
             <FormField
-              useState={[confirmPassword, setAuthProp]}
-              placeholder="Подтвердите пароль"
-              type={showPassword ? "text" : "password"}
+              placeholder="Email адрес"
+              type="email"
               onChange={handleChange}
-              name="confirmPassword"
+              icon={BsFillEnvelopeFill}
+              name="email"
+              useState={[email, setAuthProp]}
             />
-          )}
-          {error && (
-            <span className="flex justify-center text-center text-red-500">
-              {error}
-            </span>
-          )}
-          <Button
-            submit
-            onClick={
-              isSignup
-                ? () => loadResource(handleSignUp())
-                : () => loadResource(handleSignIn())
-            }
-            title={isSignup ? "Создать аккаунт" : "Войти"}
-          />
-        </form>
+            <FormField
+              type={showPassword ? "text" : "password"}
+              placeholder="Пароль"
+              useState={[password, setAuthProp]}
+              onChange={handleChange}
+              name="password"
+              icon={AiFillLock}
+            >
+              {!isSignup && (
+                <div className="cursor-pointer" onClick={handleShowPassword}>
+                  {showPassword ? (
+                    <AiFillEye size={24} />
+                  ) : (
+                    <AiFillEyeInvisible size={24} />
+                  )}
+                </div>
+              )}
+            </FormField>
+            {isSignup && (
+              <FormField
+                useState={[confirmPassword, setAuthProp]}
+                placeholder="Подтвердите пароль"
+                type={showPassword ? "text" : "password"}
+                onChange={handleChange}
+                name="confirmPassword"
+              />
+            )}
+            {error && (
+              <span className="flex justify-center text-center text-red-500">
+                {error}
+              </span>
+            )}
+            <Button
+              submit
+              onClick={
+                isSignup
+                  ? () => loadResource(handleSignUp())
+                  : () => loadResource(handleSignIn())
+              }
+              title={isSignup ? "Создать аккаунт" : "Войти"}
+            />
+          </form>
+        </LoaderWrapper>
         <div className="flex w-full items-center justify-center before:h-[1px] before:flex-grow before:bg-slate-300 before:content-[''] after:h-[1px] after:flex-grow after:bg-slate-300 after:content-['']">
           <span className="mx-2">Или</span>
         </div>

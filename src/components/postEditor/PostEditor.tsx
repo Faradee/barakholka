@@ -18,10 +18,9 @@ import Button from "@/components/forms/Button";
 import { createPost, updatePost } from "@/actions/postActions";
 import { useRouter } from "next/navigation";
 import { setError } from "../../redux/slices/errorSlice";
-import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 import { postSchema } from "@/actions/postSchemas";
-import Loader from "../loader/Loader";
+import LoaderWrapper, { loadResource } from "../loader/LoaderWrapper";
 //TODO: ADD LOADING ANIMATION AND STATE
 export type PostState = {
   posterId: string;
@@ -122,48 +121,51 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
           </UploadableWrapper>
         </div>
 
-        <div className="">
-          <div className="px-2 lg:px-10">
-            <div
-              className={`${
-                editedPost ? "pointer-events-none opacity-50" : ""
-              }`}
-            >
-              <TypeToggle />
+        <div>
+          <LoaderWrapper>
+            <div className="px-2 lg:px-10">
+              <div
+                className={`${
+                  editedPost ? "pointer-events-none opacity-50" : ""
+                }`}
+              >
+                <TypeToggle />
+              </div>
+              <div className="flex w-full flex-col items-center">
+                <FormField
+                  type="text"
+                  placeholder="Заголовок объявления"
+                  name="title"
+                  useState={[postData.title, handleChange]}
+                  onChange={handleChange}
+                  required
+                />
+                <FormField
+                  type="number"
+                  placeholder="Цена"
+                  name="price"
+                  useState={[postData.price, handleChange]}
+                  onChange={handleChange}
+                  required
+                />
+                <DetailsForm />
+                <FormField
+                  type="textarea"
+                  placeholder="Описание объявления"
+                  useState={[postData.description, handleChange]}
+                  onChange={handleChange}
+                  name="description"
+                  rows={6}
+                />
+              </div>
+              <Button
+                onClick={() => loadResource(handleSubmit())}
+                title={
+                  editedPost ? "Изменить объявление" : "Создать объявление"
+                }
+              />
             </div>
-            <div className="flex w-full flex-col items-center">
-              <FormField
-                type="text"
-                placeholder="Заголовок объявления"
-                name="title"
-                useState={[postData.title, handleChange]}
-                onChange={handleChange}
-                required
-              />
-              <FormField
-                type="number"
-                placeholder="Цена"
-                name="price"
-                useState={[postData.price, handleChange]}
-                onChange={handleChange}
-                required
-              />
-              <DetailsForm />
-              <FormField
-                type="textarea"
-                placeholder="Описание объявления"
-                useState={[postData.description, handleChange]}
-                onChange={handleChange}
-                name="description"
-                rows={6}
-              />
-            </div>
-            <Button
-              onClick={() => loadResource(handleSubmit())}
-              title={editedPost ? "Изменить объявление" : "Создать объявление"}
-            />
-            <Loader />
-          </div>
+          </LoaderWrapper>
         </div>
       </div>
     </>
