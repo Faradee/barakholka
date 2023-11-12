@@ -1,0 +1,13 @@
+.loader > div {
+  background-color: black;
+  width: 15px;
+  height: 15px;
+  animation-duration: 500ms;
+  animation: loading;
+  box-shadow: 1px 2px 2px;
+}
+
+@keyframes loading {
+  0% {
+  }
+}

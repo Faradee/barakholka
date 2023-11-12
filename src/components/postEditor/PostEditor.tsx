@@ -21,6 +21,7 @@ import { setError } from "../../redux/slices/errorSlice";
 import { loadResource } from "@/components/Loading";
 import ErrorHeader from "@/components/ErrorHeader";
 import { postSchema } from "@/actions/postSchemas";
+import Loader from "../loader/Loader";
 //TODO: ADD LOADING ANIMATION AND STATE
 export type PostState = {
   posterId: string;
@@ -161,6 +162,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
               onClick={() => loadResource(handleSubmit())}
               title={editedPost ? "Изменить объявление" : "Создать объявление"}
             />
+            <Loader />
           </div>
         </div>
       </div>
