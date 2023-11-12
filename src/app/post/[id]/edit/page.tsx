@@ -2,7 +2,11 @@ import { getPostData } from "@/actions/postActions";
 import { verifyToken } from "@/actions/userActions";
 import PostEditorProvider from "@/components/postEditor/PostEditorProvider";
 import prisma from "@/db";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+export const metadata: Metadata = {
+  title: "Изменить объявление",
+};
 
 const PostEdit = async ({ params }: { params: { id: string } }) => {
   const id = parseInt(params.id);
