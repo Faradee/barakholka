@@ -19,7 +19,7 @@ const LoaderWrapper = ({ children }: { children: JSX.Element }) => {
         <div
           className={
             styles.loader +
-            " absolute flex h-full w-full  items-center justify-center"
+            " absolute z-50 flex h-full w-full items-center justify-center"
           }
         >
           <div>

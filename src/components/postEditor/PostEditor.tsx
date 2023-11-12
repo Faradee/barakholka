@@ -106,23 +106,23 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   return (
     <>
       {error && <ErrorHeader />}
-      <div
-        className="relative flex h-full w-full flex-wrap  justify-center lg:flex-nowrap "
-        onDrop={(e) => e.preventDefault()}
-      >
-        <div className="relative mb-5 w-full">
-          <UploadableWrapper handleUpload={handleUpload}>
-            <Gallery
-              thumbnailList={postThumbnails}
-              handleUpload={handleUpload}
-              deleteable
-              uploadable
-            />
-          </UploadableWrapper>
-        </div>
+      <LoaderWrapper>
+        <div
+          className="relative flex h-full w-full flex-wrap  justify-center lg:flex-nowrap "
+          onDrop={(e) => e.preventDefault()}
+        >
+          <div className="relative mb-5 w-full">
+            <UploadableWrapper handleUpload={handleUpload}>
+              <Gallery
+                thumbnailList={postThumbnails}
+                handleUpload={handleUpload}
+                deleteable
+                uploadable
+              />
+            </UploadableWrapper>
+          </div>
 
-        <div>
-          <LoaderWrapper>
+          <div>
             <div className="px-2 lg:px-10">
               <div
                 className={`${
@@ -165,9 +165,9 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
                 }
               />
             </div>
-          </LoaderWrapper>
+          </div>
         </div>
-      </div>
+      </LoaderWrapper>
     </>
   );
 };
