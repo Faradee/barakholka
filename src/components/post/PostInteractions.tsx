@@ -13,7 +13,11 @@ const PostInteractions = ({
 }) => {
   const user = useAppSelector((state) => state.auth);
   return (
-    <div className="mx-2 mb-1 flex justify-end">
+    <div
+      className={`${
+        !user.uuid && "pointer-events-none opacity-60"
+      } mx-2 mb-1 flex justify-end`}
+    >
       <Favorite postId={id} />
       {user.uuid === posterId && <PostActions postId={id} />}
     </div>
