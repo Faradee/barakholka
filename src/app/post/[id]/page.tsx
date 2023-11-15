@@ -7,7 +7,8 @@ import GalleryProvider from "@/components/post/GalleryProvider";
 import { Metadata } from "next";
 import PostInteractions from "@/components/post/PostInteractions";
 import { getPostData } from "@/actions/postActions";
-
+import PosterContainer from "@/components/post/PosterContainer";
+import prisma from "@/db";
 export const dynamic = "force-static";
 
 type Props = {
@@ -33,10 +34,26 @@ export async function generateMetadata({
     };
   } else return null;
 }
-//TODO: ADD POSTER DATA CONTAINER
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
+  const posterData = post
+    ? await prisma.user.findFirst({
+        where: {
+          uuid: post?.posterId,
+        },
+        select: {
+          name: true,
+          avatar: {
+            select: {
+              image: true,
+            },
+          },
+          createdAt: true,
+          email: true,
+        },
+      })
+    : undefined;
   return (
     <main className="mt-5 flex h-full min-h-min w-full min-w-min flex-col">
       {post && (
@@ -49,6 +66,12 @@ const page = async ({ params }: { params: { id: string } }) => {
           </header>
           <div className=" mb-10 flex flex-col  lg:flex-row">
             <ul className="details-list order-last w-full min-w-[300px] px-5 lg:order-first lg:w-[30vw] ">
+              {posterData && (
+                <li>
+                  <PosterContainer posterData={posterData} />
+                </li>
+              )}
+
               <li className="mb-5 text-xl">
                 <span>Цена:</span>
                 <span>

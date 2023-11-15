@@ -11,7 +11,7 @@ import Link from "next/link";
 import { fetchUser, getAvatar, signUserOut } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
 import { resetAvatar, setAvatar } from "@/redux/slices/avatarSlice";
-import DropDownContainer from "../containers/DropDownContainer";
+import DropDownContainer, { handleBlur } from "../containers/DropDownContainer";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
   const avatar = useAppSelector((state) => state.avatar.avatar);
@@ -24,9 +24,7 @@ const Usermenu = () => {
     signUserOut();
     router.replace("/");
   };
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) setIsMenu(false);
-  };
+
   useEffect(() => {
     const setUser = async () => {
       const newUser = await fetchUser();
@@ -41,7 +39,7 @@ const Usermenu = () => {
     setUser();
   }, [dispatch]);
   return (
-    <div onBlur={(e) => handleBlur(e)} tabIndex={0}>
+    <div onBlur={(e) => handleBlur(setIsMenu)(e)} tabIndex={0}>
       <div className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
         <Suspense fallback={<Skeleton />}>
           <Image

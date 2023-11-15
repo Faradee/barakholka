@@ -2,19 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineCaretDown, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
-import DropDownContainer from "../containers/DropDownContainer";
+import DropDownContainer, { handleBlur } from "../containers/DropDownContainer";
 import styles from "./styles.module.css";
 import { deletePost } from "@/actions/postActions";
 import { useRouter, usePathname } from "next/navigation";
-//ADD POST CHANGE
 const PostActions = ({ postId }: { postId: number }) => {
   const [dropdown, setDropDown] = useState<boolean>(false);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const router = useRouter();
   const pathname = usePathname();
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) setDropDown(false);
-  };
+
   const handleDelete = async () => {
     const res = await deletePost(postId);
     if (res) {
@@ -25,7 +22,7 @@ const PostActions = ({ postId }: { postId: number }) => {
     setConfirmDelete(false);
   }, [dropdown]);
   return (
-    <div onBlur={(e) => handleBlur(e)} className="relative">
+    <div onBlur={(e) => handleBlur(setDropDown)(e)} className="relative">
       <button
         onClick={() => setDropDown(!dropdown)}
         className="mb-1 flex h-full w-full items-center border-2 border-l-0 border-gray-300 bg-gray-100 active:bg-gray-200"

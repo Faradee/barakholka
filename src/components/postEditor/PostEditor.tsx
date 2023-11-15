@@ -21,7 +21,6 @@ import { setError } from "../../redux/slices/errorSlice";
 import ErrorHeader from "@/components/ErrorHeader";
 import { postSchema } from "@/actions/postSchemas";
 import LoaderWrapper, { loadResource } from "../loader/LoaderWrapper";
-//TODO: ADD LOADING ANIMATION AND STATE
 export type PostState = {
   posterId: string;
   title: string;

@@ -73,6 +73,8 @@ model User {
   email     String      @unique
   createdAt DateTime    @default(now())
   password  String
+  city      String?
+  phone     String?
   posts     Post[]
   favorites Favorites[]
   avatar    Avatar?
