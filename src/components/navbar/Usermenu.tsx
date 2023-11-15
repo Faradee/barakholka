@@ -11,11 +11,15 @@ import Link from "next/link";
 import { fetchUser, getAvatar, signUserOut } from "@/actions/userActions";
 import Skeleton from "react-loading-skeleton";
 import { resetAvatar, setAvatar } from "@/redux/slices/avatarSlice";
-import DropDownContainer, { handleBlur } from "../containers/DropDownContainer";
+import { useRef } from "react";
+import DropDownContainer, {
+  useClickOutside,
+} from "../containers/DropDownContainer";
 const Usermenu = () => {
   const userData = useAppSelector((state) => state.auth);
   const avatar = useAppSelector((state) => state.avatar.avatar);
   const dispatch = useDispatch();
+  const activationRef = useRef(null);
   const router = useRouter();
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const handleSignOut = () => {
@@ -24,7 +28,7 @@ const Usermenu = () => {
     signUserOut();
     router.replace("/");
   };
-
+  useClickOutside(activationRef, () => setIsMenu(false));
   useEffect(() => {
     const setUser = async () => {
       const newUser = await fetchUser();
@@ -39,7 +43,7 @@ const Usermenu = () => {
     setUser();
   }, [dispatch]);
   return (
-    <div onBlur={(e) => handleBlur(setIsMenu)(e)} tabIndex={0}>
+    <div ref={activationRef}>
       <div className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
         <Suspense fallback={<Skeleton />}>
           <Image
@@ -51,47 +55,46 @@ const Usermenu = () => {
           />
         </Suspense>
       </div>
-      {isMenu && (
-        <DropDownContainer>
-          <>
-            <div className="mb-2 flex">
-              <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
-                <Suspense fallback={<Skeleton />}>
-                  <Image
-                    onClick={() => setIsMenu(true)}
-                    src={avatar ? avatar : defaultUserImage}
-                    width={48}
-                    height={48}
-                    alt="user avatar"
-                  />
-                </Suspense>
-              </div>
-              <div className="flex flex-col">
-                {userData && (
-                  <>
-                    <Suspense fallback={<Skeleton />}>
-                      <span>{userData.name}</span>
-                    </Suspense>
-                    <Suspense fallback={<Skeleton />}>
-                      <span>{userData.email}</span>
-                    </Suspense>
-                  </>
-                )}
-              </div>
+
+      <DropDownContainer active={isMenu}>
+        <>
+          <div className="mb-2 flex">
+            <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
+              <Suspense fallback={<Skeleton />}>
+                <Image
+                  onClick={() => setIsMenu(true)}
+                  src={avatar ? avatar : defaultUserImage}
+                  width={48}
+                  height={48}
+                  alt="user avatar"
+                />
+              </Suspense>
             </div>
-            <ul className={`${styles.list}`} tabIndex={1}>
-              <li onClick={() => setIsMenu(false)}>
-                <Link className={`${styles.navButton}`} href={"/user/settings"}>
-                  Настройки аккаунта
-                </Link>
-              </li>
-              <li className={`${styles.navButton}`} onClick={handleSignOut}>
-                <span>Выйти</span>
-              </li>
-            </ul>
-          </>
-        </DropDownContainer>
-      )}
+            <div className="flex flex-col">
+              {userData && (
+                <>
+                  <Suspense fallback={<Skeleton />}>
+                    <span>{userData.name}</span>
+                  </Suspense>
+                  <Suspense fallback={<Skeleton />}>
+                    <span>{userData.email}</span>
+                  </Suspense>
+                </>
+              )}
+            </div>
+          </div>
+          <ul className={`${styles.list}`} tabIndex={1}>
+            <li onClick={() => setIsMenu(false)}>
+              <Link className={`${styles.navButton}`} href={"/user/settings"}>
+                Настройки аккаунта
+              </Link>
+            </li>
+            <li className={`${styles.navButton}`} onClick={handleSignOut}>
+              <span>Выйти</span>
+            </li>
+          </ul>
+        </>
+      </DropDownContainer>
     </div>
   );
 };

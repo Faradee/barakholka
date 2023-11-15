@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import PosterCard from "./PosterCard";
-import DropDownContainer, { handleBlur } from "../containers/DropDownContainer";
+import DropDownContainer, {
+  useClickOutside,
+} from "../containers/DropDownContainer";
 import PosterInfo from "./PosterInfo";
 const PosterContainer = ({
   posterData,
@@ -15,24 +17,24 @@ const PosterContainer = ({
   };
 }) => {
   const [isCard, setIsCard] = useState<boolean>(false);
+  const activationRef = useRef(null);
+  useClickOutside(activationRef, () => setIsCard(false));
   if (posterData)
     return (
-      <div className="mb-0.5 mr-10 w-full active:mb-0 active:pt-0.5">
+      <div
+        ref={activationRef}
+        tabIndex={0}
+        className="relative  mr-10 h-full w-full cursor-pointer  rounded-lg  border border-black "
+      >
         <div
-          onBlur={(e) => handleBlur(setIsCard)(e)}
-          tabIndex={0}
-          className="relative   h-full  cursor-pointer rounded-lg border border-black"
+          className="mb-0.5 flex p-1 active:mb-0 active:mt-0.5"
+          onClick={() => setIsCard(!isCard)}
         >
-          <div className="flex p-1" onClick={() => setIsCard(!isCard)}>
-            <PosterInfo posterData={posterData} />
-          </div>
-
-          {isCard && (
-            <DropDownContainer>
-              <PosterCard posterData={posterData} />
-            </DropDownContainer>
-          )}
+          <PosterInfo posterData={posterData} />
         </div>
+        <DropDownContainer active={isCard}>
+          <PosterCard posterData={posterData} />
+        </DropDownContainer>
       </div>
     );
   else return <div>Пользователь не найден</div>;
