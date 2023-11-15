@@ -3,7 +3,6 @@ import LabelFormField from "./LabelFormField";
 type DataFormProps<T> = {
   state: { [P in keyof T]: string | boolean };
   handleChange: (key: keyof T) => (stateValue: string) => void;
-
   label?: string[];
   className?: string;
   readOnly?: boolean;
@@ -23,7 +22,9 @@ const DataForm = <T,>({
     switch (key) {
       case "email":
         return "email";
-      case "password" || "originalPassword" || "confirmPassword":
+      case "originalPassword":
+      case "password":
+      case "confirmPassword":
         return "password";
       case "description":
         return "textarea";

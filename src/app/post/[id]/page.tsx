@@ -51,6 +51,8 @@ const page = async ({ params }: { params: { id: string } }) => {
           },
           createdAt: true,
           email: true,
+          phone: true,
+          city: true,
         },
       })
     : undefined;

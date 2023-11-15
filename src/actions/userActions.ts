@@ -99,8 +99,8 @@ export const updateUser = async (
   }
   return "Ошибка авторизации, попробуйте перезайти в аккаунт";
 };
-export const fetchUser = async () => {
-  const uuid = await verifyToken();
+export const fetchUser = async (userId: string = "") => {
+  const uuid = userId ? userId : await verifyToken();
   if (uuid && zod.string().uuid().safeParse(uuid).success) {
     const user = await prisma.user.findFirst({
       where: {

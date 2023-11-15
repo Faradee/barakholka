@@ -8,6 +8,8 @@ const PosterInfo = ({
     avatar: { image: string } | null;
     createdAt: Date;
     email: string;
+    phone?: string;
+    city?: string;
   };
 }) => {
   return (
@@ -30,7 +32,7 @@ const PosterInfo = ({
           {posterData.name}
         </p>
         <p className="max-w-[12rem] overflow-hidden text-ellipsis">
-          {posterData.email}
+          {posterData.city ? "г. " + posterData.city : posterData.email}
         </p>
       </div>
     </>

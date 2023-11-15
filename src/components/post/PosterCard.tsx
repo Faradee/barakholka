@@ -1,4 +1,3 @@
-//TODO: FINISH POSTERCARD
 const PosterCard = ({
   posterData,
 }: {
@@ -7,6 +6,8 @@ const PosterCard = ({
     avatar: { image: string } | null;
     createdAt: Date;
     email: string;
+    phone?: string;
+    city?: string;
   };
 }) => {
   return (
@@ -14,18 +15,25 @@ const PosterCard = ({
       <div>
         <p>{posterData.name}</p>
         <p>
-          <span>Почта:</span> {posterData.email}
+          <span>Почта: </span>
+          {posterData.email}
         </p>
         <p>
-          <span>Зарегистрирован:</span>
+          <span>Зарегистрирован: </span>
           {posterData.createdAt.toLocaleDateString()}
         </p>
-        <p>
-          <span>Город:</span> {"city"}
-        </p>
-        <p>
-          <span>Телефон:</span> {"phone"}
-        </p>
+        {posterData.city && (
+          <p>
+            <span>Город: </span>
+            {posterData.city}
+          </p>
+        )}
+        {posterData.phone && (
+          <p>
+            <span>Телефон: </span>
+            {posterData.phone}
+          </p>
+        )}
       </div>
     </div>
   );

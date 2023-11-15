@@ -14,6 +14,8 @@ const PosterContainer = ({
     avatar: { image: string } | null;
     createdAt: Date;
     email: string;
+    phone?: string;
+    city?: string;
   };
 }) => {
   const [isCard, setIsCard] = useState<boolean>(false);
@@ -24,12 +26,9 @@ const PosterContainer = ({
       <div
         ref={activationRef}
         tabIndex={0}
-        className="relative  mr-10 h-full w-full cursor-pointer  rounded-lg  border border-black "
+        className="relative mb-0.5 mr-10 h-full w-full cursor-pointer rounded-lg border border-black p-1  active:mb-0 active:mt-0.5 "
       >
-        <div
-          className="mb-0.5 flex p-1 active:mb-0 active:mt-0.5"
-          onClick={() => setIsCard(!isCard)}
-        >
+        <div className="flex w-full" onClick={() => setIsCard(!isCard)}>
           <PosterInfo posterData={posterData} />
         </div>
         <DropDownContainer active={isCard}>
