@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { AiOutlineCaretDown, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DropDownContainer, {
@@ -23,9 +23,15 @@ const PostActions = ({ postId }: { postId: number }) => {
   useClickOutside(activationRef, () => {
     setActionsActive(false);
   });
+  useEffect(() => {
+    setConfirmDelete(false);
+  }, [actionsActive]);
   return (
     <div ref={activationRef} className="relative">
-      <button className="mb-1 flex h-full w-full items-center border-2 border-l-0 border-gray-300 bg-gray-100 active:bg-gray-200">
+      <button
+        onClick={() => setActionsActive(true)}
+        className="mb-1 flex h-full w-full items-center border-2 border-l-0 border-gray-300 bg-gray-100 active:bg-gray-200"
+      >
         <AiOutlineCaretDown />
       </button>
 
@@ -49,7 +55,10 @@ const PostActions = ({ postId }: { postId: number }) => {
               <>
                 <span className="mr-5 w-1/2">Вы уверены?</span>
                 <span className="flex w-1/2">
-                  <button className="mr-5 flex w-full justify-center border-b  border-black hover:bg-slate-200 active:bg-slate-300">
+                  <button
+                    onClick={() => setActionsActive(false)}
+                    className="mr-5 flex w-full justify-center border-b  border-black hover:bg-slate-200 active:bg-slate-300"
+                  >
                     Нет
                   </button>
                   <button
