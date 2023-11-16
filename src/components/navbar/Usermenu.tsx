@@ -44,10 +44,21 @@ const Usermenu = () => {
   }, [dispatch]);
   return (
     <div ref={activationRef}>
-      <div className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline">
-        <Suspense fallback={<Skeleton />}>
+      <div
+        onClick={() => setIsMenu(true)}
+        className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline"
+      >
+        <Suspense
+          fallback={
+            <Skeleton
+              circle={true}
+              inline={false}
+              style={{ lineHeight: "unset" }}
+              className="h-full w-full"
+            />
+          }
+        >
           <Image
-            onClick={() => setIsMenu(true)}
             src={avatar ? avatar : defaultUserImage}
             width={48}
             height={48}
@@ -60,7 +71,16 @@ const Usermenu = () => {
         <>
           <div className="mb-2 flex">
             <div className="relative mr-2 max-h-[3rem] min-w-[3rem] overflow-hidden rounded-full bg-slate-400">
-              <Suspense fallback={<Skeleton />}>
+              <Suspense
+                fallback={
+                  <Skeleton
+                    circle={true}
+                    inline={false}
+                    style={{ lineHeight: "unset" }}
+                    className="h-full w-full"
+                  />
+                }
+              >
                 <Image
                   onClick={() => setIsMenu(true)}
                   src={avatar ? avatar : defaultUserImage}
@@ -70,13 +90,13 @@ const Usermenu = () => {
                 />
               </Suspense>
             </div>
-            <div className="flex flex-col">
+            <div className="flex w-full flex-col">
               {userData && (
                 <>
-                  <Suspense fallback={<Skeleton />}>
+                  <Suspense fallback={<Skeleton width={"100%"} height={20} />}>
                     <span>{userData.name}</span>
                   </Suspense>
-                  <Suspense fallback={<Skeleton />}>
+                  <Suspense fallback={<Skeleton width={"100%"} height={20} />}>
                     <span>{userData.email}</span>
                   </Suspense>
                 </>

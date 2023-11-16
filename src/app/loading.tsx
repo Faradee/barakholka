@@ -1,11 +1,11 @@
-import LoaderWrapper from "@/components/loader/LoaderWrapper";
+import Loader from "@/components/loader/Loader";
 import React from "react";
 
 const Loading = () => {
   return (
-    <LoaderWrapper>
-      <div className="h-full w-full"></div>
-    </LoaderWrapper>
+    <div className="flex h-[calc(100vh-5.5rem)] w-full justify-center overflow-y-hidden">
+      <Loader />
+    </div>
   );
 };
 
