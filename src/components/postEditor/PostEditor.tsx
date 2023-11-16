@@ -121,7 +121,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
             </UploadableWrapper>
           </div>
 
-          <div>
+          <div className="w-full">
             <div className="px-2 lg:px-10">
               <div
                 className={`${
