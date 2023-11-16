@@ -43,17 +43,11 @@ const TypeToggle = () => {
   };
   useEffect(() => {
     setStyle(
-      window.screen.width > 1024
-        ? postType === "car"
-          ? "before:left-0 before:top-0"
-          : postType === "estate"
-          ? "before:left-1/3 before:top-0"
-          : "before:left-2/3 before:top-0"
-        : postType === "car"
-        ? "before:top-0 before:left-0"
+      postType === "car"
+        ? "before:top-0 before:left-0 lg:before:left-0 lg:before:top-0"
         : postType === "estate"
-        ? "before:top-1/3 before:left-0"
-        : "before:top-2/3 before:left-0",
+        ? "before:top-1/3 before:left-0 lg:before:left-1/3 lg:before:top-0"
+        : "before:top-2/3 before:left-0 lg:before:left-2/3 lg:before:top-0",
     );
   }, [postType]);
   return (
