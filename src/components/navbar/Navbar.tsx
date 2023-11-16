@@ -12,6 +12,7 @@ import DimOverlay from "../DimOverlay";
 import styles from "./styles.module.css";
 import Usermenu from "./Usermenu";
 import { IconType } from "react-icons";
+import Searchbar from "./Searchbar";
 type Button = {
   title: string;
   url: string;
@@ -71,7 +72,7 @@ const Navbar = () => {
             <Image src={logo} alt="Logo" />
           </Link>
         </div>
-
+        <Searchbar />
         <ul
           className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
         top-20 flex h-full w-64 flex-grow flex-col
