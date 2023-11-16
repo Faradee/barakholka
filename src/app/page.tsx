@@ -25,7 +25,7 @@ const Home = async ({
   const posts = await getPosts(
     page,
     searchParams.favorites !== undefined,
-    searchParams.myposts !== undefined,
+    searchParams.posts !== undefined,
   );
   return (
     <>
