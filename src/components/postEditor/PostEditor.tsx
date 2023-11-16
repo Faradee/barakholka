@@ -83,7 +83,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
       if (editedPost) await updatePost(editedPost, data);
       else await createPost(data);
       router.replace("/");
-    } else console.log(validate.error.issues);
+    }
   };
   useEffect(() => {
     dispatch(setPostField({ posterId: uuid }));
