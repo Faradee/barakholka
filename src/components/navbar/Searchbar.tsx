@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { FaSearch } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 import { useRouter, useSearchParams } from "next/navigation";
 //TODO: LINK SEARCH TO SEARCHPARAMS
 const Searchbar = () => {
@@ -35,7 +35,7 @@ const Searchbar = () => {
         title="Поиск"
         className="flex h-full w-[50px] flex-grow-0 items-center justify-center rounded-e-xl border border-l-0 border-black active:bg-slate-50"
       >
-        <FaSearch size={30} />
+        <CiSearch size={30} />
       </button>
     </form>
   );
