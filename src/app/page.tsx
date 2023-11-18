@@ -30,8 +30,14 @@ const Home = async ({
   );
   return (
     <>
-      <PostCardList posts={posts.slice(0, 8)} />
-      <PaginationSwitch lastPage={posts.length < 9} />
+      {posts.length > 0 ? (
+        <>
+          <PostCardList posts={posts.slice(0, 8)} />
+          <PaginationSwitch lastPage={posts.length < 9} />
+        </>
+      ) : (
+        <div className="flex items-center justify-center">Постов нету</div>
+      )}
     </>
   );
 };
