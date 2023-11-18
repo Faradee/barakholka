@@ -22,16 +22,18 @@ const Searchbar = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className="mx-5 flex h-full w-1/2 items-center justify-center rounded-xl border border-black "
+      className="mx-5 flex h-full w-1/2 items-center justify-center rounded-xl"
     >
       <input
-        className=" mx-2 h-full w-full flex-grow rounded-xl outline-none"
+        className="h-full w-full flex-grow rounded-s-xl border border-black px-2 outline-none focus-within:border-blue-500 "
         name="query"
         type="text"
       />
+
       <button
         type="submit"
-        className="flex h-full w-[50px] flex-grow-0 items-center justify-center border-l border-black"
+        title="Поиск"
+        className="flex h-full w-[50px] flex-grow-0 items-center justify-center rounded-e-xl border border-l-0 border-black active:bg-slate-50"
       >
         <FaSearch size={30} />
       </button>
