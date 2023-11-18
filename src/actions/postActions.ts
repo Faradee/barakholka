@@ -8,10 +8,12 @@ import { verifyToken } from "./userActions";
 import { Post } from "@/components/postCard/PostCard";
 export const getPosts = async (
   page: number = 1,
+  search: string = "",
   favorited: boolean = false,
   userPosts: boolean = false,
 ) => {
   const uuid = await verifyToken();
+  const parsedSearch = search;
   const posts = (await prisma.post.findMany({
     take: 9,
     skip: 8 * (page - 1),
@@ -26,6 +28,13 @@ export const getPosts = async (
           }
         : {}),
       ...(userPosts && uuid ? { posterId: uuid } : {}),
+      ...(search
+        ? {
+            title: {
+              search: parsedSearch,
+            },
+          }
+        : {}),
     },
     orderBy: {
       createdAt: "desc",

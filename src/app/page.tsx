@@ -24,6 +24,7 @@ const Home = async ({
   const page = parseInt(searchParams["page"] ? searchParams["page"] : "1");
   const posts = await getPosts(
     page,
+    searchParams.search,
     searchParams.favorites !== undefined,
     searchParams.posts !== undefined,
   );
