@@ -73,7 +73,7 @@ const AccountSettings = () => {
               {error}
             </span>
           )}
-          <div className="flex select-none gap-2">
+          <div className="flex w-full select-none gap-2">
             <div className=" flex w-full select-none flex-col gap-4">
               <DataForm<typeof tempUser>
                 state={tempUser}
@@ -88,7 +88,7 @@ const AccountSettings = () => {
                   "Новый пароль: ",
                   "Подтвердите пароль: ",
                 ]}
-                className={`ml-2 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+                className={`ml-2 w-[32rem] flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
                   !isEdit && "cursor-default bg-slate-200 text-gray-600"
                 }`}
                 labelClassName="lg:text-right lg:w-48"
