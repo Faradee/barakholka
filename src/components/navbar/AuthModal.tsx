@@ -44,7 +44,7 @@ const AuthModal = () => {
   const isLoading = useAppSelector((state) => state.loading.loading);
   const dispatch = useDispatch<AppDispatch>();
   const handleShowPassword = () => {
-    setAuth({ ...initialAuth, showPassword: !showPassword });
+    setAuth({ ...auth, showPassword: !showPassword });
   };
   const handleToggle = () => {
     setAuth({ ...initialAuth, isSignup: !isSignup });
