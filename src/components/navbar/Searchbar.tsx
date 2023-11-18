@@ -1,26 +1,27 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
-import { useRouter, useSearchParams } from "next/navigation";
-//TODO: LINK SEARCH TO SEARCHPARAMS
+import { useSearchParams, useRouter } from "next/navigation";
+//TODO: ADD RESPONSIVENESS AND DELETE PAGE QUERY STRING ON SEARCH
 const Searchbar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
+  const queryRef = useRef<HTMLFormElement>(null);
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const query = new FormData(e.currentTarget).get("query")! as string;
+      if (query !== "") {
+        const params = new URLSearchParams(searchParams);
+        params.set("search", query);
+        if (params.has("page")) params.delete("page");
+        router.replace("/?" + params.toString());
+      }
     },
-    [searchParams],
+    [searchParams, router],
   );
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const query = new FormData(e.currentTarget).get("query")! as string;
-    router.replace("/?" + createQueryString("search", query));
-  };
   return (
     <form
+      ref={queryRef}
       onSubmit={(e) => handleSubmit(e)}
       className="mx-5 flex h-full w-1/2 items-center justify-center rounded-xl"
     >

@@ -13,7 +13,7 @@ export const getPosts = async (
   userPosts: boolean = false,
 ) => {
   const uuid = await verifyToken();
-  const parsedSearch = search;
+  const parsedSearch = search.replaceAll(" ", " & ");
   const posts = (await prisma.post.findMany({
     take: 9,
     skip: 8 * (page - 1),
