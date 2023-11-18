@@ -18,7 +18,6 @@ type Button = {
   url: string;
   icon?: IconType;
 };
-//TODO ADD SEARCH
 const Navbar = () => {
   const [isNav, setNav] = useState<boolean>(false);
   const [isAuth, setAuth] = useState<boolean>(false);

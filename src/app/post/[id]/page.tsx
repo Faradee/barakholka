@@ -14,7 +14,6 @@ export const dynamic = "force-static";
 type Props = {
   params: { id: string };
 };
-//TODO: FIX LAYOUT SHIFT ON IMAGE LOAD MAKE IMAGE DIMENSIONS STATIC
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | null> {
