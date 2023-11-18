@@ -36,7 +36,9 @@ const Home = async ({
           <PaginationSwitch lastPage={posts.length < 9} />
         </>
       ) : (
-        <div className="flex items-center justify-center">Постов нету</div>
+        <div className="flex items-center justify-center">
+          {searchParams.search ? "Объявлений по запросу нет" : "Объявлений нет"}
+        </div>
       )}
     </>
   );
