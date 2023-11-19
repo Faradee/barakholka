@@ -34,12 +34,12 @@ const Searchbar = () => {
           onChange={(e) => setQuery(e.currentTarget.value)}
         />
         {query && (
-          <button
+          <div
             onClick={() => setQuery("")}
             className="flex items-center justify-center rounded-full p-1 hover:bg-slate-100 active:bg-slate-200"
           >
             <AiOutlineClose size={30} />
-          </button>
+          </div>
         )}
       </label>
 
