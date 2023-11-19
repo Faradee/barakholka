@@ -12,7 +12,7 @@ const PostEdit = async ({ params }: { params: { id: string } }) => {
   const id = parseInt(params.id);
   const uuid = await verifyToken();
   const { post, carDetails, estateDetails } = await getPostData(id);
-  if (post && post?.posterId !== uuid) {
+  if (!post || post?.posterId !== uuid) {
     redirect("/");
   }
   const details =

@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import PostInteractions from "@/components/post/PostInteractions";
 import { getPostData } from "@/actions/postActions";
 import PosterContainer from "@/components/post/PosterContainer";
+import { redirect } from "next/navigation";
 import prisma from "@/db";
 export const dynamic = "force-static";
 //TODO: HANDLE UNEXISTING POST
@@ -36,6 +37,9 @@ export async function generateMetadata({
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { post, carDetails, estateDetails } = await getPostData(parseInt(id));
+  if (!post) {
+    redirect("/");
+  }
   const posterData = post
     ? await prisma.user.findFirst({
         where: {
