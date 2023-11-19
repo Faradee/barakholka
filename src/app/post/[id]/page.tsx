@@ -10,7 +10,7 @@ import { getPostData } from "@/actions/postActions";
 import PosterContainer from "@/components/post/PosterContainer";
 import prisma from "@/db";
 export const dynamic = "force-static";
-
+//TODO: HANDLE UNEXISTING POST
 type Props = {
   params: { id: string };
 };

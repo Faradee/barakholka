@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useSearchParams, useRouter } from "next/navigation";
-//TODO: ADD RESPONSIVENESS AND DELETE PAGE QUERY STRING ON SEARCH
+//TODO: ADD RESPONSIVENESS
 const Searchbar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

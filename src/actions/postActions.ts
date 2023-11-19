@@ -14,7 +14,6 @@ export const getPosts = async (
 ) => {
   const uuid = await verifyToken();
   const parsedSearch = (search.trim() + ":*").replaceAll(" ", ":* & ");
-  console.log(parsedSearch);
   const posts = (await prisma.post.findMany({
     take: 9,
     skip: 8 * (page - 1),
