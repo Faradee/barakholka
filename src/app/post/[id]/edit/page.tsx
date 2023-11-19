@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 export const metadata: Metadata = {
   title: "Изменить объявление",
 };
-//TODO: HANDLE UNEXISTING POST
 const PostEdit = async ({ params }: { params: { id: string } }) => {
   const id = parseInt(params.id);
   const uuid = await verifyToken();

@@ -11,7 +11,6 @@ import PosterContainer from "@/components/post/PosterContainer";
 import { redirect } from "next/navigation";
 import prisma from "@/db";
 export const dynamic = "force-static";
-//TODO: HANDLE UNEXISTING POST
 type Props = {
   params: { id: string };
 };

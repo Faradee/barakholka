@@ -1,15 +1,16 @@
-import { useCallback, useRef } from "react";
+"use client";
+import { useCallback, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useSearchParams, useRouter } from "next/navigation";
+import { AiOutlineClose } from "react-icons/ai";
 //TODO: ADD RESPONSIVENESS
 const Searchbar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryRef = useRef<HTMLFormElement>(null);
+  const [query, setQuery] = useState<string>("");
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const query = new FormData(e.currentTarget).get("query")! as string;
       if (query !== "") {
         const params = new URLSearchParams(searchParams);
         params.set("search", query);
@@ -17,19 +18,30 @@ const Searchbar = () => {
         router.replace("/?" + params.toString());
       }
     },
-    [searchParams, router],
+    [searchParams, query, router],
   );
   return (
     <form
-      ref={queryRef}
       onSubmit={(e) => handleSubmit(e)}
       className="mx-5 flex h-full w-1/2 items-center justify-center rounded-xl"
     >
-      <input
-        className="h-full w-full flex-grow rounded-s-xl border border-black px-2 outline-none focus-within:border-blue-500 "
-        name="query"
-        type="text"
-      />
+      <label className="relative flex h-full w-full flex-grow rounded-s-xl border border-black font-normal  outline-none focus-within:border-blue-500 ">
+        <input
+          className="h-full w-full rounded-s-xl px-2 outline-none"
+          value={query}
+          name="query"
+          type="text"
+          onChange={(e) => setQuery(e.currentTarget.value)}
+        />
+        {query && (
+          <button
+            onClick={() => setQuery("")}
+            className="flex items-center justify-center rounded-full p-1 hover:bg-slate-100 active:bg-slate-200"
+          >
+            <AiOutlineClose size={30} />
+          </button>
+        )}
+      </label>
 
       <button
         type="submit"
