@@ -36,7 +36,7 @@ const Searchbar = () => {
         {query && (
           <div
             onClick={() => setQuery("")}
-            className="flex cursor-pointer items-center justify-center rounded-full p-1 hover:bg-slate-100 active:bg-slate-200"
+            className="relative flex cursor-pointer items-center justify-center rounded-full p-1 before:absolute before:h-[50px] before:w-[50px] before:rounded-full before:opacity-70 hover:before:bg-slate-100 active:before:bg-slate-200"
           >
             <AiOutlineClose size={30} />
           </div>
