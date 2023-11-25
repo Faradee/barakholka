@@ -1,24 +1,22 @@
 "use client";
 import { useState } from "react";
 import Uploadable from "./Uploadable";
-import { useAppSelector } from "@/redux/store";
 
 type UploadableWrapperProps = {
   children: React.ReactNode;
   handleUpload: (fileList: FileList) => void;
+  drag: boolean;
 };
 
 const UploadableWrapper = (props: UploadableWrapperProps) => {
-  const { children, handleUpload } = props;
+  const { children, handleUpload, drag } = props;
   const [localDim, setLocalDim] = useState<boolean>(false);
-  const dragAllow = useAppSelector((state) => state.drag.dragAllow);
-
   return (
     <div
       className="h-full w-auto"
       onDragEnter={(e) => {
         e.preventDefault();
-        if (dragAllow) setLocalDim(true);
+        if (drag) setLocalDim(true);
       }}
       onDrop={(e) => e.preventDefault()}
     >

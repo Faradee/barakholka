@@ -38,6 +38,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
   const { uuid } = useAppSelector((state) => state.auth);
   const postData = useAppSelector((state) => state.post);
   const error = useAppSelector((state) => state.error.error);
+  const drag = useAppSelector((state) => state.drag.dragAllow);
   const [filesSize, setFilesSize] = useState<number>(0);
   const postThumbnails = useAppSelector((state) => state.thumbnail.thumbnails);
   const handleChange: React.Dispatch<React.SetStateAction<any>> = useCallback(
@@ -111,7 +112,7 @@ const PostEditor = ({ editedPost }: { editedPost?: number }) => {
           onDrop={(e) => e.preventDefault()}
         >
           <div className="relative mb-5 w-full">
-            <UploadableWrapper handleUpload={handleUpload}>
+            <UploadableWrapper drag={drag} handleUpload={handleUpload}>
               <Gallery
                 thumbnailList={postThumbnails}
                 handleUpload={handleUpload}

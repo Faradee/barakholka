@@ -17,6 +17,7 @@ const Avatar = () => {
   const [image, setImage] = useState<HTMLImageElement>();
   const [avatarURL, setAvatarURL] = useState<string>("");
   const handleUpload = async (fileList: FileList) => {
+    setImage(undefined);
     if (fileList) {
       setError("");
       const file = fileList[0];
@@ -48,7 +49,7 @@ const Avatar = () => {
     if (inputRef.current) inputRef.current.value = "";
   };
   return (
-    <UploadableWrapper handleUpload={handleUpload}>
+    <UploadableWrapper drag={image ? false : true} handleUpload={handleUpload}>
       <h1 className="text-2xl font-semibold">Смена аватара</h1>
       <div className="min-h-[400px] w-auto min-w-[800px] p-5 shadow-md">
         {error && <p className="text-red-500">{error}</p>}
