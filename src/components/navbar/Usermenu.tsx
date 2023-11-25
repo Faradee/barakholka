@@ -43,10 +43,10 @@ const Usermenu = () => {
     setUser();
   }, [dispatch]);
   return (
-    <div ref={activationRef}>
+    <div className="w-min" ref={activationRef}>
       <div
         onClick={() => setIsMenu(true)}
-        className="poop relative h-[3rem] min-w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline"
+        className="poop relative h-[3rem] w-[3rem] cursor-pointer overflow-hidden rounded-full bg-slate-400 outline-1 outline-blue-400 active:outline"
       >
         <Suspense
           fallback={

@@ -62,7 +62,7 @@ const Navbar = () => {
         } flex h-20 w-full items-center justify-between bg-white px-5
        py-4 lg:shadow-md `}
       >
-        <div className="flex justify-start">
+        <div className="flex justify-start md:w-1/4">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
           <Link
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
@@ -72,7 +72,9 @@ const Navbar = () => {
             <Image src={logo} alt="Logo" />
           </Link>
         </div>
+
         <Searchbar />
+
         <ul
           className={`fixed ${isNav ? " left-0 " : "left-[-20rem]"}
         top-20 flex h-full w-64 flex-grow flex-col
@@ -102,7 +104,7 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <div className="items-center justify-center lg:justify-end">
+        <div className="flex justify-end md:w-1/4">
           {userData.name === "" ? (
             <button
               onClick={toggleAuthModal}
