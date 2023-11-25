@@ -37,7 +37,7 @@ const Avatar = () => {
   };
   const handleAvatarUpload = async () => {
     const res = await setAvatar({ uuid, image: avatarURL });
-    if (!res) console.log("set avatar failed");
+    if (!res) console.log(res);
     else {
       dispatch(replaceAvatar(avatarURL));
       handleCancel();
@@ -57,17 +57,19 @@ const Avatar = () => {
             <Cropper setImageURL={setAvatarURL} image={image} />
           </Suspense>
         )}
-        <p>
-          <input
-            type="file"
-            ref={inputRef}
-            className="mb-5"
-            onChange={(e) =>
-              e.currentTarget.files && handleUpload(e.currentTarget.files)
-            }
-            accept="image/png,image/jpeg, image/webp, image/jpg"
-          />
-        </p>
+        {!image && (
+          <p>
+            <input
+              type="file"
+              ref={inputRef}
+              className="mb-5"
+              onChange={(e) =>
+                e.currentTarget.files && handleUpload(e.currentTarget.files)
+              }
+              accept="image/png,image/jpeg, image/webp, image/jpg"
+            />
+          </p>
+        )}
 
         {image && (
           <p>
