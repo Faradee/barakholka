@@ -106,12 +106,14 @@ const Navbar = () => {
         </ul>
         <div className="flex justify-end md:w-1/4">
           {userData.name === "" ? (
-            <button
-              onClick={toggleAuthModal}
-              className={`${styles.navButton} p-5`}
-            >
-              Вход
-            </button>
+            <div className="w-24">
+              <button
+                onClick={toggleAuthModal}
+                className={`${styles.navButton} p-5`}
+              >
+                Вход
+              </button>
+            </div>
           ) : (
             <Usermenu />
           )}
