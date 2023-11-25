@@ -1,8 +1,11 @@
-import LoaderWrapper from "@/components/loader/LoaderWrapper";
 import React from "react";
 
 const Custom404 = () => {
-  return <div>404 does not exist</div>;
+  return (
+    <div className="flex h-[calc(100vh-5rem)] w-full items-center justify-center">
+      Страница не существует
+    </div>
+  );
 };
 
 export default Custom404;
