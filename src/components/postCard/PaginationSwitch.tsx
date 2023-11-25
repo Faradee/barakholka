@@ -29,6 +29,7 @@ const PaginationSwitch = ({ lastPage }: { lastPage: boolean }) => {
   return (
     <div className="flex items-center justify-center">
       <button
+        title="Предыдущая страница"
         className={
           searchParams.has("page") && searchParams.get("page") !== "1"
             ? ""
@@ -46,6 +47,7 @@ const PaginationSwitch = ({ lastPage }: { lastPage: boolean }) => {
       </span>
 
       <button
+        title="Следующая страница"
         className={!lastPage ? "" : "pointer-events-none opacity-0"}
         onClick={() => {
           const page = searchParams.has("page")

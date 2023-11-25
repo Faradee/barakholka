@@ -5,7 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import PostCard, { Post } from "./PostCard";
 const PostCardList = ({ posts }: { posts: Post[] }) => {
   return (
-    <ul className="relative grid min-h-[calc(100vh-10rem+0.85rem)] w-full auto-cols-fr grid-flow-dense grid-cols-1 place-items-center gap-x-5 md:grid-cols-2 md:place-items-start xl:grid-cols-4 2xl:gap-x-10">
+    <ul className="relative grid min-h-[calc(100vh-10rem+1rem)] w-full auto-cols-fr grid-flow-dense grid-cols-1 place-items-center gap-x-5 md:grid-cols-2 md:place-items-start xl:grid-cols-4 2xl:gap-x-10">
       {posts.map((post) => (
         <li
           key={post.id}
