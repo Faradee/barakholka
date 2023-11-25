@@ -11,7 +11,7 @@ const PostCardList = ({ posts }: { posts: Post[] }) => {
           key={post.id}
           className="relative min-h-[350px] w-3/4 min-w-[200px] md:w-full"
         >
-          <Link href={`/post/${post.id}`}>
+          <Link href={`/post/${post.id}`} prefetch={false}>
             <Suspense
               fallback={
                 <>
