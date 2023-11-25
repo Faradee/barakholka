@@ -67,7 +67,7 @@ const Navbar = () => {
           <Link
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
             href="/"
-            shallow={false}
+            prefetch={false}
           >
             <Image src={logo} alt="Logo" />
           </Link>
