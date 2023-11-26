@@ -90,7 +90,7 @@ const Usermenu = () => {
                 />
               </Suspense>
             </div>
-            <div className="flex w-full flex-col">
+            <div className="flex w-full flex-col overflow-hidden break-words">
               {userData && (
                 <>
                   <Suspense fallback={<Skeleton width={"100%"} height={20} />}>
