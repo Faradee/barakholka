@@ -4,6 +4,7 @@ export const userSchema = zod.object({
   email: zod.string().email({ message: "Неправильно указана почта" }),
   name: zod
     .string()
+    .min(1, { message: "Имя не может быть пустым" })
     .max(128, { message: "Имя не должно превышать 128 символов" }),
 });
 export const userDataSchema = userSchema

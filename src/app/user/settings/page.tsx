@@ -110,7 +110,6 @@ const AccountSettings = () => {
                     }}
                     className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
                   >
-                    {" "}
                     Сохранить
                   </button>
                 </div>

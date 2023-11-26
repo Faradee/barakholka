@@ -105,7 +105,7 @@ const Navbar = () => {
           })}
         </ul>
         <div className="flex justify-end md:w-1/4">
-          {userData.name === "" ? (
+          {userData.uuid === "" ? (
             <div className="w-24">
               <button
                 onClick={toggleAuthModal}
