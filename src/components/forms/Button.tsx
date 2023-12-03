@@ -10,6 +10,7 @@ const Button = ({ onClick, title, color, submit, className }: ButtonProps) => {
   return (
     <button
       type={submit ? "submit" : "button"}
+      title={title}
       onClick={(e) => {
         e.preventDefault();
         onClick();

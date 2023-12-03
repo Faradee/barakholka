@@ -62,7 +62,7 @@ const Navbar = () => {
         } flex h-20 w-full items-center justify-between bg-white px-5
        py-4 lg:shadow-md `}
       >
-        <div className="flex justify-start md:w-1/4">
+        <div title="Главная страница" className="flex justify-start md:w-1/4">
           <HamburgerIcon onClick={handleIsNav} active={isNav} />
           <Link
             className="relative  h-[35px] w-[150px] flex-grow-0 justify-center"
