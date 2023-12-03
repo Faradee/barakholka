@@ -8,6 +8,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch } from "react-redux";
 import { setAvatar as replaceAvatar } from "@/redux/slices/avatarSlice";
+import LoaderWrapper, { loadResource } from "@/components/loader/LoaderWrapper";
 const Cropper = lazy(() => import("@/components/forms/Cropper"));
 const Avatar = () => {
   const dispatch = useDispatch();
@@ -49,47 +50,52 @@ const Avatar = () => {
     if (inputRef.current) inputRef.current.value = "";
   };
   return (
-    <UploadableWrapper drag={image ? false : true} handleUpload={handleUpload}>
-      <h1 className="text-2xl font-semibold">Смена аватара</h1>
-      <div className="min-h-[400px] w-auto min-w-[800px] p-5 shadow-md">
-        {error && <p className="text-red-500">{error}</p>}
-        {image && (
-          <Suspense fallback={<Skeleton className="h-[200px] w-[200px]" />}>
-            <Cropper setImageURL={setAvatarURL} image={image} />
-          </Suspense>
-        )}
-        {!image && (
-          <p>
-            <input
-              type="file"
-              ref={inputRef}
-              className="mb-5"
-              onChange={(e) =>
-                e.currentTarget.files && handleUpload(e.currentTarget.files)
-              }
-              accept="image/png,image/jpeg, image/webp, image/jpg"
-            />
-          </p>
-        )}
+    <LoaderWrapper>
+      <UploadableWrapper
+        drag={image ? false : true}
+        handleUpload={handleUpload}
+      >
+        <h1 className="text-2xl font-semibold">Смена аватара</h1>
+        <div className="min-h-[400px] w-auto min-w-[800px] p-5 shadow-md">
+          {error && <p className="text-red-500">{error}</p>}
+          {image && (
+            <Suspense fallback={<Skeleton className="h-[200px] w-[200px]" />}>
+              <Cropper setImageURL={setAvatarURL} image={image} />
+            </Suspense>
+          )}
+          {!image && (
+            <p>
+              <input
+                type="file"
+                ref={inputRef}
+                className="mb-5"
+                onChange={(e) =>
+                  e.currentTarget.files && handleUpload(e.currentTarget.files)
+                }
+                accept="image/png,image/jpeg, image/webp, image/jpg"
+              />
+            </p>
+          )}
 
-        {image && (
-          <p>
-            <button
-              onClick={handleCancel}
-              className="mr-5 rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
-            >
-              Отменить
-            </button>
-            <button
-              onClick={handleAvatarUpload}
-              className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
-            >
-              Сохранить
-            </button>
-          </p>
-        )}
-      </div>
-    </UploadableWrapper>
+          {image && (
+            <p>
+              <button
+                onClick={handleCancel}
+                className="mr-5 rounded-lg bg-slate-100 p-2 hover:bg-slate-200 active:bg-slate-300"
+              >
+                Отменить
+              </button>
+              <button
+                onClick={() => loadResource(handleAvatarUpload())}
+                className="rounded-lg bg-green-300 p-2 hover:bg-green-400 active:bg-green-500"
+              >
+                Сохранить
+              </button>
+            </p>
+          )}
+        </div>
+      </UploadableWrapper>
+    </LoaderWrapper>
   );
 };
 
