@@ -3,10 +3,14 @@ import { setDim } from "@/redux/slices/dimSlice";
 import { useDispatch } from "react-redux";
 const DimOverlay = () => {
   const isDimmed = useAppSelector((state) => state.dim.isDimmed);
+  const isLoading = useAppSelector((state) => state.loading.loading);
   const dispatch = useDispatch();
+  const handleToggle = () => {
+    if (!isLoading) dispatch(setDim(false));
+  };
   return (
     <div
-      onClick={() => dispatch(setDim(false))}
+      onClick={handleToggle}
       className={`${
         isDimmed
           ? " z-20 opacity-70 brightness-0"
