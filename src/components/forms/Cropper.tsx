@@ -99,14 +99,6 @@ const Cropper = ({
           alt="avatar"
         />
       </ReactCrop>
-      {completedCrop && (
-        <Image
-          src={blob ? blob : ""}
-          alt="poop"
-          width={completedCrop.width}
-          height={completedCrop.height}
-        />
-      )}
     </>
   );
 };
