@@ -88,10 +88,10 @@ const AccountSettings = () => {
                   "Новый пароль: ",
                   "Подтвердите пароль: ",
                 ]}
-                className={`ml-2 w-[32rem] flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 ${
+                className={`ml-2 w-full flex-grow p-1 outline outline-1 outline-gray-500 focus:outline-2 lg:flex lg:w-[30vw] ${
                   !isEdit && "cursor-default bg-slate-200 text-gray-600"
                 }`}
-                labelClassName="lg:text-right lg:w-48"
+                labelClassName="lg:w-48"
               />
             </div>
           </div>
