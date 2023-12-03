@@ -1,6 +1,6 @@
 ## Демо сайта
 
-[https://real-estate-chi-one.vercel.app/](https://real-estate-chi-one.vercel.app/)
+[https://barakholka.vercel.app/](https://barakholka.vercel.app/)
 
 ## О проекте
 
