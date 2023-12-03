@@ -42,7 +42,7 @@ const PaginationSwitch = ({ lastPage }: { lastPage: boolean }) => {
         <AiOutlineArrowLeft size={32} color="black" />
       </button>
 
-      <span className="m-2 w-8 border-2 border-black p-2 text-center">
+      <span className="pointer-events-none m-2 w-8 select-none border-2 border-black p-2 text-center">
         {searchParams.get("page") ? searchParams.get("page") : 1}
       </span>
 
