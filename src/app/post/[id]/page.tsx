@@ -92,7 +92,14 @@ const page = async ({ params }: { params: { id: string } }) => {
             </ul>
 
             <div className="relative h-full w-full">
-              <Suspense fallback={<Skeleton className="block h-full w-full" />}>
+              <Suspense
+                fallback={
+                  <Skeleton
+                    containerClassName="flex h-full w-full"
+                    className="flex h-[500px] w-full"
+                  />
+                }
+              >
                 <GalleryProvider id={post.id} />
               </Suspense>
             </div>
