@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { AiOutlineClose } from "react-icons/ai";
 import { useClickOutside } from "../containers/DropDownContainer";
 import { FaArrowLeft } from "react-icons/fa6";
-//TODO: FIX HIDING
 const Searchbar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

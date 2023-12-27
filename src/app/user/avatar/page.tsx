@@ -39,8 +39,7 @@ const Avatar = () => {
   };
   const handleAvatarUpload = async () => {
     const res = await setAvatar({ uuid, image: avatarURL });
-    if (!res) console.log(res);
-    else {
+    if (res) {
       dispatch(replaceAvatar(avatarURL));
       handleCancel();
     }
