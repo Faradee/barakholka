@@ -30,9 +30,13 @@
     width: 15px;
     height: 15px;
   }
-  50% {
+  25% {
     width: 20px;
     height: 20px;
+  }
+  50% {
+    width: 15px;
+    height: 15px;
   }
   100% {
     width: 15px;
