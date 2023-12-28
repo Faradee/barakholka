@@ -30,9 +30,20 @@ export const getPosts = async (
       ...(userPosts && uuid ? { posterId: uuid } : {}),
       ...(search
         ? {
-            title: {
-              search: parsedSearch,
-            },
+            OR: [
+              {
+                title: {
+                  startsWith: search,
+                  mode: "insensitive",
+                },
+              },
+              {
+                title: {
+                  startsWith: search[0].toUpperCase() + search.slice(1),
+                  mode: "insensitive",
+                },
+              },
+            ],
           }
         : {}),
     },
